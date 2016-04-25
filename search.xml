@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+    
+    <entry>
+      <title><![CDATA[swift笔记2]]></title>
+      <url>http://nickchenhao.github.io./2016/04/26/swift%E7%AC%94%E8%AE%B02/</url>
+      <content type="html"><![CDATA[<h3 id="字符串的介绍"><a href="#字符串的介绍" class="headerlink" title="字符串的介绍"></a>字符串的介绍</h3><ul>
+<li>字符串在任何的开发中使用都是非常频繁的</li>
+<li>OC和Swift中字符串的区别<ul>
+<li>在OC中字符串类型时NSString,在Swift中字符串类型是String</li>
+<li>OC中字符串@””,Swift中字符串””</li>
+</ul>
+</li>
+<li><p>使用 String 的原因</p>
+<ul>
+<li>String 是一个结构体，性能更高</li>
+<li>NSString 是一个 OC 对象，性能略差</li>
+<li>String 支持直接遍历</li>
+<li>Swift 提供了 String 和 NSString 之间的无缝转换</li>
+</ul>
+<a id="more"></a>
+</li>
+</ul>
+<h3 id="字符的定义"><a href="#字符的定义" class="headerlink" title="字符的定义"></a>字符的定义</h3><ul>
+<li><p>定义不可变字符串<br><code>let str = &quot;hello Objective-C&quot;</code></p>
+</li>
+<li><p>定义可变字符串<br><code>var str = &quot;hello Swift&quot;</code></p>
+</li>
+</ul>
+<h3 id="字符串的使用"><a href="#字符串的使用" class="headerlink" title="字符串的使用"></a>字符串的使用</h3><p>获取字符串的长度</p>
+<ul>
+<li><p>获取字符集合,再获取集合的count属性<br><code>let count = str.characters.count</code></p>
+</li>
+<li><p>遍历字符串</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var str = &quot;Hello, Swift&quot;</span><br><span class="line">for c in str.characters &#123;</span><br><span class="line">    print(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h3><ul>
+<li>两个字符串的拼接</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let str1 = &quot;Hello&quot;</span><br><span class="line">let str2 = &quot;World&quot;</span><br><span class="line">let str3 = str1 + str2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>字符串和其他数据类型的拼接</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">let name = &quot;why&quot; </span><br><span class="line">let age = 18 </span><br><span class="line">let info = &quot;my name is \(name), age is \(age)&quot; </span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">- 字符串的格式化</span><br><span class="line"> - 比如时间:03:04</span><br></pre></td></tr></table></figure>
+<p>   let min = 3<br>   let second = 4<br>   let time = String(format: “%02d:%02d”, arguments: [min, second])<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">###字符串的截取</span><br><span class="line"></span><br><span class="line">- Swift中提供了特殊的截取方式</span><br><span class="line"> - 该方式非常麻烦</span><br><span class="line"> - Index创建较为麻烦</span><br><span class="line">- 简单的方式是将String转成NSString来使用</span><br><span class="line"> - 在标识符后加:as NSString即可</span><br></pre></td></tr></table></figure></p>
+<p>let myStr = “www.520it.com”<br>var subStr = (myStr as NSString).substringFromIndex(4)<br>subStr = (myStr as NSString).substringToIndex(3)<br>subStr = (myStr as NSString).substringWithRange(NSRange(location: 4, length: 5))<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- swift截取方式</span><br></pre></td></tr></table></figure></p>
+<p>// 1.定义字符串<br>let str = “www.520it.com”</p>
+<p>// 2.截取开始位置<br>let fromIndex = str.startIndex.advancedBy(3)<br>let header = str.substringFromIndex(fromIndex)</p>
+<p>// 3.截取结束位置<br>let toIndex = str.endIndex.advancedBy(-3)<br>let footer = str.substringToIndex(toIndex)</p>
+<p>// 4.截取中间的字符串<br>let range = Range(start: str.startIndex.advancedBy(4), end: str.endIndex.advancedBy(-4))<br>let middle = str.substringWithRange(range)<br>```</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[swift笔记1]]></title>
+      <url>http://nickchenhao.github.io./2016/01/25/swift/</url>
+      <content type="html"><![CDATA[<h2 id="Swift最基本的语法变化"><a href="#Swift最基本的语法变化" class="headerlink" title="Swift最基本的语法变化"></a>Swift最基本的语法变化</h2><ul>
+<li>导入框架 import UIKit</li>
+<li><p>定义标识符时，必须声明该标识符是变量还是常量声明标识符的<br>格式:变量/常量关键字 名称 : 数据类型</p>
+</li>
+<li><p>语句结束时不需要加 ;如果同一行有多个语句,则依然需要加<br>但是不建议一行多条语句</p>
+</li>
+<li><p>Swift中的打印语句: print(“打印的内容”)</p>
+<a id="more"></a>
+<h2 id="什么是常量和变量"><a href="#什么是常量和变量" class="headerlink" title="什么是常量和变量"></a>什么是常量和变量</h2></li>
+<li><p>在Swift中规定:在定义一个标识符时必须明确说明该标识符是一个常量还是变量<br>1.使用let来定义常量,定义之后不可以修改<br>2.使用var来定义变量,定义之后可以修改</p>
+</li>
+</ul>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h4><p>在真实使用过程中,建议先定义常量,如果需要修改再修改为变量(更加安全)<br>是指向的对象不可以再进行修改.但是可以通过指针获得对象后,修改对象内部的属性</p>
+<h3 id="类型推导"><a href="#类型推导" class="headerlink" title="类型推导"></a>类型推导</h3><p>Swift是强类型的语言<br>Swift中任何一个标识符都有明确的类型</p>
+<h4 id="注意-1"><a href="#注意-1" class="headerlink" title="注意:"></a>注意:</h4><p>1.如果定义一个标识符时有直接进行赋值,那么标识符后面的类型可以省略.<br>2.因为Swift有类型推导,会自动根据后面的赋值来决定前面的标识符的数据类型 可以通过option+鼠标左键 来查看变量的数据类型 </p>
+<h2 id="Swift中基本运算"><a href="#Swift中基本运算" class="headerlink" title="Swift中基本运算"></a>Swift中基本运算</h2><p>1.Swift中在进行基本运算时必须保证类型一致,否则会出错相同类型之间才可以进行运算<br>因为Swift中没有隐式转换</p>
+<p>2.数据类型的转化Int类型转成Double类型:Double(标识符)<br>Double类型转成Int类型:Int(标识符)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let a = 10</span><br><span class="line">let b = 3.14</span><br><span class="line">// 错误写法 </span><br><span class="line">//let c = a + b </span><br><span class="line">//let c = a * b</span><br><span class="line">// 正确写法</span><br><span class="line">let c = Double(a) + blet </span><br><span class="line">d = a + Int(b)</span><br></pre></td></tr></table></figure>
+<p>if分支语句<br>和OC中if语句有一定的区别判断句可以不加()<br>在Swift的判断句中必须有明确的真假不再有非0即真<br>必须有明确的Bool值<br>Bool有两个取值:false/true</p>
+<h2 id="guard的使用"><a href="#guard的使用" class="headerlink" title="guard的使用"></a>guard的使用</h2><p>guard语句必须带有else语句，它的语法如下：当条件表达式为true时候跳过else语句中的内容，执行语句组内容<br>条件表达式为false时候执行else语句中的内容，跳转语句一般是return、break、continue和throw</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">guard 条件表达式 else &#123;  // 条换语句 </span><br><span class="line">  break&#125;</span><br><span class="line">语句组</span><br></pre></td></tr></table></figure>
+<h2 id="switch分支"><a href="#switch分支" class="headerlink" title="switch分支"></a>switch分支</h2><p>基本用法和OC用法一致<br>不同之处:switch后可以不跟()<br>case后可以不跟break(默认会有break)</p>
+<h4 id="简单使用补充"><a href="#简单使用补充" class="headerlink" title="简单使用补充:"></a>简单使用补充:</h4><p>1.一个case判断中,可以判断多个值<br>多个值以, 隔开 如果希望出现之前的case穿透,则可以使用关键字fallthrough</p>
+<p>2.什么是区间?通常我们指的是数字区间:0~10,100~200</p>
+<p>3.swift中的区间常见有两种半开半闭区间:0..&lt;10 表示:0~9,不包括10<br>闭区间:0…10 表示:0~10</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let score = 88switch score &#123;</span><br><span class="line">    case 0..&lt;60:    </span><br><span class="line">        print(&quot;不及格&quot;)</span><br><span class="line">    case 60..&lt;80:    </span><br><span class="line">        print(&quot;几个&quot;)</span><br><span class="line">    case 80..&lt;90:    </span><br><span class="line">        print(&quot;良好&quot;)</span><br><span class="line">    case 90..&lt;100:    </span><br><span class="line">        print(&quot;优秀&quot;)</span><br><span class="line">    default:   </span><br><span class="line">        print(&quot;满分&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="循环的介绍"><a href="#循环的介绍" class="headerlink" title="循环的介绍"></a>循环的介绍</h2><ul>
+<li>在开发中经常会需要循环</li>
+<li>常见的循环有:for/while/do while.</li>
+<li>这里我们只介绍for/while,因为for/while最常见</li>
+</ul>
+<h2 id="for循环的写法"><a href="#for循环的写法" class="headerlink" title="for循环的写法"></a>for循环的写法</h2><ul>
+<li>最常规写法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 传统写法</span><br><span class="line">for var i = 0; i &lt; 10; i++ &#123; </span><br><span class="line">     print(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>区间for循环</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//半开半闭区间</span><br><span class="line">for i in 0..&lt;10 &#123; </span><br><span class="line">    print(i)</span><br><span class="line">&#125;</span><br><span class="line">//闭区间</span><br><span class="line">for i in 0...10 &#123; </span><br><span class="line">    print(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>特殊写法如果在for循环中不需要用到下标i</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for _ in 0..&lt;10 &#123; </span><br><span class="line">    print(&quot;hello&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="while和do-while循环"><a href="#while和do-while循环" class="headerlink" title="while和do while循环"></a>while和do while循环</h2><ul>
+<li>while循环<ul>
+<li>while的判断句必须有正确的真假,没有非0即真</li>
+<li>while后面的()可以省略</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = 0</span><br><span class="line">while a &lt; 10 &#123; </span><br><span class="line">    a++</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>do while循环使用<ul>
+<li>repeat关键字来代替了do</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let b = 0</span><br><span class="line">repeat &#123; </span><br><span class="line">    print(b)</span><br><span class="line">    b++</span><br><span class="line">&#125; while b &lt; 20</span><br></pre></td></tr></table></figure>
+]]></content>
+    </entry>
+    
+  
+  
+</search>

@@ -80,8 +80,7 @@
 
 
 
-<meta name="description" content="###Swift最基本的语法变化
-
+<meta name="description" content="Swift最基本的语法变化
 导入框架 import UIKit
 定义标识符时，必须声明该标识符是变量还是常量声明标识符的格式:变量/常量关键字 名称 : 数据类型
 
@@ -89,22 +88,20 @@
 
 Swift中的打印语句: print(“打印的内容”)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="swift">
+<meta property="og:title" content="swift笔记1">
 <meta property="og:url" content="http://nickchenhao.github.io./2016/01/25/swift/index.html">
 <meta property="og:site_name" content="魂淡君">
-<meta property="og:description" content="###Swift最基本的语法变化
-
+<meta property="og:description" content="Swift最基本的语法变化
 导入框架 import UIKit
 定义标识符时，必须声明该标识符是变量还是常量声明标识符的格式:变量/常量关键字 名称 : 数据类型
 
 语句结束时不需要加 ;如果同一行有多个语句,则依然需要加但是不建议一行多条语句
 
 Swift中的打印语句: print(“打印的内容”)">
-<meta property="og:updated_time" content="2016-04-24T20:13:27.000Z">
+<meta property="og:updated_time" content="2016-04-25T17:03:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="swift">
-<meta name="twitter:description" content="###Swift最基本的语法变化
-
+<meta name="twitter:title" content="swift笔记1">
+<meta name="twitter:description" content="Swift最基本的语法变化
 导入框架 import UIKit
 定义标识符时，必须声明该标识符是变量还是常量声明标识符的格式:变量/常量关键字 名称 : 数据类型
 
@@ -128,7 +125,7 @@ Swift中的打印语句: print(“打印的内容”)">
   };
 </script>
 
-  <title> swift | 魂淡君 </title>
+  <title> swift笔记1 | 魂淡君 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -155,7 +152,7 @@ Swift中的打印语句: print(“打印的内容”)">
      <a href="https://github.com/NickChenHao"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"></a>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
+      <div class="header-inner"><div class="site-meta custom-logo">
   
 
   <div class="custom-logo-site-title">
@@ -234,9 +231,32 @@ Swift中的打印语句: print(“打印的内容”)">
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
   
 </nav>
 
@@ -270,7 +290,7 @@ Swift中的打印语句: print(“打印的内容”)">
             
             
               
-                swift
+                swift笔记1
               
             
           </h1>
@@ -287,6 +307,25 @@ Swift中的打印语句: print(“打印的内容”)">
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/swift笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">swift笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -317,8 +356,7 @@ Swift中的打印语句: print(“打印的内容”)">
       
 
       
-        <p>###Swift最基本的语法变化</p>
-<ul>
+        <h2 id="Swift最基本的语法变化"><a href="#Swift最基本的语法变化" class="headerlink" title="Swift最基本的语法变化"></a>Swift最基本的语法变化</h2><ul>
 <li>导入框架 import UIKit</li>
 <li><p>定义标识符时，必须声明该标识符是变量还是常量声明标识符的<br>格式:变量/常量关键字 名称 : 数据类型</p>
 </li>
@@ -326,35 +364,30 @@ Swift中的打印语句: print(“打印的内容”)">
 </li>
 <li><p>Swift中的打印语句: print(“打印的内容”)</p>
 <a id="more"></a>
-<p>###什么是常量和变量</p>
-</li>
+<h2 id="什么是常量和变量"><a href="#什么是常量和变量" class="headerlink" title="什么是常量和变量"></a>什么是常量和变量</h2></li>
 <li><p>在Swift中规定:在定义一个标识符时必须明确说明该标识符是一个常量还是变量<br>1.使用let来定义常量,定义之后不可以修改<br>2.使用var来定义变量,定义之后可以修改</p>
 </li>
 </ul>
-<p>#####注意:<br>在真实使用过程中,建议先定义常量,如果需要修改再修改为变量(更加安全)<br>是指向的对象不可以再进行修改.但是可以通过指针获得对象后,修改对象内部的属性</p>
-<p>###类型推导</p>
-<p>Swift是强类型的语言<br>Swift中任何一个标识符都有明确的类型</p>
-<p>######注意:<br>1.如果定义一个标识符时有直接进行赋值,那么标识符后面的类型可以省略.<br>2.因为Swift有类型推导,会自动根据后面的赋值来决定前面的标识符的数据类型 可以通过option+鼠标左键 来查看变量的数据类型 </p>
-<p>###Swift中基本运算<br>1.Swift中在进行基本运算时必须保证类型一致,否则会出错相同类型之间才可以进行运算<br>因为Swift中没有隐式转换</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h4><p>在真实使用过程中,建议先定义常量,如果需要修改再修改为变量(更加安全)<br>是指向的对象不可以再进行修改.但是可以通过指针获得对象后,修改对象内部的属性</p>
+<h3 id="类型推导"><a href="#类型推导" class="headerlink" title="类型推导"></a>类型推导</h3><p>Swift是强类型的语言<br>Swift中任何一个标识符都有明确的类型</p>
+<h4 id="注意-1"><a href="#注意-1" class="headerlink" title="注意:"></a>注意:</h4><p>1.如果定义一个标识符时有直接进行赋值,那么标识符后面的类型可以省略.<br>2.因为Swift有类型推导,会自动根据后面的赋值来决定前面的标识符的数据类型 可以通过option+鼠标左键 来查看变量的数据类型 </p>
+<h2 id="Swift中基本运算"><a href="#Swift中基本运算" class="headerlink" title="Swift中基本运算"></a>Swift中基本运算</h2><p>1.Swift中在进行基本运算时必须保证类型一致,否则会出错相同类型之间才可以进行运算<br>因为Swift中没有隐式转换</p>
 <p>2.数据类型的转化Int类型转成Double类型:Double(标识符)<br>Double类型转成Int类型:Int(标识符)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let a = 10</span><br><span class="line">let b = 3.14</span><br><span class="line">// 错误写法 </span><br><span class="line">//let c = a + b </span><br><span class="line">//let c = a * b</span><br><span class="line">// 正确写法</span><br><span class="line">let c = Double(a) + blet </span><br><span class="line">d = a + Int(b)</span><br></pre></td></tr></table></figure>
 <p>if分支语句<br>和OC中if语句有一定的区别判断句可以不加()<br>在Swift的判断句中必须有明确的真假不再有非0即真<br>必须有明确的Bool值<br>Bool有两个取值:false/true</p>
-<p>###guard的使用<br>guard语句必须带有else语句，它的语法如下：当条件表达式为true时候跳过else语句中的内容，执行语句组内容<br>条件表达式为false时候执行else语句中的内容，跳转语句一般是return、break、continue和throw</p>
+<h2 id="guard的使用"><a href="#guard的使用" class="headerlink" title="guard的使用"></a>guard的使用</h2><p>guard语句必须带有else语句，它的语法如下：当条件表达式为true时候跳过else语句中的内容，执行语句组内容<br>条件表达式为false时候执行else语句中的内容，跳转语句一般是return、break、continue和throw</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">guard 条件表达式 else &#123;  // 条换语句 </span><br><span class="line">  break&#125;</span><br><span class="line">语句组</span><br></pre></td></tr></table></figure>
-<p>###switch分支</p>
-<p>基本用法和OC用法一致<br>不同之处:switch后可以不跟()<br>case后可以不跟break(默认会有break)</p>
-<p>######简单使用补充:<br>1.一个case判断中,可以判断多个值<br>多个值以, 隔开 如果希望出现之前的case穿透,则可以使用关键字fallthrough</p>
+<h2 id="switch分支"><a href="#switch分支" class="headerlink" title="switch分支"></a>switch分支</h2><p>基本用法和OC用法一致<br>不同之处:switch后可以不跟()<br>case后可以不跟break(默认会有break)</p>
+<h4 id="简单使用补充"><a href="#简单使用补充" class="headerlink" title="简单使用补充:"></a>简单使用补充:</h4><p>1.一个case判断中,可以判断多个值<br>多个值以, 隔开 如果希望出现之前的case穿透,则可以使用关键字fallthrough</p>
 <p>2.什么是区间?通常我们指的是数字区间:0~10,100~200</p>
 <p>3.swift中的区间常见有两种半开半闭区间:0..&lt;10 表示:0~9,不包括10<br>闭区间:0…10 表示:0~10</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let score = 88switch score &#123;</span><br><span class="line">    case 0..&lt;60:    </span><br><span class="line">        print(&quot;不及格&quot;)</span><br><span class="line">    case 60..&lt;80:    </span><br><span class="line">        print(&quot;几个&quot;)</span><br><span class="line">    case 80..&lt;90:    </span><br><span class="line">        print(&quot;良好&quot;)</span><br><span class="line">    case 90..&lt;100:    </span><br><span class="line">        print(&quot;优秀&quot;)</span><br><span class="line">    default:   </span><br><span class="line">        print(&quot;满分&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>###循环的介绍</p>
-<ul>
+<h2 id="循环的介绍"><a href="#循环的介绍" class="headerlink" title="循环的介绍"></a>循环的介绍</h2><ul>
 <li>在开发中经常会需要循环</li>
 <li>常见的循环有:for/while/do while.</li>
 <li>这里我们只介绍for/while,因为for/while最常见</li>
 </ul>
-<p>###for循环的写法</p>
-<ul>
+<h2 id="for循环的写法"><a href="#for循环的写法" class="headerlink" title="for循环的写法"></a>for循环的写法</h2><ul>
 <li>最常规写法</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 传统写法</span><br><span class="line">for var i = 0; i &lt; 10; i++ &#123; </span><br><span class="line">     print(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -366,8 +399,7 @@ Swift中的打印语句: print(“打印的内容”)">
 <li>特殊写法如果在for循环中不需要用到下标i</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for _ in 0..&lt;10 &#123; </span><br><span class="line">    print(&quot;hello&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>###while和do while循环</p>
-<ul>
+<h2 id="while和do-while循环"><a href="#while和do-while循环" class="headerlink" title="while和do while循环"></a>while和do while循环</h2><ul>
 <li>while循环<ul>
 <li>while的判断句必须有正确的真假,没有非0即真</li>
 <li>while后面的()可以省略</li>
@@ -408,6 +440,20 @@ Swift中的打印语句: print(“打印的内容”)">
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/26/swift笔记2/" rel="prev" title="swift笔记2">
+                swift笔记2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
       
       
@@ -430,7 +476,7 @@ Swift中的打印语句: print(“打印的内容”)">
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/01/25/swift/"
-           data-title="swift" data-url="http://nickchenhao.github.io./2016/01/25/swift/">
+           data-title="swift笔记1" data-url="http://nickchenhao.github.io./2016/01/25/swift/">
       </div>
     
   </div>
@@ -475,11 +521,18 @@ Swift中的打印语句: print(“打印的内容”)">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
           
 
           
@@ -543,7 +596,7 @@ Swift中的打印语句: print(“打印的内容”)">
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Swift最基本的语法变化"><span class="nav-number">1.</span> <span class="nav-text">Swift最基本的语法变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是常量和变量"><span class="nav-number">2.</span> <span class="nav-text">什么是常量和变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">2.0.1.</span> <span class="nav-text">注意:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类型推导"><span class="nav-number">2.1.</span> <span class="nav-text">类型推导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">注意:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swift中基本运算"><span class="nav-number">3.</span> <span class="nav-text">Swift中基本运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#guard的使用"><span class="nav-number">4.</span> <span class="nav-text">guard的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#switch分支"><span class="nav-number">5.</span> <span class="nav-text">switch分支</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单使用补充"><span class="nav-number">5.0.1.</span> <span class="nav-text">简单使用补充:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环的介绍"><span class="nav-number">6.</span> <span class="nav-text">循环的介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for循环的写法"><span class="nav-number">7.</span> <span class="nav-text">for循环的写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while和do-while循环"><span class="nav-number">8.</span> <span class="nav-text">while和do while循环</span></a></li></ol></div>
             
           </div>
         </section>
@@ -684,11 +737,143 @@ Swift中的打印语句: print(“打印的内容”)">
 
   
   
-  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
 
   
 
   
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
 
 </body>
 </html>
