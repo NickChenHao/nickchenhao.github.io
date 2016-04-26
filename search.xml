@@ -4,8 +4,113 @@
   
     
     <entry>
+      <title><![CDATA[siwft笔记3]]></title>
+      <url>http://nickchenhao.github.io./2016/01/27/siwft%E7%AC%94%E8%AE%B03/</url>
+      <content type="html"><![CDATA[<h3 id="一-三大特性"><a href="#一-三大特性" class="headerlink" title="一.三大特性"></a>一.三大特性</h3><ul>
+<li>封装</li>
+<li>继承<ul>
+<li>重写父类方法 需要加上 override</li>
+</ul>
+</li>
+<li><p>多态</p>
+<ul>
+<li>必须要有继承</li>
+<li>必须要有重写</li>
+<li>必须是父类指针指向子类对象</li>
+</ul>
+</li>
+<li>(重载)<ul>
+<li>参数类型不同</li>
+<li>参数个数不同</li>
+</ul>
+</li>
+</ul>
+<h3 id="二-自动引用计数"><a href="#二-自动引用计数" class="headerlink" title="二.自动引用计数"></a>二.自动引用计数</h3><ul>
+<li>当有一个强引用指向某个对象时,该对象的引用计数会自动 + 1</li>
+<li>当强引用消失时,引用计数会自动 - 1</li>
+<li><p>当引用计数为0时,该对象会被销毁</p>
+<a id="more"></a>
+<h5 id="循环引用-的解决"><a href="#循环引用-的解决" class="headerlink" title="循环引用 的解决"></a>循环引用 的解决</h5><pre><code>1.weak       和OC中的 __weak一样 是弱引用  当指向的对象销毁时,会自动指向nil
+2.unowned    和OC中的 __unsefe_unretained   当对象销毁时依然指向原来的位置(容易引起野指针)
+</code></pre></li>
+</ul>
+<h3 id="三-可选链"><a href="#三-可选链" class="headerlink" title="三.可选链"></a>三.可选链</h3><ul>
+<li>如果可选的目标有值,就调用成功</li>
+<li>如果没有值,则调用返回空nil  </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">   // OC对象结构体的成员属性不能直接赋值</span><br><span class="line">   titleLabel?.frame.origin.x = 0</span><br></pre></td></tr></table></figure>
+<h3 id="四-协议-protocol"><a href="#四-协议-protocol" class="headerlink" title="四.协议  protocol"></a>四.协议  protocol</h3><ul>
+<li><h5 id="定义协议和遵守协议"><a href="#定义协议和遵守协议" class="headerlink" title="定义协议和遵守协议"></a>定义协议和遵守协议</h5></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 1.定义协议</span><br><span class="line">protocol SportProtocol &#123; </span><br><span class="line">     func playBasketball() </span><br><span class="line">     func playFootball()</span><br><span class="line">&#125;</span><br><span class="line">// 2.遵守协议</span><br><span class="line">// 注意:默认情况下在swift中所有的协议方法都是必须实现的,如果不实现,则编译器会报错</span><br><span class="line">class Person : SportProtocol &#123; </span><br><span class="line">     var name : String? var age : Int = 0</span><br><span class="line">   // 实现协议中的方法 </span><br><span class="line">     func playBasketball() &#123; </span><br><span class="line">         print(&quot;人在打篮球&quot;) </span><br><span class="line">     &#125;</span><br><span class="line">     func playFootball() &#123; </span><br><span class="line">         print(&quot;人在踢足球&quot;) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h5 id="协议之间的继承"><a href="#协议之间的继承" class="headerlink" title="协议之间的继承"></a>协议之间的继承</h5></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">protocol CrazySportProtocol &#123;      </span><br><span class="line">      func jumping()</span><br><span class="line">&#125;</span><br><span class="line">protocol SportProtocol : CrazySportProtocol &#123;</span><br><span class="line">     func playBasketball()   </span><br><span class="line">     func playFootball()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h5 id="协议中方法的可选-需加-objc-和-optional-关键字"><a href="#协议中方法的可选-需加-objc-和-optional-关键字" class="headerlink" title="协议中方法的可选  需加 @objc 和 optional 关键字"></a>协议中方法的可选  需加 @objc 和 optional 关键字</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 1.定义协议</span><br><span class="line">@objc</span><br><span class="line">protocol SportProtocol &#123;</span><br><span class="line">    func playBasketball()</span><br><span class="line">    optional func playFootball()</span><br><span class="line">&#125;</span><br><span class="line">// 2.遵守协议</span><br><span class="line">class Person : SportProtocol &#123;</span><br><span class="line">    var name : String?</span><br><span class="line">    var age : Int = 0</span><br><span class="line">    // 实现协议中的方法</span><br><span class="line">    @objc func playBasketball() &#123;</span><br><span class="line">        print(&quot;人在打篮球&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h5 id="代理协议"><a href="#代理协议" class="headerlink" title="代理协议"></a>代理协议</h5></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">1.定义协议属性 用 weak 且协议后面需 : class 才不会报错</span><br><span class="line">protocol BuyTicketProtocol : class &#123;</span><br><span class="line">    func buyTicket()&#125;class Person &#123;    // 1.定义协议属性</span><br><span class="line">    weak var delegate : BuyTicketProtocol</span><br><span class="line">    func goToHeFei()&#123;</span><br><span class="line">        delegate?.buyTicketing()</span><br><span class="line">        print(&quot;去北京&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;class Huangniu: BuyTicketDelegate &#123;</span><br><span class="line">    func buyTicketing() &#123;</span><br><span class="line">        print(&quot;买票&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//代理对象</span><br><span class="line">//设置代理时 没有self   需要先 let 创建代理对象  然后再 设置代理 = 代理对象</span><br><span class="line">let h = Huangniu()</span><br><span class="line">let p = Person()</span><br><span class="line">p.delegate = h</span><br><span class="line">p.goToHeFei()</span><br></pre></td></tr></table></figure>
+<h3 id="五-闭包-类似OC中的Block"><a href="#五-闭包-类似OC中的Block" class="headerlink" title="五.闭包 (类似OC中的Block)"></a>五.闭包 (类似OC中的Block)</h3><ul>
+<li>block的写法:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    类型:    返回值(^block的名称)(block的参数)</span><br><span class="line">    值:</span><br><span class="line">    ^(参数列表) &#123;</span><br><span class="line">        // 执行的代码</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>闭包的写法:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    类型:(形参列表)-&gt;(返回值)</span><br><span class="line">    技巧:初学者定义闭包类型,直接写()-&gt;().再填充参数和返回值</span><br><span class="line">    值:</span><br><span class="line">    &#123;</span><br><span class="line">        (形参) -&gt; 返回值类型 in</span><br><span class="line">        // 执行代码</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>闭包的循环引用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> 需要用到self的地方:</span><br><span class="line">     1.如果某一个方法中,有局部变量和成员变量产生歧义,可以使用self进行区分</span><br><span class="line">     2.如果在闭包中使用到当前对象的方法或者属性,都需要加self</span><br><span class="line"> */</span><br><span class="line"></span><br><span class="line">// 解决方案一:</span><br><span class="line">        weak var weakself : ViewController? = self</span><br><span class="line">        httpTool?.loadData(&#123; (jsonData) -&gt; () in</span><br><span class="line">        weakself?.view.backgroundColor = UIColor.redColor()</span><br><span class="line">        &#125;)</span><br><span class="line">// 解决方案二:(推荐)</span><br><span class="line">        httpTool?.loadData(&#123;[weak self] (jsonData) -&gt; () in            self?.view.backgroundColor = UIColor.redColor()</span><br><span class="line">        &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="六-懒加载"><a href="#六-懒加载" class="headerlink" title="六.懒加载"></a>六.懒加载</h3><ul>
+<li>格式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lazy var 变量: 类型 = &#123; 创建变量代码 &#125;()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>懒加载的使用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 懒加载的本质是,在第一次使用的时候执行闭包,将闭包的返回值赋值给属性</span><br><span class="line">// lazy的作用是只会赋值一次</span><br><span class="line">    lazy var array : [String] = &#123;</span><br><span class="line">        return [&quot;why&quot;, &quot;lmj&quot;, &quot;lnj&quot;]</span><br><span class="line">    &#125;()</span><br><span class="line">     lazy var btn : UIButton = &#123;</span><br><span class="line">        let tempBtn = UIButton()</span><br><span class="line">        tempBtn.setTitle(&quot;按钮&quot;, forState: .Normal)</span><br><span class="line">        return tempBtn</span><br><span class="line">    &#125;()</span><br></pre></td></tr></table></figure>
+<h3 id="七-常见注释"><a href="#七-常见注释" class="headerlink" title="七.常见注释"></a>七.常见注释</h3><ul>
+<li>单行注释 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// 注释内容</span><br></pre></td></tr></table></figure>
+<ul>
+<li>多行注释 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/* </span><br><span class="line">(与OC不同  可以多行嵌套多行注释) </span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>文档注释 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// 注释内容</span><br></pre></td></tr></table></figure>
+<ul>
+<li>分组注释</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// MARK:-</span><br></pre></td></tr></table></figure>
+<h3 id="八-访问权限"><a href="#八-访问权限" class="headerlink" title="八.访问权限"></a>八.访问权限</h3><ul>
+<li>Swift 中的访问控制模型基于模块和源文件这两个概念</li>
+<li>private : 修饰源文件,在当前源文件中可以访问</li>
+<li>internal : 内部的,修饰整个项目,在整个项目中都可以进行访问,并且默认修饰的就是internal</li>
+<li>public :  修饰整个项目,可以跨框架使用<br>(在class 和 func前面加)</li>
+</ul>
+<h3 id="九-处理异常-三种方式"><a href="#九-处理异常-三种方式" class="headerlink" title="九.处理异常  (三种方式)"></a>九.处理异常  (三种方式)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 3.异常的处理三种方式</span><br><span class="line">// 3.1.try方式,需要手动处理异常do &#123;</span><br><span class="line">    let result = try readFileContent(&quot;abc&quot;)&#125; catch &#123;</span><br><span class="line">    print(error)&#125;</span><br><span class="line">// 3.2.try?方式,不处理异常,如果出现了异常,则返回一个nil.没有异常,则返回对应的值</span><br><span class="line">// 最终返回结果为一个可选类型let result = try? readFileContent(&quot;abc&quot;)</span><br><span class="line">// 3.3.try!方法,告诉系统该方法没有异常.</span><br><span class="line">// 注意:如果出现了异常,则程序会崩溃</span><br><span class="line">    let result = try! readFileContent(&quot;abc&quot;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">示例</span><br><span class="line">// 1.定义异常enum FileReadError : ErrorType &#123;</span><br><span class="line">    case FileISNull</span><br><span class="line">    case FileNotFound</span><br><span class="line">&#125;</span><br><span class="line">// 2.改进方法,让方法抛出异常</span><br><span class="line">func readFileContent(filePath : String) throws -&gt; String &#123;</span><br><span class="line">    // 1.filePath为&quot;&quot;</span><br><span class="line">    if filePath == &quot;&quot; &#123;</span><br><span class="line">        throw FileReadError.FileISNull</span><br><span class="line">    &#125;</span><br><span class="line">    // 2.filepath有值,但是没有对应的文件  </span><br><span class="line">    if filePath != &quot;/User/Desktop/123.plist&quot; &#123;        throw FileReadError.FileISNull    &#125;    // 3.取出其中的内容    return &quot;123&quot;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="十-桥接"><a href="#十-桥接" class="headerlink" title="十.桥接"></a>十.桥接</h3><ul>
+<li>OC调用swift</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.直接写入一个头文件:  项目名字-Swift.h      </span><br><span class="line">#import &quot;项目名字-Swift.h&quot;</span><br><span class="line"></span><br><span class="line">2.在swift中 添加public关键字 在class和func前面</span><br><span class="line"> (还是以OC格式书写)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>swift调用OC</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.建立桥接文件  Bridge.h  里面放 .h头文件</span><br><span class="line">2.在项目中Build Settings 配置文件  搜索bird  </span><br><span class="line">然后将Bridge.h路径存入(类似PCH文件)</span><br></pre></td></tr></table></figure>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[swift笔记2]]></title>
-      <url>http://nickchenhao.github.io./2016/04/26/swift%E7%AC%94%E8%AE%B02/</url>
+      <url>http://nickchenhao.github.io./2016/01/26/swift%E7%AC%94%E8%AE%B02/</url>
       <content type="html"><![CDATA[<h3 id="字符串的介绍"><a href="#字符串的介绍" class="headerlink" title="字符串的介绍"></a>字符串的介绍</h3><ul>
 <li>字符串在任何的开发中使用都是非常频繁的</li>
 <li>OC和Swift中字符串的区别<ul>
