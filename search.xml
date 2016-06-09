@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[数据安全]]></title>
-      <url>http://nickchenhao.github.io./2016/06/09/%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/</url>
+      <url>http://nickchenhao.github.io./2016/04/05/%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/</url>
       <content type="html"><![CDATA[<h3 id="1-Base64"><a href="#1-Base64" class="headerlink" title="1.Base64"></a>1.Base64</h3><h4 id="1-Base64简单说明"><a href="#1-Base64简单说明" class="headerlink" title="1.Base64简单说明"></a>1.Base64简单说明</h4><pre><code>描述：Base64可以成为密码学的基石，非常重要。
 特点：可以将任意的二进制数据进行Base64编码
 结果：所有的数据都能被编码为并只用65个字符就能表示的文本文件。
