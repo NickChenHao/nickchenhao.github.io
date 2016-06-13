@@ -64,7 +64,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="性能优化," />
 
 
 
@@ -81,15 +81,24 @@
 
 
 
-<meta name="description" content="越努力,越幸运...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="魂淡君">
-<meta property="og:url" content="http://nickchenhao.github.io./index.html">
+<meta name="description" content="tableView性能优化tableview的优化一直是一个很考验基本功的活儿，之前做项目的适合被这个问题困扰了很久，通过性能工具、查阅文档解决，整理思路和解决方案如下：
+tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。
+cell是否使用了复用机制而">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tableView的性能优化">
+<meta property="og:url" content="http://nickchenhao.github.io./2016/06/02/tableView的性能优化/index.html">
 <meta property="og:site_name" content="魂淡君">
-<meta property="og:description" content="越努力,越幸运...">
+<meta property="og:description" content="tableView性能优化tableview的优化一直是一个很考验基本功的活儿，之前做项目的适合被这个问题困扰了很久，通过性能工具、查阅文档解决，整理思路和解决方案如下：
+tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。
+cell是否使用了复用机制而">
+<meta property="og:image" content="http://nickchenhao.github.io./Users/nick/Desktop/1.jpeg">
+<meta property="og:updated_time" content="2016-06-13T08:10:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="魂淡君">
-<meta name="twitter:description" content="越努力,越幸运...">
+<meta name="twitter:title" content="tableView的性能优化">
+<meta name="twitter:description" content="tableView性能优化tableview的优化一直是一个很考验基本功的活儿，之前做项目的适合被这个问题困扰了很久，通过性能工具、查阅文档解决，整理思路和解决方案如下：
+tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。
+cell是否使用了复用机制而">
+<meta name="twitter:image" content="http://nickchenhao.github.io./Users/nick/Desktop/1.jpeg">
 
 
 
@@ -107,7 +116,7 @@
   };
 </script>
 
-  <title> 魂淡君 </title>
+  <title> tableView的性能优化 | 魂淡君 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -128,9 +137,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
      <a href="https://github.com/NickChenHao"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"></a>
@@ -252,9 +259,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -274,10 +281,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/06/02/tableView的性能优化/" itemprop="url">
-                  tableView的性能优化
-                </a>
+                tableView的性能优化
               
             
           </h1>
@@ -324,9 +328,7 @@
       
 
       
-        
-          
-            <h3 id="tableView性能优化"><a href="#tableView性能优化" class="headerlink" title="tableView性能优化"></a>tableView性能优化</h3><p>tableview的优化一直是一个很考验基本功的活儿，之前做项目的适合被这个问题困扰了很久，通过性能工具、查阅文档解决，整理思路和解决方案如下：</p>
+        <h3 id="tableView性能优化"><a href="#tableView性能优化" class="headerlink" title="tableView性能优化"></a>tableView性能优化</h3><p>tableview的优化一直是一个很考验基本功的活儿，之前做项目的适合被这个问题困扰了很久，通过性能工具、查阅文档解决，整理思路和解决方案如下：</p>
 <h4 id="tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。"><a href="#tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。" class="headerlink" title="tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。"></a>tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。</h4><ul>
 <li>cell是否使用了复用机制而不是每一次都创建新的cell。</li>
 </ul>
@@ -366,572 +368,57 @@
 <li>重写drawRect方法会离屏渲染，导致内存急剧上升，即使在这个方法里面不写一句代码，也会让内存升高。</li>
 </ul>
 
-          
-        
       
     </div>
     
     <div>
       
+        
+      
     </div>
 
     <div>
+      
+        
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/05/数据安全/" itemprop="url">
-                  数据安全
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-05T00:00:00+08:00" content="2016-04-05">
-              2016-04-05
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/数据安全/" itemprop="url" rel="index">
-                    <span itemprop="name">数据安全</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/05/数据安全/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/数据安全/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/性能优化/" rel="tag">#性能优化</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h3 id="1-Base64"><a href="#1-Base64" class="headerlink" title="1.Base64"></a>1.Base64</h3><h4 id="1-Base64简单说明"><a href="#1-Base64简单说明" class="headerlink" title="1.Base64简单说明"></a>1.Base64简单说明</h4><pre><code>描述：Base64可以成为密码学的基石，非常重要。
-特点：可以将任意的二进制数据进行Base64编码
-结果：所有的数据都能被编码为并只用65个字符就能表示的文本文件。
-65字符：A~Z a~z 0~9 + / =
-对文件进行base64编码后文件数据的变化：编码后的数据~=编码前数据的4/3，会大1/3左右。
-</code></pre><h4 id="2-命令行进行Base64编码和解码"><a href="#2-命令行进行Base64编码和解码" class="headerlink" title="2.命令行进行Base64编码和解码"></a>2.命令行进行Base64编码和解码</h4><pre><code>编码：base64 123.png -o 123.txt
-解码：base64 123.txt -o test.png -D
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/05/数据安全/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/05/数据安全/" rel="next" title="数据安全">
+                <i class="fa fa-chevron-left"></i> 数据安全
+              </a>
+            
           </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+          <div class="post-nav-prev post-nav-item">
             
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/27/siwft笔记3/" itemprop="url">
-                  siwft笔记3
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-27T00:29:40+08:00" content="2016-01-27">
-              2016-01-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/swift笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">swift笔记</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/01/27/siwft笔记3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/27/siwft笔记3/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h3 id="一-三大特性"><a href="#一-三大特性" class="headerlink" title="一.三大特性"></a>一.三大特性</h3><ul>
-<li>封装</li>
-<li>继承<ul>
-<li>重写父类方法 需要加上 override</li>
-</ul>
-</li>
-<li><p>多态</p>
-<ul>
-<li>必须要有继承</li>
-<li>必须要有重写</li>
-<li>必须是父类指针指向子类对象</li>
-</ul>
-</li>
-<li>(重载)<ul>
-<li>参数类型不同</li>
-<li>参数个数不同</li>
-</ul>
-</li>
-</ul>
-<h3 id="二-自动引用计数"><a href="#二-自动引用计数" class="headerlink" title="二.自动引用计数"></a>二.自动引用计数</h3><ul>
-<li>当有一个强引用指向某个对象时,该对象的引用计数会自动 + 1</li>
-<li>当强引用消失时,引用计数会自动 - 1</li>
-<li><p>当引用计数为0时,该对象会被销毁</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/27/siwft笔记3/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/26/swift笔记2/" itemprop="url">
-                  swift笔记2
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-26T01:04:24+08:00" content="2016-01-26">
-              2016-01-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/swift笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">swift笔记</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/01/26/swift笔记2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/26/swift笔记2/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="字符串的介绍"><a href="#字符串的介绍" class="headerlink" title="字符串的介绍"></a>字符串的介绍</h3><ul>
-<li>字符串在任何的开发中使用都是非常频繁的</li>
-<li>OC和Swift中字符串的区别<ul>
-<li>在OC中字符串类型时NSString,在Swift中字符串类型是String</li>
-<li>OC中字符串@””,Swift中字符串””</li>
-</ul>
-</li>
-<li><p>使用 String 的原因</p>
-<ul>
-<li>String 是一个结构体，性能更高</li>
-<li>NSString 是一个 OC 对象，性能略差</li>
-<li>String 支持直接遍历</li>
-<li>Swift 提供了 String 和 NSString 之间的无缝转换</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/26/swift笔记2/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    <div class="post-spread">
       
     </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/25/swift/" itemprop="url">
-                  swift笔记1
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-25T21:32:42+08:00" content="2016-01-25">
-              2016-01-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/swift笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">swift笔记</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/01/25/swift/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/25/swift/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Swift最基本的语法变化"><a href="#Swift最基本的语法变化" class="headerlink" title="Swift最基本的语法变化"></a>Swift最基本的语法变化</h2><ul>
-<li>导入框架 import UIKit</li>
-<li><p>定义标识符时，必须声明该标识符是变量还是常量声明标识符的<br>格式:变量/常量关键字 名称 : 数据类型</p>
-</li>
-<li><p>语句结束时不需要加 ;如果同一行有多个语句,则依然需要加<br>但是不建议一行多条语句</p>
-</li>
-<li><p>Swift中的打印语句: print(“打印的内容”)</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/25/swift/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -939,6 +426,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/02/tableView的性能优化/"
+           data-title="tableView的性能优化" data-url="http://nickchenhao.github.io./2016/06/02/tableView的性能优化/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -958,8 +453,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/1251649/980f41e2e378?imageMogr/thumbnail/90x90/quality/100"
@@ -1038,6 +542,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#tableView性能优化"><span class="nav-number">1.</span> <span class="nav-text">tableView性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。"><span class="nav-number">1.1.</span> <span class="nav-text">tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#之前查资料的时候还有用空间换取时间的方案："><span class="nav-number">1.2.</span> <span class="nav-text">之前查资料的时候还有用空间换取时间的方案：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充："><span class="nav-number">1.3.</span> <span class="nav-text">补充：</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -1135,6 +650,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
