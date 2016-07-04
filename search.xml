@@ -4,6 +4,47 @@
   
     
     <entry>
+      <title><![CDATA[自定义View 跳转不同界面方法]]></title>
+      <url>http://nickchenhao.github.io./2016/07/02/%E8%87%AA%E5%AE%9A%E4%B9%89View%20%E8%B7%B3%E8%BD%AC%E4%B8%8D%E5%90%8C%E7%95%8C%E9%9D%A2%E6%96%B9%E6%B3%95/</url>
+      <content type="html"><![CDATA[<h2 id="自定义View-跳转不同界面方法"><a href="#自定义View-跳转不同界面方法" class="headerlink" title="自定义View 跳转不同界面方法"></a>自定义View 跳转不同界面方法</h2><p>有时候，我们在自定义UIView 的时候 ， 很有可能 会在这个View 进行页面跳转，但是， 你会发现， 那些 push  和  pop 方法  都没什么用  ，那是因为 当一个子view需要接收点击事件，而父view也需要接收点击事件</p>
+<p> 当然，你可能会说直接调用mysubview.superView即可，这样做也确实是可以做到，但有时子view是不一定知道有这个特定的父view的存在的，如动态添加子view。</p>
+<p> 所以这里就用到了事件处理与传递。</p>
+<a id="more"></a>
+<h3 id="简单介绍一下"><a href="#简单介绍一下" class="headerlink" title="简单介绍一下"></a>简单介绍一下</h3><ul>
+<li>ios当中常用的事件?</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 触摸事件</span><br><span class="line">- 加速计事件</span><br><span class="line">- 远程控制事件</span><br></pre></td></tr></table></figure>
+<ul>
+<li>什么是响应者对象?</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">继承了UIResponds的对象我们称它为响应者对象</span><br><span class="line">UIApplication、UIViewController、UIView都继承自UIResponder</span><br><span class="line">因此它们都是响应者对象，都能够接收并处理事件</span><br></pre></td></tr></table></figure>
+<ul>
+<li>事件是怎么样产生与传递的?</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">当发生一个触摸事件后,系统会将该事件加入到一个由UIApplication管理的事件队列中.</span><br><span class="line">UIApplication会从事件队列中取出最前面的事件，交给主窗口.</span><br><span class="line">主窗口会在视图层次结构中找到一个最合适的视图来处理触摸事件</span><br><span class="line">触摸事件的传递是从父控件传递到子控件的.</span><br><span class="line">如果一个父控件不能接收事件,那么它里面的了子控件也不能够接收事件.</span><br><span class="line">``` </span><br><span class="line">- 一个控件什么情况下不能够接收事件?</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>不接收用户交互时不能够处理事件</p>
+<pre><code>userInteractionEnabled = NO
+</code></pre></li>
+<li><p>当一个控件隐藏的时候不能够接收事件</p>
+<pre><code>Hidden = YES的时候
+</code></pre></li>
+<li><p>当一个控件为透明白时候也不能够接收事件</p>
+<pre><code>alpha &lt;=0.01
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">##### 注意:UIImageView的userInteractionEnabled默认就是NO，因此UIImageView以及它的子控件默认是不能接收触摸事件的</span><br><span class="line"> </span><br><span class="line">- 如何寻找最合适的View?</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>先判断自己是否能够接收触摸事件,如果能再继续往下判断,</p>
+</li>
+<li>再判断触摸的当前点在不在自己的身上.</li>
+<li>如果在自己身上,UIWindow会从后往前（后创建的子控件开始）遍历子控件,遍历出每一个子控件后,重复前面的两个步骤.</li>
+<li>如果没有符合条件的子控件,那么它自己就是最适合的View.<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">回到主题上来，下面要做的也就是，让子view接收这些事件后，同时把这些事件继续向上传，会一直传到UIApplication为止。而在传的过程中，如果子view接收了这些事件，那么事件会自然终止，我们现在可以做的是同时让子view接收事件，而且还让事件不终止，并继续向上传。</span><br><span class="line"></span><br><span class="line">步骤应该是：</span><br><span class="line"></span><br><span class="line">```objc</span><br><span class="line">//定义一个全局变量    </span><br><span class="line">UIViewController *superVC;</span><br><span class="line"></span><br><span class="line">//然后执行这个方法</span><br><span class="line">- (UIViewController *)viewController:(UIView *)view&#123;</span><br><span class="line">    </span><br><span class="line">    UIResponder *responder = view;</span><br><span class="line">    while ((responder = [responder nextResponder]))</span><br><span class="line">    if ([responder isKindOfClass: [UIViewController class]])&#123;</span><br><span class="line">    return (UIViewController *)responder;</span><br><span class="line">    &#125;</span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//最后，在你跳转页面的方法中</span><br><span class="line">superVC = [self viewController:self];</span><br><span class="line"> </span><br><span class="line">[superVC.navigationController pushViewController:（UIViewController） animated:YES];</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这样就可以跳转页面了.</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[tableView的性能优化]]></title>
       <url>http://nickchenhao.github.io./2016/06/02/tableView%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
       <content type="html"><![CDATA[<h3 id="tableView性能优化"><a href="#tableView性能优化" class="headerlink" title="tableView性能优化"></a>tableView性能优化</h3><p>tableview的优化一直是一个很考验基本功的活儿，之前做项目的适合被这个问题困扰了很久，通过性能工具、查阅文档解决，整理思路和解决方案如下：</p>
