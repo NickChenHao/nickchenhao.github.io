@@ -112,7 +112,13 @@
   };
 </script>
 
-  <title> 自定义View 跳转不同界面方法 | Nick </title>
+  <title>
+  
+
+  
+    自定义View 跳转不同界面方法 | Nick
+  
+</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -133,7 +139,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right page-post-detail ">
+  <div class="container one-collumn sidebar-position-right  ">
     <div class="headband"></div>
 
      <a href="https://github.com/NickChenHao"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"></a>
@@ -258,73 +264,8 @@
 
   <div id="posts" class="posts-expand">
     
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                自定义View 跳转不同界面方法
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-02T00:00:00+08:00" content="2016-07-02">
-              2016-07-02
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/02/自定义View 跳转不同界面方法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/02/自定义View 跳转不同界面方法/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h2 id="自定义View-跳转不同界面方法"><a href="#自定义View-跳转不同界面方法" class="headerlink" title="自定义View 跳转不同界面方法"></a>自定义View 跳转不同界面方法</h2><p>有时候，我们在自定义UIView 的时候 ， 很有可能 会在这个View 进行页面跳转，但是， 你会发现， 那些 push  和  pop 方法  都没什么用  ，那是因为 当一个子view需要接收点击事件，而父view也需要接收点击事件</p>
+      <h2 id="自定义View-跳转不同界面方法"><a href="#自定义View-跳转不同界面方法" class="headerlink" title="自定义View 跳转不同界面方法"></a>自定义View 跳转不同界面方法</h2><p>有时候，我们在自定义UIView 的时候 ， 很有可能 会在这个View 进行页面跳转，但是， 你会发现， 那些 push  和  pop 方法  都没什么用  ，那是因为 当一个子view需要接收点击事件，而父view也需要接收点击事件</p>
 <p> 当然，你可能会说直接调用mysubview.superView即可，这样做也确实是可以做到，但有时子view是不一定知道有这个特定的父view的存在的，如动态添加子view。</p>
 <p> 所以这里就用到了事件处理与传递。</p>
 <a id="more"></a>
@@ -360,60 +301,7 @@
 </ul>
 <p>这样就可以跳转页面了.</p>
 
-      
-    </div>
     
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/iOS/" rel="tag"<i class="fa fa-tag"></i>iOS</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/06/02/tableView的性能优化/" rel="next" title="tableView的性能优化">
-                <i class="fa fa-chevron-left"></i> tableView的性能优化
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/01/23/发布问题/" rel="prev" title="发布过程的问题">
-                发布过程的问题 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-    </div>
   </div>
 
 
@@ -449,17 +337,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://upload.jianshu.io/users/upload_avatars/1251649/980f41e2e378?imageMogr/thumbnail/90x90/quality/100"
@@ -538,17 +417,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义View-跳转不同界面方法"><span class="nav-number">1.</span> <span class="nav-text">自定义View 跳转不同界面方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单介绍一下"><span class="nav-number">1.1.</span> <span class="nav-text">简单介绍一下</span></a></li></ol></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -650,10 +518,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
