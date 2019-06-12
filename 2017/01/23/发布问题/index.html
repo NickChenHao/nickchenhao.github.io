@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="Nick">
 <meta property="og:description" content="发布时遇到的一些问题iOS10 之后需要添加info.plist文件配置:12345678910     &amp;lt;key&amp;gt;NSBluetoothPeripheralUsageDescription&amp;lt;/key&amp;gt;      &amp;lt;string&amp;gt;亲啊，打开蓝牙可以吗？&amp;lt;/string&amp;gt;      &amp;lt;key&amp;gt;NSCameraUsageDescription">
 <meta property="og:image" content="http://nickchenhao.github.io./Users/nick/Desktop/Snip20170122_3.png">
-<meta property="og:updated_time" content="2017-01-23T05:40:39.000Z">
+<meta property="og:updated_time" content="2019-06-12T05:51:15.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="发布过程的问题">
 <meta name="twitter:description" content="发布时遇到的一些问题iOS10 之后需要添加info.plist文件配置:12345678910     &amp;lt;key&amp;gt;NSBluetoothPeripheralUsageDescription&amp;lt;/key&amp;gt;      &amp;lt;string&amp;gt;亲啊，打开蓝牙可以吗？&amp;lt;/string&amp;gt;      &amp;lt;key&amp;gt;NSCameraUsageDescription">
@@ -323,6 +323,7 @@
 
       
         <h3 id="发布时遇到的一些问题"><a href="#发布时遇到的一些问题" class="headerlink" title="发布时遇到的一些问题"></a>发布时遇到的一些问题</h3><h4 id="iOS10-之后需要添加info-plist文件配置"><a href="#iOS10-之后需要添加info-plist文件配置" class="headerlink" title="iOS10 之后需要添加info.plist文件配置:"></a>iOS10 之后需要添加info.plist文件配置:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">     &lt;key&gt;NSBluetoothPeripheralUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开蓝牙可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSCameraUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开相机可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSContactsUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开通讯录可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSMicrophoneUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开麦克风可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开相册可以吗？&lt;/string&gt;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>若没有apple会发此邮箱:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">This app attempts to access privacy-sensitive data without a usage description. The app&apos;s Info.plist must contain an NSPhotoLibraryUsageDescription key with a string value explaining to the user how the app uses this data.</span><br><span class="line"></span><br><span class="line">This app attempts to access privacy-sensitive data without a usage description. The app&apos;s Info.plist must contain an NSCameraUsageDescription key with a string value explaining to the user how the app uses this data.</span><br></pre></td></tr></table></figure></p>
 <h4 id="报错"><a href="#报错" class="headerlink" title="报错:"></a>报错:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- ERROR ITMS-90474: &quot;Invalid Bundle. iPad Multitasking support requires these orientations: &apos;UIInterfaceOrientationPortrait,UIInterfaceOrientationPortraitUpsideDown,UIInterfaceOrientationLandscapeLeft,UIInterfaceOrientationLandscapeRight&apos;. Found &apos;UIInterfaceOrientationPortrait&apos; in bundle &apos;xxxx&apos;.&quot; </span><br><span class="line">- ERROR ITMS-90475: &quot;Invalid Bundle. iPad Multitasking support requires launch story board in bundle &apos;xxxx’.&quot;</span><br></pre></td></tr></table></figure>
 <p>解决方案:<br>打开项目属性，选择“General”选项，勾选红框标注的“Requires full screen”</p>
@@ -365,6 +366,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/12/SDWebImage初级研究/" rel="prev" title="SDWebImage初级研究">
+                SDWebImage初级研究 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -436,7 +441,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -530,7 +535,7 @@
         <div class="copyright" >
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -275,6 +275,106 @@
             
               
                 
+                <a class="post-title-link" href="/2019/06/12/SDWebImage初级研究/" itemprop="url">
+                  SDWebImage初级研究
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-06-12T11:08:26+08:00" content="2019-06-12">
+              2019-06-12
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/06/12/SDWebImage初级研究/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/06/12/SDWebImage初级研究/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/01/23/发布问题/" itemprop="url">
                   发布过程的问题
                 </a>
@@ -325,16 +425,12 @@
 
       
         
-          
-            <h3 id="发布时遇到的一些问题"><a href="#发布时遇到的一些问题" class="headerlink" title="发布时遇到的一些问题"></a>发布时遇到的一些问题</h3><h4 id="iOS10-之后需要添加info-plist文件配置"><a href="#iOS10-之后需要添加info-plist文件配置" class="headerlink" title="iOS10 之后需要添加info.plist文件配置:"></a>iOS10 之后需要添加info.plist文件配置:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">     &lt;key&gt;NSBluetoothPeripheralUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开蓝牙可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSCameraUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开相机可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSContactsUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开通讯录可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSMicrophoneUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开麦克风可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开相册可以吗？&lt;/string&gt;</span><br></pre></td></tr></table></figure>
-<p>若没有apple会发此邮箱:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">This app attempts to access privacy-sensitive data without a usage description. The app&apos;s Info.plist must contain an NSPhotoLibraryUsageDescription key with a string value explaining to the user how the app uses this data.</span><br><span class="line"></span><br><span class="line">This app attempts to access privacy-sensitive data without a usage description. The app&apos;s Info.plist must contain an NSCameraUsageDescription key with a string value explaining to the user how the app uses this data.</span><br></pre></td></tr></table></figure></p>
-<h4 id="报错"><a href="#报错" class="headerlink" title="报错:"></a>报错:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- ERROR ITMS-90474: &quot;Invalid Bundle. iPad Multitasking support requires these orientations: &apos;UIInterfaceOrientationPortrait,UIInterfaceOrientationPortraitUpsideDown,UIInterfaceOrientationLandscapeLeft,UIInterfaceOrientationLandscapeRight&apos;. Found &apos;UIInterfaceOrientationPortrait&apos; in bundle &apos;xxxx&apos;.&quot; </span><br><span class="line">- ERROR ITMS-90475: &quot;Invalid Bundle. iPad Multitasking support requires launch story board in bundle &apos;xxxx’.&quot;</span><br></pre></td></tr></table></figure>
-<p>解决方案:<br>打开项目属性，选择“General”选项，勾选红框标注的“Requires full screen”</p>
-<h4 id="报错-1"><a href="#报错-1" class="headerlink" title="报错:"></a>报错:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR ITMS-90032:“Invalid Image Path - No image found at the path referenced under key &apos;CFBundleIcons&apos;:AppIcon40x40”</span><br></pre></td></tr></table></figure>
-<p>解决方案:<br>图片的问题  缺少对应的图片尺寸 需要在图片资源文件的 appicon中添加</p>
-<p><img src="/Users/nick/Desktop/Snip20170122_3.png" alt=""></p>
-
-          
+          <h3 id="发布时遇到的一些问题"><a href="#发布时遇到的一些问题" class="headerlink" title="发布时遇到的一些问题"></a>发布时遇到的一些问题</h3><h4 id="iOS10-之后需要添加info-plist文件配置"><a href="#iOS10-之后需要添加info-plist文件配置" class="headerlink" title="iOS10 之后需要添加info.plist文件配置:"></a>iOS10 之后需要添加info.plist文件配置:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">     &lt;key&gt;NSBluetoothPeripheralUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开蓝牙可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSCameraUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开相机可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSContactsUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开通讯录可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSMicrophoneUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开麦克风可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开相册可以吗？&lt;/string&gt;</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/01/23/发布问题/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -466,113 +562,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/02/tableView的性能优化/" itemprop="url">
-                  tableView的性能优化
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-02T00:00:00+08:00" content="2016-06-02">
-              2016-06-02
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/02/tableView的性能优化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/02/tableView的性能优化/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="tableView性能优化"><a href="#tableView性能优化" class="headerlink" title="tableView性能优化"></a>tableView性能优化</h3><p>tableview的优化一直是一个很考验基本功的活儿，之前做项目的适合被这个问题困扰了很久，通过性能工具、查阅文档解决，整理思路和解决方案如下：</p>
-<h4 id="tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。"><a href="#tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。" class="headerlink" title="tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。"></a>tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。</h4><ul>
-<li>cell是否使用了复用机制而不是每一次都创建新的cell。</li>
-</ul>
-<p>如果每次都创建新的cell，在滑动的时候会表现为：刚开始的时候很顺畅，但是会越来越卡，内存跟着一直升高，停止滑动的时候也不会降下来。使用缓存机制创建的cell，开始滑动的时候内存会开始上升，等创建了一个屏幕再加半屏的cell之后，内存趋于平稳。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/02/tableView的性能优化/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -618,7 +607,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -701,7 +690,7 @@
         <div class="copyright" >
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
