@@ -346,6 +346,7 @@
         
           
             <h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><img src="https://upload-images.jianshu.io/upload_images/1388998-9bf0a1d05db2de85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/806/format/webp" alt="avatar"></p>
+<h4 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1. 首先会在 SDWebImageCache 中寻找图片是否有对应的缓存, 它会以url 作为数据的索引先在内存中寻找是否有对应的缓存</span><br><span class="line">2. 如果缓存未找到就会利用通过MD5处理过的key来继续在磁盘中查询对应的数据, 如果找到了, 就会把磁盘中的数据加载到内存中，并将图片显示出来</span><br><span class="line">3. 如果在内存和磁盘缓存中都没有找到，就会向远程服务器发送请求，开始下载图片</span><br><span class="line">4. 下载后的图片会加入缓存中，并写入磁盘中</span><br><span class="line">5. 整个获取图片的过程都是在子线程中执行，获取到图片后回到主线程将图片显示出来</span><br></pre></td></tr></table></figure>
 
           
         
