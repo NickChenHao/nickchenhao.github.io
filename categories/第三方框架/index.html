@@ -84,7 +84,7 @@
 <meta name="description" content="学习路上,与君共勉,越努力,越幸运...">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Nick">
-<meta property="og:url" content="http://nickchenhao.github.io./page/2/index.html">
+<meta property="og:url" content="http://nickchenhao.github.io./categories/第三方框架/index.html">
 <meta property="og:site_name" content="Nick">
 <meta property="og:description" content="学习路上,与君共勉,越努力,越幸运...">
 <meta name="twitter:card" content="summary">
@@ -107,7 +107,7 @@
   };
 </script>
 
-  <title> Nick </title>
+  <title> 分类: 第三方框架 | Nick </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -128,9 +128,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-right 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-right  ">
     <div class="headband"></div>
 
      <a href="https://github.com/NickChenHao"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6286ade715e9bea433b4705870de482a654f78a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f77686974655f6666666666662e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png"></a>
@@ -252,384 +250,40 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <section id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        第三方框架
+        <small>分类</small>
+      </h2>
+    </div>
+
     
       
 
-  
-  
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
+      <h1 class="post-title">
         
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
+            <a class="post-title-link" href="/2019/06/12/SDWebImage初级研究/" itemprop="url">
               
-                
-                <a class="post-title-link" href="/2016/06/02/tableView的性能优化/" itemprop="url">
-                  tableView的性能优化
-                </a>
+                <span itemprop="name">SDWebImage初探</span>
               
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-02T00:00:00+08:00" content="2016-06-02">
-              2016-06-02
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/02/tableView的性能优化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/02/tableView的性能优化/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="tableView性能优化"><a href="#tableView性能优化" class="headerlink" title="tableView性能优化"></a>tableView性能优化</h3><p>tableview的优化一直是一个很考验基本功的活儿，之前做项目的适合被这个问题困扰了很久，通过性能工具、查阅文档解决，整理思路和解决方案如下：</p>
-<h4 id="tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。"><a href="#tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。" class="headerlink" title="tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。"></a>tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。</h4><ul>
-<li>cell是否使用了复用机制而不是每一次都创建新的cell。</li>
-</ul>
-<p>如果每次都创建新的cell，在滑动的时候会表现为：刚开始的时候很顺畅，但是会越来越卡，内存跟着一直升高，停止滑动的时候也不会降下来。使用缓存机制创建的cell，开始滑动的时候内存会开始上升，等创建了一个屏幕再加半屏的cell之后，内存趋于平稳。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/02/tableView的性能优化/#more" rel="contents">
-              阅读全文 &raquo;
             </a>
-          </div>
         
-      
-    </div>
-    
-    <div>
-      
-    </div>
+      </h1>
 
-    <div>
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2019-06-12T11:08:26+08:00"
+              content="2019-06-12" >
+          06-12
+        </time>
+      </div>
 
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/04/05/数据安全/" itemprop="url">
-                  数据安全
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-04-05T00:00:00+08:00" content="2016-04-05">
-              2016-04-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/数据安全/" itemprop="url" rel="index">
-                    <span itemprop="name">数据安全</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/04/05/数据安全/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/05/数据安全/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="1-Base64"><a href="#1-Base64" class="headerlink" title="1.Base64"></a>1.Base64</h3><h4 id="1-Base64简单说明"><a href="#1-Base64简单说明" class="headerlink" title="1.Base64简单说明"></a>1.Base64简单说明</h4><pre><code>描述：Base64可以成为密码学的基石，非常重要。
-特点：可以将任意的二进制数据进行Base64编码
-结果：所有的数据都能被编码为并只用65个字符就能表示的文本文件。
-65字符：A~Z a~z 0~9 + / =
-对文件进行base64编码后文件数据的变化：编码后的数据~=编码前数据的4/3，会大1/3左右。
-</code></pre><h4 id="2-命令行进行Base64编码和解码"><a href="#2-命令行进行Base64编码和解码" class="headerlink" title="2.命令行进行Base64编码和解码"></a>2.命令行进行Base64编码和解码</h4><pre><code>编码：base64 123.png -o 123.txt
-解码：base64 123.txt -o test.png -D
-</code></pre>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/04/05/数据安全/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/01/27/siwft笔记3/" itemprop="url">
-                  siwft笔记3
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-01-27T00:29:40+08:00" content="2016-01-27">
-              2016-01-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/swift笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">swift笔记</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/01/27/siwft笔记3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/27/siwft笔记3/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="一-三大特性"><a href="#一-三大特性" class="headerlink" title="一.三大特性"></a>一.三大特性</h3><ul>
-<li>封装</li>
-<li>继承<ul>
-<li>重写父类方法 需要加上 override</li>
-</ul>
-</li>
-<li><p>多态</p>
-<ul>
-<li>必须要有继承</li>
-<li>必须要有重写</li>
-<li>必须是父类指针指向子类对象</li>
-</ul>
-</li>
-<li>(重载)<ul>
-<li>参数类型不同</li>
-<li>参数个数不同</li>
-</ul>
-</li>
-</ul>
-<h3 id="二-自动引用计数"><a href="#二-自动引用计数" class="headerlink" title="二.自动引用计数"></a>二.自动引用计数</h3><ul>
-<li>当有一个强引用指向某个对象时,该对象的引用计数会自动 + 1</li>
-<li>当强引用消失时,引用计数会自动 - 1</li>
-<li><p>当引用计数为0时,该对象会被销毁</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/27/siwft笔记3/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
+    </header>
   </article>
 
 
@@ -637,9 +291,6 @@
   </section>
 
   
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
 
 
 
