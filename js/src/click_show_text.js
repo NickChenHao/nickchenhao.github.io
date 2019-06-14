@@ -8,7 +8,7 @@ jQuery(document).ready(function($) {
         var x = e.pageX,
         y = e.pageY;
         $i.css({
-            "z-index": 5,
+            "z-index": 999999999999999999999999999999999999999999999999999999999999999999999,
             "top": y - 20,
             "left": x,
             "position": "absolute",
@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
             "top": y - 180,
             "opacity": 0
         },
-            3000,
+            1500,
             function() {
                 $i.remove();
             });
