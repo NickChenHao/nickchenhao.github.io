@@ -8,8 +8,8 @@ jQuery(document).ready(function($) {
         var x = e.pageX,
         y = e.pageY;
         $i.css({
-            "z-index": 999999999999999999999999999999999999999999999999999999999999999999999,
-            "top": y - 20,
+            "z-index": 9999999,
+            "top": y - 30,
             "left": x,
             "position": "absolute",
             "font-weight": "bold",
@@ -25,7 +25,7 @@ jQuery(document).ready(function($) {
                 $i.remove();
             });
     });
-    setTimeout('delay()', 2000);
+    // setTimeout('delay()', 2000);
 });
 
 function delay() {
