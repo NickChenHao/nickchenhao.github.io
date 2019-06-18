@@ -522,7 +522,7 @@ ex:DES和3DES的分组长度都是64比特。即每次只能加密64比特的明
 特点：
 1）使用ECB模式加密的时候，相同的明文分组会被转换为相同的密文分组。
 2）类似于一个巨大的明文分组-》密文分组的对照表。
-</code></pre><p><img src="/Users/nick/Desktop/1.png" alt></p>
+</code></pre><p><img src="/Users/nick/Desktop/1.png" alt=""></p>
 <pre><code>终端测试命令：
 加密 $ openssl enc -des-ecb -K 616263 -nosalt -in 123.txt -out 123.bin
 解密 $ openssl enc -des-ecb -K 616263 -nosalt -in 123.bin -out 1231.txt -d
@@ -536,7 +536,7 @@ ex:DES和3DES的分组长度都是64比特。即每次只能加密64比特的明
 </code></pre><h3 id="5-非对称加密"><a href="#5-非对称加密" class="headerlink" title="5.非对称加密"></a>5.非对称加密</h3><h4 id="1-非对称加密的特点"><a href="#1-非对称加密的特点" class="headerlink" title="1.非对称加密的特点"></a>1.非对称加密的特点</h4><pre><code>1）使用公钥加密，使用私钥解密
 2）公钥是公开的，私钥保密
 3）加密处理安全，但是性能极差
-</code></pre><p><img src="/Users/nick/Desktop/2.png" alt></p>
+</code></pre><p><img src="/Users/nick/Desktop/2.png" alt=""></p>
 <h4 id="2-经典算法—RSA"><a href="#2-经典算法—RSA" class="headerlink" title="2.经典算法—RSA"></a>2.经典算法—RSA</h4><pre><code>1）RSA 原理
     （1）求N，准备两个质数p和q,N = p x q
     （2）求L,L是p-1和q-1的最小公倍数。L = lcm（p-1,q-1）
@@ -572,7 +572,7 @@ ex:DES和3DES的分组长度都是64比特。即每次只能加密64比特的明
     ①对&quot;消息&quot; HASH 得到 &quot;报文摘要&quot;
     ②使用公钥对&quot;数字签名&quot; 解密
     ③对结果进行匹配
-</code></pre><p><img src="/Users/nick/Desktop/3.png" alt></p>
+</code></pre><p><img src="/Users/nick/Desktop/3.png" alt=""></p>
 <h3 id="7-数字证书"><a href="#7-数字证书" class="headerlink" title="7.数字证书"></a>7.数字证书</h3><h4 id="1-简单说明"><a href="#1-简单说明" class="headerlink" title="1.简单说明"></a>1.简单说明</h4><pre><code>证书和驾照很相似，里面记有姓名、组织、地址等个人信息，以及属于此人的公钥，并有认证机构施加数字签名,只要看到公钥证书，我们就可以知道认证机构认证该公钥的确属于此人
 </code></pre><h4 id="2-数字证书的内容"><a href="#2-数字证书的内容" class="headerlink" title="2.数字证书的内容"></a>2.数字证书的内容</h4><pre><code>1）公钥
 2）认证机构的数字签名
@@ -749,7 +749,7 @@ ex:DES和3DES的分组长度都是64比特。即每次只能加密64比特的明
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
