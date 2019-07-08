@@ -108,7 +108,7 @@ cell点击
 APP进入后台
 
 如何实现无埋点利用运行时机制，将类原生方法替换成用户自定义的方法，相当于强行在原本调用栈中插入一个方法，我们在其中插入一段统计代码即可。">
-<meta property="og:updated_time" content="2019-07-04T08:32:28.352Z">
+<meta property="og:updated_time" content="2019-07-08T02:12:21.129Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 无埋点数据统计方案设计">
 <meta name="twitter:description" content="先附上参考的文章：iOS无埋点数据SDK实践之路iOS无埋点数据统计实践
@@ -487,7 +487,10 @@ APP进入后台
 </ul>
 <h5 id="数据上传服务器"><a href="#数据上传服务器" class="headerlink" title="数据上传服务器"></a>数据上传服务器</h5><p>因没有后台存储这些统计出来的数据，暂时使用后端云Bmob存储</p>
 <ul>
-<li>触发上传的时机 （目前设计是APP进入后台就触发 上传成功数据库的表里数据清空）</li>
+<li>触发上传的时机</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">目前设计 (上传成功数据库的表里数据清空)</span><br><span class="line">1.是APP进入后台自动触发触发 </span><br><span class="line">2.用户退出登录操作触发</span><br></pre></td></tr></table></figure>
+<ul>
 <li>上传的拼接数据</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">NSString *userID = @&quot;0&quot;;//必须默认0</span><br><span class="line">    if ([AppDelegate trackGetUserID].length&gt;0) &#123;</span><br><span class="line">        userID = [AppDelegate trackGetUserID];</span><br><span class="line">    &#125;</span><br><span class="line">    NSDictionary *dic = @&#123;</span><br><span class="line">                          //模型数组转成字典数组</span><br><span class="line">                          @&quot;list&quot; : [LogDTO mj_keyValuesArrayWithObjectArray:[[LogDAO sharedInstance] getAllData]],</span><br><span class="line">                          //userid</span><br><span class="line">                          @&quot;userid&quot; : KStringIsEmpty(userID),</span><br><span class="line">                          //应用名称</span><br><span class="line">                          @&quot;productName&quot; : kDisplayName,</span><br><span class="line">                          //bundleId</span><br><span class="line">                          @&quot;productID&quot; : [[NSBundle mainBundle] bundleIdentifier],</span><br><span class="line">                          //应用版本号</span><br><span class="line">                          @&quot;version&quot; : kVersion,</span><br><span class="line">                          //设备版本</span><br><span class="line">                          @&quot;osVersion&quot; : [NSString stringWithFormat:@&quot;%.1f&quot;,[DeviceAndSystemTool systemVersion]],</span><br><span class="line">                          //设备机型</span><br><span class="line">                          @&quot;osDeviceType&quot; : KStringIsEmpty([DeviceAndSystemTool getDeviceName]),</span><br><span class="line">                          //网络类型</span><br><span class="line">                          @&quot;networkType&quot; : KStringIsEmpty([DeviceAndSystemTool networkTypeName]),</span><br><span class="line">                          //运营商</span><br><span class="line">                          @&quot;isp&quot; : KStringIsEmpty([DeviceAndSystemTool wsd_telephonyNetworkInfo]),</span><br><span class="line">                          //定位（省市区）</span><br><span class="line">                          @&quot;gps&quot; : KStringIsEmpty(self.strLocationInfo)</span><br><span class="line">                          &#125;;</span><br></pre></td></tr></table></figure>
@@ -517,7 +520,7 @@ APP进入后台
   <p><span>本文标题:</span><a href="/2019/07/03/iOS-无埋点数据统计方案设计/">iOS 无埋点数据统计方案设计</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 陈浩 的个人博客">Nick</a></p>
   <p><span>发布时间:</span>2019年07月03日 - 11:07</p>
-  <p><span>最后更新:</span>2019年07月04日 - 16:07</p>
+  <p><span>最后更新:</span>2019年07月08日 - 10:07</p>
   <p><span>原始链接:</span><a href="/2019/07/03/iOS-无埋点数据统计方案设计/" title="iOS 无埋点数据统计方案设计">http://nickchenhao.github.io./2019/07/03/iOS-无埋点数据统计方案设计/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://nickchenhao.github.io./2019/07/03/iOS-无埋点数据统计方案设计/"  aria-label="复制成功！"></i></span>
   </p>
