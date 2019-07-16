@@ -384,38 +384,15 @@
 
       
         
-          
-            <h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="https://www.jianshu.com/p/cbb8931499da" target="_blank" rel="external">结合cocoapods谈iOS私有库的三种管理方式</a><br><a href="https://www.jianshu.com/p/217841b3eb7d" target="_blank" rel="external">利用公司SVN服务器 使用cocoaPods管理自己的私有库</a></p>
+          <h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="https://www.jianshu.com/p/cbb8931499da">结合cocoapods谈iOS私有库的三种管理方式</a><br><a href="https://www.jianshu.com/p/217841b3eb7d">利用公司SVN服务器 使用cocoaPods管理自己的私有库</a></p>
 <h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><p><strong>注：</strong> 需要安装repo-svn插件 <code>gem install cocoapods-repo-svn</code> （PS：会报权限问题，出现的Error可以忽略，改成<code>sudo gem install cocoapods-repo-svn</code>）</p>
-<ul>
-<li>创建podspec文件   <code>pod spec create 文件名</code></li>
-<li>将项目或功能上传至SVN<ul>
-<li>有(branches、tags、trunk)三个目录 一般放到truck或者branches里 </li>
-<li>通过打标签设置版本号 (先在tags里创建该文件空的，然后选择tag选择到该文件下打版本标签) </li>
-</ul>
-</li>
-<li><code>pod repo-svn add tags  svn上tags的地址</code> （添加项目）   可在 <code>~/.cocoapods/repos/</code> 查看</li>
-<li><code>pod repo-svn update tags</code> （更新项目）</li>
-<li>可在podfile文件中添加 （tags在svn上的地址）</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   plugin &apos;cocoapods-repo-svn&apos;, :sources =&gt; [</span><br><span class="line">&apos;https://www.svn.com:8443/svn/研发四部/projects/P99基础框架/05APP开发框架/IOS公用库/cocoapods-svn/tags’]</span><br><span class="line"></span><br><span class="line">【注】</span><br><span class="line">中括号内的 为tags在SVN上的地址 </span><br><span class="line">也是podspec里source地址加上/tags</span><br></pre></td></tr></table></figure>
-<ul>
-<li>直接 <code>pod ‘名称’, ‘版本号’</code></li>
-<li><code>pod install</code> 即可 </li>
-<li>若有修改SVN中的文件 需要先 删除pod缓存 <code>open ~/Library/Caches/Cocoapods</code> 再<code>pod install</code></li>
-</ul>
-<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ul>
-<li><p>可通过 <code>pod spec lint TrackAction.podspec --verbose --use-libraries --allow-warnings</code> 检查错误 </p>
-</li>
-<li><p>集成到GitHub 通过pod管理  原理类似  可在简书  <strong>收藏的文章</strong> 中查找 </p>
-</li>
-<li><p>cocoapods缓存问题  解决修改了tags里内容但pod下来却没有更新<br> 删除pod  <code>~/Library/Caches/Cocoapods</code><br> <a href="https://www.jianshu.com/p/f936794aa512" target="_blank" rel="external">https://www.jianshu.com/p/f936794aa512</a>  </p>
-</li>
-<li><p>需要注意的地方 在项目中写在pch的头文件 若要集成出来  需要在对应的文件里写上这个头文件 不然会报错找不到 </p>
-</li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/16/私有项目或功能集成到SVN-通过pod下载/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
