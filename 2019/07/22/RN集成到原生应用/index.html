@@ -95,7 +95,7 @@
 <meta property="og:description" content="参考集成到现有原生应用将RN集成到iOS原生项目中RN嵌入到现有iOS原生应用将RN工程嵌入到现有iOS原生应用
 说明虽然看了ReactNative官网还有网上的这些资料，有说怎么集成，但多多少少感觉不太对，写出来也是有问题，所以在这里记录一下集成成功的步骤，减少踩坑！">
 <meta property="og:image" content="http://nickchenhao.github.io./images/RN集成原生项目修改info文件.png">
-<meta property="og:updated_time" content="2019-07-22T07:20:46.239Z">
+<meta property="og:updated_time" content="2019-07-22T07:23:37.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RN集成到原生应用">
 <meta name="twitter:description" content="参考集成到现有原生应用将RN集成到iOS原生项目中RN嵌入到现有iOS原生应用将RN工程嵌入到现有iOS原生应用
@@ -444,7 +444,7 @@
 </li>
 </ul>
 <hr>
-<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p><font color="#dd0000"><em>以上是 在原生项目.xcodeproj同级 新建RNUntils文件存放RN相关 的操作流程<br>以下是 新建RNUntils文件存放RN相关、新建子文件ios 存放原生项目 的操作流程</em><br></font><br><em>区别在步骤 1、5、6上</em><br>1、新建文件夹专门放RN相关文件如RNUntils  新建子文件夹ios 将原生项目.xcodeproj同级所有文件复制到ios目录下<br>5、终端运行 修改 <code>main.jsbundle</code> 为 <code>ios/main.jsbundle</code><br>6、podfile文件 修改 <code>:path =&gt; ‘RNUntils/node_modules/react-native</code> 为 <code>:path =&gt; ‘../node_modules/react-native</code> </p>
+<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p><font color="#dd0000"><em>以上是 在原生项目.xcodeproj同级 新建RNUntils文件存放RN相关 的操作流程<br>以下是 新建RNUntils文件存放RN相关、新建子文件ios 存放原生项目 的操作流程</em><br></font><br><em>区别在步骤 1、5、6上</em><br>1、新建文件夹专门放RN相关文件如RNUntils  新建子文件夹ios 将原生项目.xcodeproj同级所有文件复制到ios目录下<br>5、终端运行 修改 <code>main.jsbundle</code> 为 <code>ios/main.jsbundle</code><br>6、 podfile文件 修改 <code>:path =&gt; ‘RNUntils/node_modules/react-native</code> 为 <code>:path =&gt; ‘../node_modules/react-native</code> </p>
 
       
     </div>
