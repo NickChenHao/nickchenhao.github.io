@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="Nick">
 <meta property="og:description" content="参考文章结合cocoapods谈iOS私有库的三种管理方式利用公司SVN服务器 使用cocoaPods管理自己的私有库
 步骤注： 需要安装repo-svn插件 gem install cocoapods-repo-svn （PS：会报权限问题，出现的Error可以忽略，改成sudo gem install cocoapods-repo-svn）">
-<meta property="og:updated_time" content="2019-07-16T05:56:50.636Z">
+<meta property="og:updated_time" content="2019-08-02T08:25:49.905Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="私有项目或功能集成到SVN 通过pod下载">
 <meta name="twitter:description" content="参考文章结合cocoapods谈iOS私有库的三种管理方式利用公司SVN服务器 使用cocoaPods管理自己的私有库
@@ -398,7 +398,7 @@
 <li><code>pod repo-svn update tags</code> （更新项目）</li>
 <li>可在podfile文件中添加 （tags在svn上的地址）</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">plugin &apos;cocoapods-repo-svn&apos;, :sources =&gt; [</span><br><span class="line">   &apos;https://www.svn.com:8443/svn/研发四部/projects/P99基础框架/05APP开发框架/IOS公用库/cocoapods-svn/tags’</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">【注】</span><br><span class="line">中括号内的 为tags在SVN上的地址 </span><br><span class="line">也是podspec里source地址加上/tags</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plugin &apos;cocoapods-repo-svn&apos;, :sources =&gt; [</span><br><span class="line">   中括号内的 为tags在SVN上的地址 </span><br><span class="line">也是podspec里source地址加上/tags</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <ul>
 <li>直接 <code>pod ‘名称’, ‘版本号’</code></li>
 <li><code>pod install</code> 即可 </li>
@@ -433,7 +433,7 @@
   <p><span>本文标题:</span><a href="/2019/07/16/私有项目或功能集成到SVN-通过pod下载/">私有项目或功能集成到SVN 通过pod下载</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 陈浩 的个人博客">Nick</a></p>
   <p><span>发布时间:</span>2019年07月16日 - 11:07</p>
-  <p><span>最后更新:</span>2019年07月16日 - 13:07</p>
+  <p><span>最后更新:</span>2019年08月02日 - 16:08</p>
   <p><span>原始链接:</span><a href="/2019/07/16/私有项目或功能集成到SVN-通过pod下载/" title="私有项目或功能集成到SVN 通过pod下载">http://nickchenhao.github.io./2019/07/16/私有项目或功能集成到SVN-通过pod下载/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://nickchenhao.github.io./2019/07/16/私有项目或功能集成到SVN-通过pod下载/"  aria-label="复制成功！"></i></span>
   </p>
