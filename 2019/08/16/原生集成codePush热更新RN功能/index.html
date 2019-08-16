@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="热更新," />
 
 
 
@@ -86,15 +86,21 @@
 
 
 
-<meta name="description" content="学习路上,与君共勉,越努力,越幸运...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Nick">
-<meta property="og:url" content="http://nickchenhao.github.io./page/2/index.html">
+<meta name="description" content="前言CodePush是一个微软开发的云服务器。通过它，开发者可以直接在用户的设备上部署手机应用更新。CodePush相当于一个中心仓库，开发者可以推送当前的更新（包括JS/HTML/CSS/IMAGE等）到CoduPush，然后应用将会查询是否有更新。虽然苹果禁了很多热更新，但是，code-push 还是可以用的。项目是 ReactNative 的，总结了下 iOS 的 code-push 的使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原生集成codePush热更新RN功能">
+<meta property="og:url" content="http://nickchenhao.github.io./2019/08/16/原生集成codePush热更新RN功能/index.html">
 <meta property="og:site_name" content="Nick">
-<meta property="og:description" content="学习路上,与君共勉,越努力,越幸运...">
+<meta property="og:description" content="前言CodePush是一个微软开发的云服务器。通过它，开发者可以直接在用户的设备上部署手机应用更新。CodePush相当于一个中心仓库，开发者可以推送当前的更新（包括JS/HTML/CSS/IMAGE等）到CoduPush，然后应用将会查询是否有更新。虽然苹果禁了很多热更新，但是，code-push 还是可以用的。项目是 ReactNative 的，总结了下 iOS 的 code-push 的使用">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6342050-fbfc9b79199d4a3f..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6342050-369c31244b0f528f..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6342050-663dc2df47438cc5..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6342050-c4392091edc647a0..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
+<meta property="og:updated_time" content="2019-08-16T06:37:02.460Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nick">
-<meta name="twitter:description" content="学习路上,与君共勉,越努力,越幸运...">
+<meta name="twitter:title" content="原生集成codePush热更新RN功能">
+<meta name="twitter:description" content="前言CodePush是一个微软开发的云服务器。通过它，开发者可以直接在用户的设备上部署手机应用更新。CodePush相当于一个中心仓库，开发者可以推送当前的更新（包括JS/HTML/CSS/IMAGE等）到CoduPush，然后应用将会查询是否有更新。虽然苹果禁了很多热更新，但是，code-push 还是可以用的。项目是 ReactNative 的，总结了下 iOS 的 code-push 的使用">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/6342050-fbfc9b79199d4a3f..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
 
 
 
@@ -124,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://nickchenhao.github.io./page/2/"/>
+  <link rel="canonical" href="http://nickchenhao.github.io./2019/08/16/原生集成codePush热更新RN功能/"/>
 
 
 
 
 
-  <title>Nick</title>
+  <title>原生集成codePush热更新RN功能 | Nick</title>
   
 
 
@@ -149,8 +155,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     
   <a href="https://github.com/NickChenHao" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
@@ -289,9 +294,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -304,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2019/07/03/iOS-无埋点数据统计方案设计/">
+    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2019/08/16/原生集成codePush热更新RN功能/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈浩">
@@ -321,9 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/03/iOS-无埋点数据统计方案设计/" itemprop="url">iOS 无埋点数据统计方案设计</a></h1>
+          <h1 class="post-title" itemprop="name headline">原生集成codePush热更新RN功能</h1>
         
 
         <div class="post-meta">
@@ -335,292 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-03T11:23:44+08:00">
-                2019-07-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/07/03/iOS-无埋点数据统计方案设计/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/07/03/iOS-无埋点数据统计方案设计/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="先附上参考的文章："><a href="#先附上参考的文章：" class="headerlink" title="先附上参考的文章："></a>先附上参考的文章：</h4><p><a href="https://www.jianshu.com/p/69ce01e15042">iOS无埋点数据SDK实践之路</a><br><a href="https://www.jianshu.com/p/a6afc6252965">iOS无埋点数据统计实践</a></p>
-<h4 id="该方案的统计功能？"><a href="#该方案的统计功能？" class="headerlink" title="该方案的统计功能？"></a>该方案的统计功能？</h4><ul>
-<li>APP进入前台</li>
-<li>按钮点击 （点击次数、按钮名称、点击方法）</li>
-<li>cell点击</li>
-<li>界面停留时长</li>
-<li>APP进入后台</li>
-</ul>
-<h4 id="如何实现无埋点"><a href="#如何实现无埋点" class="headerlink" title="如何实现无埋点"></a>如何实现无埋点</h4><p>利用运行时机制，将类原生方法替换成用户自定义的方法，相当于强行在原本调用栈中插入一个方法，我们在其中插入一段统计代码即可。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/07/03/iOS-无埋点数据统计方案设计/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2019/06/18/自定义图片下载/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="陈浩">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/16940026?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nick">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/18/自定义图片下载/" itemprop="url">自定义图片下载</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-18T15:51:42+08:00">
-                2019-06-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/06/18/自定义图片下载/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/06/18/自定义图片下载/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>学习完SDWebImage第三方框架之后，根据它的流程，试着简写自定义下载图片的方法。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/18/自定义图片下载/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2019/06/12/SDWebImage初级研究/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="陈浩">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/16940026?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nick">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/12/SDWebImage初级研究/" itemprop="url">SDWebImage初探</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-12T11:08:26+08:00">
-                2019-06-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-16T13:37:26+08:00">
+                2019-08-16
               </time>
             
 
@@ -642,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/第三方框架/" itemprop="url" rel="index">
-                    <span itemprop="name">第三方框架</span>
+                  <a href="/categories/RN/" itemprop="url" rel="index">
+                    <span itemprop="name">RN</span>
                   </a>
                 </span>
 
@@ -660,8 +379,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/06/12/SDWebImage初级研究/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/06/12/SDWebImage初级研究/" itemprop="commentCount"></span>
+                <a href="/2019/08/16/原生集成codePush热更新RN功能/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/08/16/原生集成codePush热更新RN功能/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -689,18 +408,62 @@
       
 
       
-        
-          <p>记录一下SDWebImage第三方源码的研究</p>
-<h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><img src="/images/SDWebImage流程图.png" alt="流程图"></p>
-<h4 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h4>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/06/12/SDWebImage初级研究/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>CodePush是一个微软开发的云服务器。通过它，开发者可以直接在用户的设备上部署手机应用更新。CodePush相当于一个中心仓库，开发者可以推送当前的更新（包括JS/HTML/CSS/IMAGE等）到CoduPush，然后应用将会查询是否有更新。<br>虽然苹果禁了很多热更新，但是，code-push 还是可以用的。项目是 ReactNative 的，总结了下 iOS 的 code-push 的使用方法。</p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://www.jianshu.com/p/6a5e00d22723" target="_blank" rel="external">CodePush热更新详细接入教程</a><br><a href="https://www.jianshu.com/p/6bbb8020c29e" target="_blank" rel="external">code-push热更新配置（命令整理）</a><br><a id="more"></a></p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="安装code-push-cli"><a href="#安装code-push-cli" class="headerlink" title="安装code-push-cli"></a>安装code-push-cli</h4><p>安装CodePush指令，直接在终端上输入如下命令即可，注意：这个CodePush指令只需要全局安装一次即可，如果第一次安装成功了，那后面就不在需要安装<br><code>npm install -g code-push-cli</code></p>
+<h4 id="注册code-push账号"><a href="#注册code-push账号" class="headerlink" title="注册code-push账号"></a>注册code-push账号</h4><ul>
+<li>注册CodePush账号也很简单，同样是只需简单的执行下面的命令，同样这个注册操作也是全局只需要注册一次即可<code>code-push register</code></li>
+<li>当执行完上面的命令后，会自动打开一个授权网页，让你选择使用哪种方式进行授权登录，这里我们统一就选择使用GitHub即可</li>
+<li>当注册成功后，CodePush会给我们一个key</li>
+<li>我们直接复制这个key，然后在终端中将这个key填写进去即可</li>
+<li>验证是否登录成功 <code>code-push login</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CodePush注册登录相关命令：</span><br><span class="line">	•	code-push login 登陆</span><br><span class="line">	•	code-push loout 注销</span><br><span class="line">	•	code-push access-key ls 列出登陆的token</span><br><span class="line">	•	code-push access-key rm &lt;accessKye&gt; 删除某个 access-key</span><br></pre></td></tr></table></figure>
+<h4 id="在code-push服务器注册App"><a href="#在code-push服务器注册App" class="headerlink" title="在code-push服务器注册App"></a>在code-push服务器注册App</h4><p><code>code-push app add 项目名称 ios react-native</code><br>可以查看添加的App列表<br><code>code-push app list</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CodePush管理App的相关命令：</span><br><span class="line">	•	code-push app add 在账号里面添加一个新的app</span><br><span class="line">	•	code-push app remove 或者 rm 在账号里移除一个app</span><br><span class="line">	•	code-push app rename 重命名一个存在app</span><br><span class="line">	•	code-push app list 或则 ls 列出账号下面的所有app</span><br><span class="line">	•	code-push app transfer 把app的所有权转移到另外一个账号</span><br></pre></td></tr></table></figure>
+<h4 id="RN代码中集成code-push-不熟悉先省略"><a href="#RN代码中集成code-push-不熟悉先省略" class="headerlink" title="RN代码中集成code-push (不熟悉先省略)"></a>RN代码中集成code-push (不熟悉先省略)</h4><h4 id="原生应用中配置code-push"><a href="#原生应用中配置code-push" class="headerlink" title="原生应用中配置code-push"></a>原生应用中配置code-push</h4><ul>
+<li>使用Xcode打开项目，Xcode的项目导航视图中的PROJECT下选择你的项目，选择Info页签 ，在Configurations节点下单击 + 按钮 ，选择Duplicate “Release Configaration，输入Staging</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/6342050-fbfc9b79199d4a3f..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="截图"></p>
+<ul>
+<li>选择Build Settings tab，搜索Build Location -&gt; Per-configuration Build Products Path -&gt; Staging，将之前的值：<code>$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)</code> 改为：<code>$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)</code></li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/6342050-369c31244b0f528f..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="截图"></p>
+<ul>
+<li>选择Build Settings tab，点击 + 号，选择Add User-Defined Setting，将key设置为<code>CODEPUSH_KEY</code>，Release 和 Staging的值为前面创建的key，我们直接复制进去即可</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/6342050-663dc2df47438cc5..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="截图"></p>
+<ul>
+<li>•    打开Info.plist文件，在<code>CodePushDeploymentKey</code>中输入<code>$(CODEPUSH_KEY)</code>，并修改<code>Bundle versions string,short</code>为三位</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/6342050-c4392091edc647a0..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="截图"></p>
+<h4 id="打包RN离线的jsbundle"><a href="#打包RN离线的jsbundle" class="headerlink" title="打包RN离线的jsbundle"></a>打包RN离线的jsbundle</h4><ol>
+<li><p>在package.json根目录创建文件夹relseae_ios， 执行如下命令打包成index.bundle<br><code>react-native bundle --entry-file index.js --platform ios --dev false --bundle-output relseae_ios/index.bundle --assets-dest relseae_ios</code></p>
+</li>
+<li><p>将index.bundle拷贝到当前目录<br><code>cp ./relseae_ios/index.bundle ./</code></p>
+</li>
+<li><p>开启本地服务，生成jsbundle<br>在根目录执行npm start<br>Ctrl+T 开启新窗口（确保在pakage.json根目录）<br>执行命令  <code>curl &#39;http://localhost:8081/index.bundle?dev=false&amp;minify=true&amp;platform=ios&#39; -o main.jsbundle</code></p>
+</li>
+<li><p>将main.jsbundle复制到relseae_ios目录下<br><code>cp ./main.jsbundle ./relseae_ios</code></p>
+</li>
+<li><p>将根目录里的<code>main.jsbundle</code>和<code>relseae_ios目录下的资源文件</code>拖拽至工程下 </p>
+</li>
+<li><p>设置Bundle离线包路径<br><code>jsCodeLocation = [[NSBundle mainBundle] URLForResource:@&quot;main&quot; withExtension:@&quot;jsbundle&quot;];</code></p>
+</li>
+</ol>
+<h4 id="发布RN更新jsbundle版本"><a href="#发布RN更新jsbundle版本" class="headerlink" title="发布RN更新jsbundle版本"></a>发布RN更新jsbundle版本</h4><ul>
+<li><p>原生AppDelegete里需要配置<br><code>jsCodeLocation = [CodePush bundleURL];</code></p>
+</li>
+<li><p>更新jsbundle 要用以下命令 在项目根目录里<br><code>code-push release TheOnlineTax ./relseae_ios/ 3.5.5 --des &quot;还原RN代码” --m true —-d Production</code></p>
+</li>
+</ul>
+<p><strong>注：</strong><br>强制更新 –m true<br>生产环境 –d Production </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">项目名称    TheOnlineTax    </span><br><span class="line">文件路径    ./relseae_ios/  </span><br><span class="line">项目版本号  3.5.5           </span><br><span class="line">更新描述    &quot;还原RN代码”</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查看更新情况</li>
+</ul>
+<p>生成环境 <code>code-push deployment history 项目名称 Production</code><br>开发环境 <code>code-push deployment history 项目名称 Staging</code><br>或者 <code>code-push deployment ls 项目名称</code></p>
+
       
     </div>
     
@@ -708,6 +471,38 @@
     
 
     <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2019/08/16/原生集成codePush热更新RN功能/">原生集成codePush热更新RN功能</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 陈浩 的个人博客">Nick</a></p>
+  <p><span>发布时间:</span>2019年08月16日 - 13:08</p>
+  <p><span>最后更新:</span>2019年08月16日 - 14:08</p>
+  <p><span>原始链接:</span><a href="/2019/08/16/原生集成codePush热更新RN功能/" title="原生集成codePush热更新RN功能">http://nickchenhao.github.io./2019/08/16/原生集成codePush热更新RN功能/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://nickchenhao.github.io./2019/08/16/原生集成codePush热更新RN功能/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> 转载请保留原文链接及作者，谢谢！</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
+
+
       
     </div>
 
@@ -719,14 +514,36 @@
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/热更新/" rel="tag"><i class="fa fa-tag"></i> 热更新</a>
+          
+        </div>
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/22/RN集成到原生应用/" rel="next" title="RN集成到原生应用">
+                <i class="fa fa-chevron-left"></i> RN集成到原生应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </div>
@@ -736,14 +553,11 @@
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -751,6 +565,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2019/08/16/原生集成codePush热更新RN功能/"
+           data-title="原生集成codePush热更新RN功能" data-url="http://nickchenhao.github.io./2019/08/16/原生集成codePush热更新RN功能/">
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -771,8 +596,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -836,6 +670,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考文章"><span class="nav-number">2.</span> <span class="nav-text">参考文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">3.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装code-push-cli"><span class="nav-number">3.1.</span> <span class="nav-text">安装code-push-cli</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册code-push账号"><span class="nav-number">3.2.</span> <span class="nav-text">注册code-push账号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在code-push服务器注册App"><span class="nav-number">3.3.</span> <span class="nav-text">在code-push服务器注册App</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RN代码中集成code-push-不熟悉先省略"><span class="nav-number">3.4.</span> <span class="nav-text">RN代码中集成code-push (不熟悉先省略)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原生应用中配置code-push"><span class="nav-number">3.5.</span> <span class="nav-text">原生应用中配置code-push</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打包RN离线的jsbundle"><span class="nav-number">3.6.</span> <span class="nav-text">打包RN离线的jsbundle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发布RN更新jsbundle版本"><span class="nav-number">3.7.</span> <span class="nav-text">发布RN更新jsbundle版本</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -976,6 +826,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
