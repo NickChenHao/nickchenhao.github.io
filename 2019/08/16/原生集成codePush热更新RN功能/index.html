@@ -96,7 +96,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6342050-369c31244b0f528f..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6342050-663dc2df47438cc5..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6342050-c4392091edc647a0..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
-<meta property="og:updated_time" content="2019-08-16T06:45:45.587Z">
+<meta property="og:updated_time" content="2019-08-30T06:06:16.431Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原生集成code-push热更新RN功能">
 <meta name="twitter:description" content="前言code-push是一个微软开发的云服务器。通过它，开发者可以直接在用户的设备上部署手机应用更新。code-push相当于一个中心仓库，开发者可以推送当前的更新（包括JS/HTML/CSS/IMAGE等）到code-push，然后应用将会查询是否有更新。虽然苹果禁了很多热更新，但是，code-push 还是可以用的。项目是 ReactNative 的，总结了下 iOS 的 code-push">
@@ -424,19 +424,19 @@
 <h4 id="RN代码中集成code-push-不熟悉先省略"><a href="#RN代码中集成code-push-不熟悉先省略" class="headerlink" title="RN代码中集成code-push (不熟悉先省略)"></a>RN代码中集成code-push (不熟悉先省略)</h4><h4 id="原生应用中配置code-push"><a href="#原生应用中配置code-push" class="headerlink" title="原生应用中配置code-push"></a>原生应用中配置code-push</h4><ul>
 <li>使用Xcode打开项目，Xcode的项目导航视图中的PROJECT下选择你的项目，选择Info页签 ，在Configurations节点下单击 + 按钮 ，选择Duplicate “Release Configaration，输入Staging</li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/6342050-fbfc9b79199d4a3f..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="截图"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6342050-fbfc9b79199d4a3f..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="avatar"></p>
 <ul>
 <li>选择Build Settings tab，搜索Build Location -&gt; Per-configuration Build Products Path -&gt; Staging，将之前的值：<code>$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)</code> 改为：<code>$(BUILD_DIR)/Release$(EFFECTIVE_PLATFORM_NAME)</code></li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/6342050-369c31244b0f528f..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="截图"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6342050-369c31244b0f528f..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="avatar"></p>
 <ul>
 <li>选择Build Settings tab，点击 + 号，选择Add User-Defined Setting，将key设置为<code>CODEPUSH_KEY</code>，Release 和 Staging的值为前面创建的key，我们直接复制进去即可</li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/6342050-663dc2df47438cc5..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="截图"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6342050-663dc2df47438cc5..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="avatar"></p>
 <ul>
 <li>•    打开Info.plist文件，在<code>CodePushDeploymentKey</code>中输入<code>$(CODEPUSH_KEY)</code>，并修改<code>Bundle versions string,short</code>为三位</li>
 </ul>
-<p><img src="https://upload-images.jianshu.io/upload_images/6342050-c4392091edc647a0..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="截图"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6342050-c4392091edc647a0..jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt="avatar"></p>
 <h4 id="打包RN离线的jsbundle"><a href="#打包RN离线的jsbundle" class="headerlink" title="打包RN离线的jsbundle"></a>打包RN离线的jsbundle</h4><ol>
 <li><p>在package.json根目录创建文件夹relseae_ios， 执行如下命令打包成index.bundle<br><code>react-native bundle --entry-file index.js --platform ios --dev false --bundle-output relseae_ios/index.bundle --assets-dest relseae_ios</code></p>
 </li>
@@ -482,7 +482,7 @@
   <p><span>本文标题:</span><a href="/2019/08/16/原生集成codePush热更新RN功能/">原生集成code-push热更新RN功能</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 陈浩 的个人博客">Nick</a></p>
   <p><span>发布时间:</span>2019年08月16日 - 13:08</p>
-  <p><span>最后更新:</span>2019年08月16日 - 14:08</p>
+  <p><span>最后更新:</span>2019年08月30日 - 14:08</p>
   <p><span>原始链接:</span><a href="/2019/08/16/原生集成codePush热更新RN功能/" title="原生集成code-push热更新RN功能">http://nickchenhao.github.io./2019/08/16/原生集成codePush热更新RN功能/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://nickchenhao.github.io./2019/08/16/原生集成codePush热更新RN功能/"  aria-label="复制成功！"></i></span>
   </p>
