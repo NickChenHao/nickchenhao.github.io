@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://nickchenhao.github.io./images/sonar目录.png">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6693936-15f9b678d17617f8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
 <meta property="og:image" content="http://nickchenhao.github.io./images/sonarqube配置.png">
-<meta property="og:updated_time" content="2019-09-03T06:09:31.636Z">
+<meta property="og:updated_time" content="2019-09-03T08:49:13.708Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sonar代码检测插件">
 <meta name="twitter:description" content="SonarQube®是一种自动代码审查工具，用于检测代码中的错误，漏洞和代码异味。它可以与您现有的工作流程集成，以便在项目分支和拉取请求之间进行连续的代码检查。">
@@ -464,7 +464,7 @@
 <li>修改 sonar-scanner.properties</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#----- Default SonarQube server</span><br><span class="line">sonar.host.url=http://localhost:9000/sonarqube</span><br><span class="line"></span><br><span class="line">#----- Default source code encoding</span><br><span class="line">sonar.sourceEncoding=UTF-8</span><br></pre></td></tr></table></figure>
-<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home </span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH:/usr/local/mysql/bin</span><br><span class="line">export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.</span><br><span class="line">export OCLINT_HOME=/usr/local/oclint-0.13</span><br><span class="line">export PATH=$OCLINT_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line">退出  :wq</span><br><span class="line">保存  source ~/.bash_profile</span><br><span class="line">验证  sonar-runner -version</span><br></pre></td></tr></table></figure>
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/ </span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH:/usr/local/mysql/bin</span><br><span class="line">export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.</span><br><span class="line">export OCLINT_HOME=/usr/local/oclint-0.13</span><br><span class="line">export PATH=$OCLINT_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line">退出  :wq</span><br><span class="line">保存  source ~/.bash_profile</span><br><span class="line">验证  sonar-runner -version</span><br></pre></td></tr></table></figure>
 <p>修改完成保存后，终端执行<br><code>cd /usr/local/sonarqube-7.1/bin/macosx-universal-64</code> 和 <code>./sonar.sh start</code><br>打开浏览器访问<a href="http://localhost:9000" target="_blank" rel="external">http://localhost:9000</a> 若正常进入则配置成功</p>
 <p><strong>安装中文插件</strong><br><img src="https://upload-images.jianshu.io/upload_images/6693936-15f9b678d17617f8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp" alt=""></p>
 <h4 id="项目内需要的两个文件（根目录）"><a href="#项目内需要的两个文件（根目录）" class="headerlink" title="项目内需要的两个文件（根目录）"></a>项目内需要的两个文件（根目录）</h4><p><a href="/download/run-sonar.sh">run-sonar.sh</a><br><a href="/download/sonar-project.properties">sonar-project.properties</a>（可修改对应的项目名称、版本号）</p>
@@ -527,7 +527,7 @@
   <p><span>本文标题:</span><a href="/2019/08/27/sonar代码检测插件/">sonar代码检测插件</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 陈浩 的个人博客">Nick</a></p>
   <p><span>发布时间:</span>2019年08月27日 - 09:08</p>
-  <p><span>最后更新:</span>2019年09月03日 - 14:09</p>
+  <p><span>最后更新:</span>2019年09月03日 - 16:09</p>
   <p><span>原始链接:</span><a href="/2019/08/27/sonar代码检测插件/" title="sonar代码检测插件">http://nickchenhao.github.io./2019/08/27/sonar代码检测插件/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://nickchenhao.github.io./2019/08/27/sonar代码检测插件/"  aria-label="复制成功！"></i></span>
   </p>
