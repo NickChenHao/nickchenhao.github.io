@@ -90,7 +90,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="自定义View 跳转不同界面方法">
 <meta property="og:url" content="http://nickchenhao.github.io./2016/07/02/%E8%87%AA%E5%AE%9A%E4%B9%89View%20%E8%B7%B3%E8%BD%AC%E4%B8%8D%E5%90%8C%E7%95%8C%E9%9D%A2%E6%96%B9%E6%B3%95/index.html">
-<meta property="og:site_name" content="Nick">
+<meta property="og:site_name" content="陈某人">
 <meta property="og:description" content="自定义View 跳转不同界面方法有时候，我们在自定义UIView 的时候 ， 很有可能 会在这个View 进行页面跳转，但是， 你会发现， 那些 push  和  pop 方法  都没什么用  ，那是因为 当一个子view需要接收点击事件，而父view也需要接收点击事件  当然，你可能会说直接调用mysubview.superView即可，这样做也确实是可以做到，但有时子view是不一定知道有这个">
 <meta property="og:locale">
 <meta property="article:published_time" content="2016-07-01T16:00:00.000Z">
@@ -107,7 +107,7 @@
     root: '',
     scheme: 'Mist',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -133,7 +133,7 @@
 
 
 
-  <title>自定义View 跳转不同界面方法 | Nick</title>
+  <title>自定义View 跳转不同界面方法 | 陈某人</title>
   
 
 
@@ -165,7 +165,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Nick</span>
+        <span class="site-title">陈某人</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -311,11 +311,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/16940026?s=460&v=4">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nick">
+      <meta itemprop="name" content="陈某人">
     </span>
 
     
@@ -560,6 +560,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/16940026?s=460&v=4"
+                alt="" />
+            
               <p class="site-author-name" itemprop="name"></p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -635,6 +639,13 @@
       
 
       
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
 
     </div>
     
@@ -681,11 +692,6 @@
       </div>
     </footer>
 
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
     
 
     

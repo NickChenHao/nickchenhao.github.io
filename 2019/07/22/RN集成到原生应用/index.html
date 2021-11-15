@@ -90,7 +90,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="RN集成到原生应用">
 <meta property="og:url" content="http://nickchenhao.github.io./2019/07/22/RN%E9%9B%86%E6%88%90%E5%88%B0%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/index.html">
-<meta property="og:site_name" content="Nick">
+<meta property="og:site_name" content="陈某人">
 <meta property="og:description" content="参考集成到现有原生应用将RN集成到iOS原生项目中RN嵌入到现有iOS原生应用将RN工程嵌入到现有iOS原生应用 说明虽然看了ReactNative官网还有网上的这些资料，有说怎么集成，但多多少少感觉不太对，写出来也是有问题，所以在这里记录一下集成成功的步骤，减少踩坑！">
 <meta property="og:locale">
 <meta property="og:image" content="http://nickchenhao.github.io./images/RN集成原生项目修改info文件.png">
@@ -109,7 +109,7 @@
     root: '',
     scheme: 'Mist',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -135,7 +135,7 @@
 
 
 
-  <title>RN集成到原生应用 | Nick</title>
+  <title>RN集成到原生应用 | 陈某人</title>
   
 
 
@@ -167,7 +167,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Nick</span>
+        <span class="site-title">陈某人</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -313,11 +313,11 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/16940026?s=460&v=4">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Nick">
+      <meta itemprop="name" content="陈某人">
     </span>
 
     
@@ -593,6 +593,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars3.githubusercontent.com/u/16940026?s=460&v=4"
+                alt="" />
+            
               <p class="site-author-name" itemprop="name"></p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -668,6 +672,13 @@
       
 
       
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
 
     </div>
     
@@ -714,11 +725,6 @@
       </div>
     </footer>
 
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
     
 
     
