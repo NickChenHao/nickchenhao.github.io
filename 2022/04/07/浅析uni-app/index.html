@@ -100,7 +100,7 @@
 <meta property="og:image" content="http://nickchenhao.github.io./images/uni-app组件生命周期.png">
 <meta property="og:image" content="http://nickchenhao.github.io./images/Weex架构.png">
 <meta property="article:published_time" content="2022-04-07T03:20:35.000Z">
-<meta property="article:modified_time" content="2022-04-08T02:46:44.971Z">
+<meta property="article:modified_time" content="2022-04-08T03:48:55.606Z">
 <meta property="article:author" content="陈某人">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://nickchenhao.github.io./images/vue.png">
@@ -471,13 +471,13 @@
 <h5 id="Weex架构"><a href="#Weex架构" class="headerlink" title="Weex架构"></a>Weex架构</h5><p><img src="/images/Weex架构.png" alt=""><br>（Weex SDK后来的版本直接内置了vue2x）</p>
 <p>DSL(领域特定语言)层可以理解为就是前端框架层，也就是用VuE或者其他前端UI库，<br>DSL编写的页面结构，会转换成Virtual Dom(虚拟DOM,DOM的JS对象表示)，Virtua最<br>终会被传递到容器（宿主）上进行解析，最终渲染成原生或者Web控件。</p>
 <h5 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h5><p>在RN中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RN 是 React 在原生移动应用平台的衍生产物，那两者主要的区别是什么呢？主要的区别在于虚拟 DOM 映射的对象是什么。React 中虚拟 DOM 最终会映射为浏览器 DOM 树，而 RN 中虚拟 DOM 会通过 JavaScriptCore 映射为原生控件树。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">RN 是 React 在原生移动应用平台的衍生产物，那两者主要的区别是什么呢？</span><br><span class="line">主要的区别在于虚拟 DOM 映射的对象是什么。</span><br><span class="line">React 中虚拟 DOM 最终会映射为浏览器 DOM 树，</span><br><span class="line">而 RN 中虚拟 DOM 会通过 JavaScriptCore 映射为原生控件树。</span><br></pre></td></tr></table></figure>
 <p>在WEEX中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weex 会编译构建虚拟 DOM，并发送渲染指令给 RenderEngine 层，这样，同样一份 JSON 数据，在不同平台的渲染引擎中能够渲染成不同版本的 UI，这是 Weex 可以实现动态化的原因。weex 在 RN 的  JS V8 引擎基础上，多了 JS Framework 承当了重要的职责，它主要负责：管理 Weex 的生命周期；解析 JS Bundle，转为 Virtual DOM，再通过所在平台不同的 API 构建页面；进行双向的数据交互和响应。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">weex 会编译构建虚拟 DOM，并发送渲染指令给 RenderEngine 层，</span><br><span class="line">这样，同样一份 JSON 数据，在不同平台的渲染引擎中能够渲染成不同版本的 UI，</span><br><span class="line">这是 Weex 可以实现动态化的原因。</span><br><span class="line">weex 在 RN 的  JS V8 引擎基础上，多了 JS Framework 承当了重要的职责，</span><br><span class="line">它主要负责：管理 Weex 的生命周期；解析 JS Bundle，转为 Virtual DOM，</span><br><span class="line">再通过所在平台不同的 API 构建页面；进行双向的数据交互和响应。</span><br></pre></td></tr></table></figure>
 <p>在Flutter中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">有三颗重要的树：</span><br><span class="line">	· Widget 树：控件树，表示了我们在 dart 代码中所写的控件的结构，但这只是描述信息，渲染引擎是不认识的。 相当于虚拟的DOM</span><br><span class="line">	· Element 数：实际控件树，Flutter 会根据 Widget 树信息生成控件对应的 Element 树，一个 Widget 通过多次复用可以对应多个 Element 实例，Element 才是我们真正在屏幕上显示的元素。</span><br><span class="line">	· RenderObject 树：渲染树，做组件布局渲染工作，包含渲染搭配、布局约束等信息。	</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">有三颗重要的树：</span><br><span class="line">· Widget 树：控件树，表示了我们在 dart 代码中所写的控件的结构，</span><br><span class="line">但这只是描述信息，渲染引擎是不认识的。 相当于虚拟的DOM</span><br><span class="line">· Element 数：实际控件树，Flutter 会根据 Widget 树信息生成控件对应的 Element 树，</span><br><span class="line">一个 Widget 通过多次复用可以对应多个 Element 实例，Element 才是我们真正在屏幕上显示的元素。</span><br><span class="line">· RenderObject 树：渲染树，做组件布局渲染工作，包含渲染搭配、布局约束等信息。	</span><br></pre></td></tr></table></figure>
 <p>对于跨平台来说</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">虚拟DOM真正的价值从来都不是性能，而是不管数据怎么变化，都可以用最小的代价来更新</span><br><span class="line">DOM,而且掩盖了底层的DOM操作，让你用更声明式的方式来描述你的目的，从而让你的代码更</span><br><span class="line">容易维护。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">虚拟DOM真正的价值从来都不是性能，而是不管数据怎么变化，</span><br><span class="line">都可以用最小的代价来更新DOM,而且掩盖了底层的DOM操作，</span><br><span class="line">让你用更声明式的方式来描述你的目的，从而让你的代码更容易维护。</span><br></pre></td></tr></table></figure>
 <h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a target="_blank" rel="noopener" href="https://ask.dcloud.net.cn/article/35657">白话uni-app</a><br><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/single-file-components.html">vue单文件组件规范</a><br><a target="_blank" rel="noopener" href="https://uniapp.dcloud.io">uni-app官网</a></p>
 
       
@@ -498,7 +498,7 @@
   <p><span>本文标题:</span><a href="/2022/04/07/%E6%B5%85%E6%9E%90uni-app/">浅析uni-app</a></p>
   <p><span>文章作者:</span><a href="/" title="访问  的个人博客">Nick</a></p>
   <p><span>发布时间:</span>2022年04月07日 - 11:04</p>
-  <p><span>最后更新:</span>2022年04月08日 - 10:04</p>
+  <p><span>最后更新:</span>2022年04月08日 - 11:04</p>
   <p><span>原始链接:</span><a href="/2022/04/07/%E6%B5%85%E6%9E%90uni-app/" title="浅析uni-app">http://nickchenhao.github.io./2022/04/07/%E6%B5%85%E6%9E%90uni-app/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://nickchenhao.github.io./2022/04/07/%E6%B5%85%E6%9E%90uni-app/"  aria-label="复制成功！"></i></span>
   </p>
