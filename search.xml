@@ -1659,7 +1659,7 @@ ex:DES和3DES的分组长度都是64比特。即每次只能加密64比特的明
     <url>/2022/04/07/%E6%B5%85%E6%9E%90uni-app/</url>
     <content><![CDATA[<p>uni-app 是一个使用 Vue.js 开发所有前端应用的框架，开发者编写一套代码，可发布到iOS、Android、Web（响应式）、以及各种小程序（微信/支付宝/百度/头条/QQ/钉钉/淘宝）、快应用等多个平台。</p>
 <span id="more"></span>
-<h3 id="Vue-js简介"><a href="#Vue-js简介" class="headerlink" title="Vue.js简介"></a>Vue.js简介</h3><p><img src="/images/vue.png" alt=""></p>
+<h3 id="Vue-js简介"><a href="#Vue-js简介" class="headerlink" title="Vue.js简介"></a>Vue.js简介</h3><p><img src="/images/vue.png" alt=""><br><a href="https://www.zhihu.com/question/51907207">渐进式框架、自底向上增量开发概念</a></p>
 <h4 id="Vue目录结构"><a href="#Vue目录结构" class="headerlink" title="Vue目录结构"></a>Vue目录结构</h4><table>
 <thead>
 <tr>
