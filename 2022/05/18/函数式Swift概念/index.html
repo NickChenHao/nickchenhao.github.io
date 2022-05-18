@@ -94,7 +94,7 @@
 <meta property="og:description" content="我们希望让函数式编程易于理解，并消除人们对它的一些偏见。使用这些理念去改善你的代码并不需要你拥有数学的博士学位！函数式编程并不是 Swift 编程的唯一方式。但是我们相信学习函数式编程会为你的工具箱添加一件重要的新工具，不论你使用那种语言，这件工具都会让你成为一个更好的开发者。引自《函数式Swift》">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-05-18T07:38:37.000Z">
-<meta property="article:modified_time" content="2022-05-18T09:45:46.400Z">
+<meta property="article:modified_time" content="2022-05-18T09:48:47.498Z">
 <meta property="article:author" content="陈某人">
 <meta name="twitter:card" content="summary">
 
@@ -405,33 +405,30 @@
 
       
         <p>我们希望让函数式编程易于理解，并消除人们对它的一些偏见。使用这些理念去改善你的代码并不需要你拥有数学的博士学位！函数式编程并不是 Swift 编程的唯一方式。但是我们相信学习函数式编程会为你的工具箱添加一件重要的新工具，不论你使用那种语言，这件工具都会让你成为一个更好的开发者。<br>引自《函数式Swift》<br><span id="more"></span></p>
-<h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><ul>
-<li>什么是面向过程？</li>
-<li>什么是函数？</li>
-<li>什么是高阶函数？</li>
-<li>什么是函数式编程？</li>
-<li>什么是纯函数式编程语言？</li>
-<li>什么是柯里化(Currying)？</li>
-</ul>
-<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><h5 id="什么是面向过程？"><a href="#什么是面向过程？" class="headerlink" title="什么是面向过程？"></a>什么是面向过程？</h5><p>通过把大段代码拆成函数，通过一层一层的函数调用，就可以把复杂任务分解成简单的任务</p>
-<h5 id="什么是函数？"><a href="#什么是函数？" class="headerlink" title="什么是函数？"></a>什么是函数？</h5><p>函数是一种封装，是面向过程的程序设计的基本单元。</p>
-<h5 id="什么是高阶函数？"><a href="#什么是高阶函数？" class="headerlink" title="什么是高阶函数？"></a>什么是高阶函数？</h5><p>函数式编程的一个特点就是，允许把函数本身作为参数传入另一个函数，还允许返回一个函数！</p>
+<h4 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h4><h6 id="什么是面向过程？"><a href="#什么是面向过程？" class="headerlink" title="什么是面向过程？"></a>什么是面向过程？</h6><h6 id="什么是函数？"><a href="#什么是函数？" class="headerlink" title="什么是函数？"></a>什么是函数？</h6><h6 id="什么是高阶函数？"><a href="#什么是高阶函数？" class="headerlink" title="什么是高阶函数？"></a>什么是高阶函数？</h6><h6 id="什么是函数式编程？"><a href="#什么是函数式编程？" class="headerlink" title="什么是函数式编程？"></a>什么是函数式编程？</h6><h6 id="什么是纯函数式编程语言？"><a href="#什么是纯函数式编程语言？" class="headerlink" title="什么是纯函数式编程语言？"></a>什么是纯函数式编程语言？</h6><h6 id="什么是柯里化-Currying-？"><a href="#什么是柯里化-Currying-？" class="headerlink" title="什么是柯里化(Currying)？"></a>什么是柯里化(Currying)？</h6><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><h5 id="什么是面向过程？-1"><a href="#什么是面向过程？-1" class="headerlink" title="什么是面向过程？"></a>什么是面向过程？</h5><p>通过把大段代码拆成函数，通过一层一层的函数调用，就可以把复杂任务分解成简单的任务</p>
+<h5 id="什么是函数？-1"><a href="#什么是函数？-1" class="headerlink" title="什么是函数？"></a>什么是函数？</h5><p>函数是一种封装，是面向过程的程序设计的基本单元。</p>
+<h5 id="什么是高阶函数？-1"><a href="#什么是高阶函数？-1" class="headerlink" title="什么是高阶函数？"></a>什么是高阶函数？</h5><p>函数式编程的一个特点就是，允许把函数本身作为参数传入另一个函数，还允许返回一个函数！</p>
 <p>至少满足一个条件：</p>
 <ul>
 <li>接受一个或多个函数作为输入（map、filter、reduce等）</li>
 <li>返回一个函数</li>
 </ul>
-<h5 id="什么是函数式编程？"><a href="#什么是函数式编程？" class="headerlink" title="什么是函数式编程？"></a>什么是函数式编程？</h5><p>（Funtional Programming,简称FP）是一种编程范式，也就是如何编写程序的方法论<br>类似的还有面向协议编程、响应式编程等</p>
+<h5 id="什么是函数式编程？-1"><a href="#什么是函数式编程？-1" class="headerlink" title="什么是函数式编程？"></a>什么是函数式编程？</h5><p>（Funtional Programming,简称FP）是一种编程范式，也就是如何编写程序的方法论<br>类似的还有面向协议编程、响应式编程等</p>
 <ul>
 <li>主要思想：把计算过程尽量分解成一系列可复用函数的调用</li>
 <li>主要特征：函数是“第一等公民” ，与其他数据类型一样的地位，可以赋值给其他变量，也可以作为函数参数、返回值</li>
 <li>支持的语言：Haskell、Scala、javaScript、Python、Swift等</li>
 </ul>
-<h5 id="什么是纯函数式编程语言？"><a href="#什么是纯函数式编程语言？" class="headerlink" title="什么是纯函数式编程语言？"></a>什么是纯函数式编程语言？</h5><p>纯粹的函数式编程语言编写的函数没有变量，因此，任意一个函数，只要输入是确定的，输出就是确定的<br>swift允许使用变量，所以它和Python一样 不是纯函数式编程语言</p>
+<h5 id="什么是纯函数式编程语言？-1"><a href="#什么是纯函数式编程语言？-1" class="headerlink" title="什么是纯函数式编程语言？"></a>什么是纯函数式编程语言？</h5><p>纯粹的函数式编程语言编写的函数没有变量，因此，任意一个函数，只要输入是确定的，输出就是确定的<br>swift允许使用变量，所以它和Python一样 不是纯函数式编程语言</p>
 <h5 id="什么是柯里化？"><a href="#什么是柯里化？" class="headerlink" title="什么是柯里化？"></a>什么是柯里化？</h5><p>将一个接受多参数的函数变换为一系列只接受单个参数的函数</p>
-<h4 id="函数式Swift应该有的特点？"><a href="#函数式Swift应该有的特点？" class="headerlink" title="函数式Swift应该有的特点？"></a>函数式Swift应该有的特点？</h4><h5 id="模块化："><a href="#模块化：" class="headerlink" title="模块化："></a>模块化：</h5><p>相较于把程序认为是一系列赋值和方法调用，函数式开发者更倾向于强调每个程序都能够被反复分解为越来越小的模块单元，而所有这些块可以通过函数装配起来，以定义一个完整的程序。当然，只有当我们能够避免在两个独立组件之间共享状态时，才能将一个大型程序分解为更小的单元。这引出我们的下一个关注特质。</p>
-<h5 id="对可变状态的谨慎处理："><a href="#对可变状态的谨慎处理：" class="headerlink" title="对可变状态的谨慎处理："></a>对可变状态的谨慎处理：</h5><p>函数式编程有时候 (被半开玩笑地) 称为“面向值编程”。面向对象编程专注于类和对象的设计，每个类和对象都有它们自己的封装状态。然而，函数式编程强调基于值编程的重要性，这能使我们免受可变状态或其他一些副作用的困扰。通过避免可变状态，函数式程序比其对应的命令式或者面向对象的程序更容易组合。</p>
-<h5 id="类型："><a href="#类型：" class="headerlink" title="类型："></a>类型：</h5><p>最后，一个设计良好的函数式程序在使用类型时应该相当谨慎。精心选择你的数据和函数的类型，将会有助于构建你的代码，这比其他东西都重要。Swift 有一个强大的类型系统，使用得当的话，它能够让你的代码更加安全和健壮。</p>
+<h4 id="函数式Swift应该有的特点？"><a href="#函数式Swift应该有的特点？" class="headerlink" title="函数式Swift应该有的特点？"></a>函数式Swift应该有的特点？</h4><ul>
+<li><p>模块化：<br>相较于把程序认为是一系列赋值和方法调用，函数式开发者更倾向于强调每个程序都能够被反复分解为越来越小的模块单元，而所有这些块可以通过函数装配起来，以定义一个完整的程序。当然，只有当我们能够避免在两个独立组件之间共享状态时，才能将一个大型程序分解为更小的单元。这引出我们的下一个关注特质。</p>
+</li>
+<li><p>对可变状态的谨慎处理：<br>函数式编程有时候 (被半开玩笑地) 称为“面向值编程”。面向对象编程专注于类和对象的设计，每个类和对象都有它们自己的封装状态。然而，函数式编程强调基于值编程的重要性，这能使我们免受可变状态或其他一些副作用的困扰。通过避免可变状态，函数式程序比其对应的命令式或者面向对象的程序更容易组合。</p>
+</li>
+<li><p>类型：<br>最后，一个设计良好的函数式程序在使用类型时应该相当谨慎。精心选择你的数据和函数的类型，将会有助于构建你的代码，这比其他东西都重要。Swift 有一个强大的类型系统，使用得当的话，它能够让你的代码更加安全和健壮。</p>
+</li>
+</ul>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>swift虽然支持函数式编程，然而在实际开发的时候，纯函数编程并非好的选择，而且由于数据的不可变性放弃了执行机可以反复擦写内存属性，所以并不能做到高效的算法，不能保证性能，但是好在swift是一门支持多编程范式的语言，在合适的地方使用合适的方法才是我们需要去做的。</p>
 <h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="/download/函数式Swift.zip">函数式Swift 电子书</a><br><a target="_blank" rel="noopener" href="https://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html">functors,_applicatives,_and_monads_in_pictures</a><br><a target="_blank" rel="noopener" href="https://mokacoding.com/blog/functor-applicative-monads-in-pictures/">Swift Functors, Applicatives, and Monads in Pictures</a></p>
 
@@ -643,7 +640,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%80%83"><span class="nav-number">1.</span> <span class="nav-text">思考</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">什么是面向过程？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">什么是函数？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="nav-number">2.3.</span> <span class="nav-text">什么是高阶函数？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%9F"><span class="nav-number">2.4.</span> <span class="nav-text">什么是函数式编程？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%AF%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%EF%BC%9F"><span class="nav-number">2.5.</span> <span class="nav-text">什么是纯函数式编程语言？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%9F%AF%E9%87%8C%E5%8C%96%EF%BC%9F"><span class="nav-number">2.6.</span> <span class="nav-text">什么是柯里化？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8FSwift%E5%BA%94%E8%AF%A5%E6%9C%89%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">函数式Swift应该有的特点？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">模块化：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E5%8F%AF%E5%8F%98%E7%8A%B6%E6%80%81%E7%9A%84%E8%B0%A8%E6%85%8E%E5%A4%84%E7%90%86%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">对可变状态的谨慎处理：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%EF%BC%9A"><span class="nav-number">3.3.</span> <span class="nav-text">类型：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%80%83"><span class="nav-number">1.</span> <span class="nav-text">思考</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%EF%BC%9F"><span class="nav-number">1.0.1.</span> <span class="nav-text">什么是面向过程？</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="nav-number">1.0.2.</span> <span class="nav-text">什么是函数？</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="nav-number">1.0.3.</span> <span class="nav-text">什么是高阶函数？</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%9F"><span class="nav-number">1.0.4.</span> <span class="nav-text">什么是函数式编程？</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%AF%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%EF%BC%9F"><span class="nav-number">1.0.5.</span> <span class="nav-text">什么是纯函数式编程语言？</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%9F%AF%E9%87%8C%E5%8C%96-Currying-%EF%BC%9F"><span class="nav-number">1.0.6.</span> <span class="nav-text">什么是柯里化(Currying)？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%EF%BC%9F-1"><span class="nav-number">2.1.</span> <span class="nav-text">什么是面向过程？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0%EF%BC%9F-1"><span class="nav-number">2.2.</span> <span class="nav-text">什么是函数？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%EF%BC%9F-1"><span class="nav-number">2.3.</span> <span class="nav-text">什么是高阶函数？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%9F-1"><span class="nav-number">2.4.</span> <span class="nav-text">什么是函数式编程？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%AF%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%EF%BC%9F-1"><span class="nav-number">2.5.</span> <span class="nav-text">什么是纯函数式编程语言？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%9F%AF%E9%87%8C%E5%8C%96%EF%BC%9F"><span class="nav-number">2.6.</span> <span class="nav-text">什么是柯里化？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8FSwift%E5%BA%94%E8%AF%A5%E6%9C%89%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">函数式Swift应该有的特点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
             
 
           </div>
