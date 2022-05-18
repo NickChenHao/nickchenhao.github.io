@@ -1781,7 +1781,7 @@ ex:DES和3DES的分组长度都是64比特。即每次只能加密64比特的明
 <h5 id="对可变状态的谨慎处理："><a href="#对可变状态的谨慎处理：" class="headerlink" title="对可变状态的谨慎处理："></a>对可变状态的谨慎处理：</h5><p>函数式编程有时候 (被半开玩笑地) 称为“面向值编程”。面向对象编程专注于类和对象的设计，每个类和对象都有它们自己的封装状态。然而，函数式编程强调基于值编程的重要性，这能使我们免受可变状态或其他一些副作用的困扰。通过避免可变状态，函数式程序比其对应的命令式或者面向对象的程序更容易组合。</p>
 <h5 id="类型："><a href="#类型：" class="headerlink" title="类型："></a>类型：</h5><p>最后，一个设计良好的函数式程序在使用类型时应该相当谨慎。精心选择你的数据和函数的类型，将会有助于构建你的代码，这比其他东西都重要。Swift 有一个强大的类型系统，使用得当的话，它能够让你的代码更加安全和健壮。</p>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>swift虽然支持函数式编程，然而在实际开发的时候，纯函数编程并非好的选择，而且由于数据的不可变性放弃了执行机可以反复擦写内存属性，所以并不能做到高效的算法，不能保证性能，但是好在swift是一门支持多编程范式的语言，在合适的地方使用合适的方法才是我们需要去做的。</p>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="/download/函数式Swift.zip">函数式Swift.zip</a></p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="/download/函数式Swift.zip">函数式Swift 电子书</a><br><a href="https://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html">functors,_applicatives,_and_monads_in_pictures</a><br><a href="https://mokacoding.com/blog/functor-applicative-monads-in-pictures/">Swift Functors, Applicatives, and Monads in Pictures</a></p>
 ]]></content>
       <categories>
         <category>Swift</category>
