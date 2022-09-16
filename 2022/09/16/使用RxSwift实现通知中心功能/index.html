@@ -86,15 +86,15 @@
 
 
 
-<meta name="description" content="什么是通知Swift的消息通知机制(Notification)算是同步的，观察者只要向消息中心注册， 即可接受其他对象发送来的消息，消息发送者和消息接受者两者可以互相一无所知，完全解耦。这种消息通知机制可以应用于任意时间和任何对象，观察者可以有多个，所以消息具有广播的性质，只是需要注意的是，观察者向消息中心注册以后，在不需要接受消息时需要向消息中心注销，属于典型的 观察者模式。 Notificat">
+<meta name="description" content="什么是通知Swift的消息通知机制(Notification)算是同步的，观察者只要向消息中心注册， 即可接受其他对象发送来的消息，消息发送者和消息接受者两者可以互相一无所知，完全解耦。这种消息通知机制可以应用于任意时间和任何对象，观察者可以有多个，所以消息具有广播的性质，只是需要注意的是，观察者向消息中心注册以后，在不需要接受消息时需要向消息中心注销，属于典型的 观察者模式。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用RxSwift实现通知中心功能">
 <meta property="og:url" content="http://nickchenhao.github.io./2022/09/16/%E4%BD%BF%E7%94%A8RxSwift%E5%AE%9E%E7%8E%B0%E9%80%9A%E7%9F%A5%E4%B8%AD%E5%BF%83%E5%8A%9F%E8%83%BD/index.html">
 <meta property="og:site_name" content="陈某人">
-<meta property="og:description" content="什么是通知Swift的消息通知机制(Notification)算是同步的，观察者只要向消息中心注册， 即可接受其他对象发送来的消息，消息发送者和消息接受者两者可以互相一无所知，完全解耦。这种消息通知机制可以应用于任意时间和任何对象，观察者可以有多个，所以消息具有广播的性质，只是需要注意的是，观察者向消息中心注册以后，在不需要接受消息时需要向消息中心注销，属于典型的 观察者模式。 Notificat">
+<meta property="og:description" content="什么是通知Swift的消息通知机制(Notification)算是同步的，观察者只要向消息中心注册， 即可接受其他对象发送来的消息，消息发送者和消息接受者两者可以互相一无所知，完全解耦。这种消息通知机制可以应用于任意时间和任何对象，观察者可以有多个，所以消息具有广播的性质，只是需要注意的是，观察者向消息中心注册以后，在不需要接受消息时需要向消息中心注销，属于典型的 观察者模式。">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-09-16T01:48:45.000Z">
-<meta property="article:modified_time" content="2022-09-16T07:26:02.491Z">
+<meta property="article:modified_time" content="2022-09-16T07:34:39.922Z">
 <meta property="article:author" content="陈某人">
 <meta property="article:tag" content="RxSwift">
 <meta name="twitter:card" content="summary">
@@ -405,7 +405,7 @@
       
 
       
-        <h3 id="什么是通知"><a href="#什么是通知" class="headerlink" title="什么是通知"></a>什么是通知</h3><p>Swift的消息通知机制(Notification)算是同步的，观察者只要向消息中心注册， 即可接受其他对象发送来的消息，消息发送者和消息接受者两者可以互相一无所知，完全解耦。这种消息通知机制可以应用于任意时间和任何对象，观察者可以有多个，所以消息具有广播的性质，只是需要注意的是，观察者向消息中心注册以后，在不需要接受消息时需要向消息中心注销，属于典型的 <font color='red'><strong>观察者模式</strong></font>。<br><!-- 查看更多 --></p>
+        <h3 id="什么是通知"><a href="#什么是通知" class="headerlink" title="什么是通知"></a>什么是通知</h3><p>Swift的消息通知机制(Notification)算是同步的，观察者只要向消息中心注册， 即可接受其他对象发送来的消息，消息发送者和消息接受者两者可以互相一无所知，完全解耦。这种消息通知机制可以应用于任意时间和任何对象，观察者可以有多个，所以消息具有广播的性质，只是需要注意的是，观察者向消息中心注册以后，在不需要接受消息时需要向消息中心注销，属于典型的 <font color='red'><strong>观察者模式</strong></font>。<br><span id="more"></span></p>
 <h4 id="Notification"><a href="#Notification" class="headerlink" title="Notification"></a>Notification</h4><p>是消息的载体。它可以携带一些信息给消息的接受者。通过它我们还可以获取一些消息的一些基本信息。<br>有三个常用的属性：</p>
 <ul>
 <li>name: Notification.Name？ 通知的名称，用来标示一个通知，一般为字符串</li>
