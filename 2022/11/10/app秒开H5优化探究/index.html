@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="WKWebView," />
 
 
 
@@ -86,14 +86,17 @@
 
 
 
-<meta name="description" content="越努力,越幸运...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈某人">
-<meta property="og:url" content="http://nickchenhao.github.io./categories/RN/index.html">
+<meta name="description" content="为什么要做优化？Global Web Performance Matters for ecommerce 的报告中指出：47%的用户更在乎网页在2秒内是否完成加载。52%的在线用户认为网页打开速度影响到他们对网站的忠实度。每慢1秒造成页面 PV 降低11%，用户满意度也随之降低降低16%。近半数移动用户因为在10秒内仍未打开页面从而放弃。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="app秒开H5优化探究">
+<meta property="og:url" content="http://nickchenhao.github.io./2022/11/10/app%E7%A7%92%E5%BC%80H5%E4%BC%98%E5%8C%96%E6%8E%A2%E7%A9%B6/index.html">
 <meta property="og:site_name" content="陈某人">
-<meta property="og:description" content="越努力,越幸运...">
+<meta property="og:description" content="为什么要做优化？Global Web Performance Matters for ecommerce 的报告中指出：47%的用户更在乎网页在2秒内是否完成加载。52%的在线用户认为网页打开速度影响到他们对网站的忠实度。每慢1秒造成页面 PV 降低11%，用户满意度也随之降低降低16%。近半数移动用户因为在10秒内仍未打开页面从而放弃。">
 <meta property="og:locale">
+<meta property="article:published_time" content="2022-11-10T01:48:19.000Z">
+<meta property="article:modified_time" content="2022-11-10T10:12:19.068Z">
 <meta property="article:author" content="陈某人">
+<meta property="article:tag" content="WKWebView">
 <meta name="twitter:card" content="summary">
 
 
@@ -124,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://nickchenhao.github.io./categories/RN/"/>
+  <link rel="canonical" href="http://nickchenhao.github.io./2022/11/10/app秒开H5优化探究/"/>
 
 
 
 
 
-  <title>分类: RN | 陈某人</title>
+  <title>app秒开H5优化探究 | 陈某人</title>
   
 
 
@@ -149,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     
   <a target="_blank" rel="noopener" href="https://github.com/NickChenHao" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
@@ -289,55 +292,263 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>RN<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2022/11/10/app%E7%A7%92%E5%BC%80H5%E4%BC%98%E5%8C%96%E6%8E%A2%E7%A9%B6/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/16940026?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈某人">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/08/16/%E5%8E%9F%E7%94%9F%E9%9B%86%E6%88%90codePush%E7%83%AD%E6%9B%B4%E6%96%B0RN%E5%8A%9F%E8%83%BD/" itemprop="url">
-              
-                <span itemprop="name">原生集成code-push热更新RN功能</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">app秒开H5优化探究</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-16T13:37:26+08:00"
-              content="2019-08-16" >
-          08-16
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-10T09:48:19+08:00">
+                2022-11-10
+              </time>
+            
 
-    </header>
-  </article>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index">
+                    <span itemprop="name">性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/11/10/app%E7%A7%92%E5%BC%80H5%E4%BC%98%E5%8C%96%E6%8E%A2%E7%A9%B6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2022/11/10/app%E7%A7%92%E5%BC%80H5%E4%BC%98%E5%8C%96%E6%8E%A2%E7%A9%B6/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="为什么要做优化？"><a href="#为什么要做优化？" class="headerlink" title="为什么要做优化？"></a>为什么要做优化？</h2><p>Global Web Performance Matters for ecommerce 的报告中指出：<br>47%的用户更在乎网页在2秒内是否完成加载。<br>52%的在线用户认为网页打开速度影响到他们对网站的忠实度。<br>每慢1秒造成页面 PV 降低11%，用户满意度也随之降低降低16%。<br>近半数移动用户因为在10秒内仍未打开页面从而放弃。</p>
+<span id="more"></span>
+<h2 id="WebView加载H5页面过程"><a href="#WebView加载H5页面过程" class="headerlink" title="WebView加载H5页面过程"></a>WebView加载H5页面过程</h2><p>初始化 webview -&gt; 请求页面 -&gt; 下载数据 -&gt; 解析HTML -&gt; 请求 js/css 资源 -&gt; dom 渲染 -&gt; 解析 JS 执行 -&gt; JS 请求数据 -&gt; 解析渲染 -&gt; 下载渲染图片</p>
+<h3 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h3><ul>
+<li><p>前端优化</p>
+<ul>
+<li>合并资源，减少http请求数</li>
+<li>加快请求速度：预解析DNS，减少域名数，并行加载，CDN 分发</li>
+</ul>
+</li>
+<li><p>客户端优化</p>
+<ul>
+<li>离线包方案：把一个个功能模块的所有相关页面和资源打包下发</li>
+<li>提前初始化 添加webview缓存池，可以用两个或多个 webview 重复使用</li>
+</ul>
+</li>
+<li><p>预加载数据</p>
+<ul>
+<li>总结：缓存/预加载/并行，缓存一切网络请求，尽量在用户打开之前就加载好所有内容，能并行做的事不串行做。</li>
+</ul>
+</li>
+</ul>
+<p><strong>优化中心思想：减少资源的网络请求，把第一页要展示的原素尽量预先加载。 </strong></p>
+<h3 id="离线包"><a href="#离线包" class="headerlink" title="离线包"></a>离线包</h3><h5 id="分发"><a href="#分发" class="headerlink" title="分发"></a>分发</h5><p>公司CDN可实现离线包分发，在对象存储中放置离线包文件和一个额外的 info.json 文件(例如：<a target="_blank" rel="noopener" href="https://xxx/statics/info.json)：">https://xxx/statics/info.json)：</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;version&quot;</span>:<span class="string">&quot;xxx&quot;</span>,</span><br><span class="line">    <span class="string">&quot;files&quot;</span>: [</span><br><span class="line">       <span class="string">&quot;https://xxx/index.html&quot;</span>,</span><br><span class="line">       <span class="string">&quot;https://xxx/logo.add928b525.png&quot;</span>,</span><br><span class="line">       <span class="string">&quot;https://xxx/main.c609e010f4.js&quot;</span>,</span><br><span class="line">       <span class="string">&quot;https://xxx/vender.821f3aa0d2e606967ad3.css&quot;</span>,</span><br><span class="line">       <span class="string">&quot;https://xxx/manifest.json&quot;</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，app存储当次的version，当下次请求时version变化，就说明资源有更新，需更新下载。</p>
+<h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><ul>
+<li>离线包内容：css，js，html，通用的图片等</li>
+<li>下载时机：在app启动的时候，开启线程下载资源，注意不要影响app的启动。</li>
+<li>存放位置：选用沙盒中的/Library/Caches。 因为资源会不定时更新，而/Library/Documents更适合存放一些重要的且不经常更新的数据。</li>
+<li>更新逻辑：请求CDN上的info.json资源，返回的version与本地保存的不同，则资源变化需更新下载。</li>
+</ul>
+<p>注：第一次运行时，需要在/Library/Caches中创建自定义文件夹，并全量下载资源。<br>下载逻辑：</p>
+<ul>
+<li>获取CDN和沙盒中资源</li>
+<li>本地沙盒有但cdn上没有的资源文件，需要删除，以防文件越积越多</li>
+<li>已经下载过的文件跳过，不需要重新下载浪费资源</li>
+<li>下载有变化的资源文件，存储至对应的沙盒文件夹中</li>
+<li>下载下来的是zip包 需要解压处理</li>
+</ul>
+<p>思考：假如离线资源包仅仅发生了一点点改变，每个用户如果都要下载全部的离线包？如果用户量巨大的话，带宽也是个大问题</p>
+<h5 id="不用离线包-是否可以考虑-HTML-JS-CSS模板抽离？"><a href="#不用离线包-是否可以考虑-HTML-JS-CSS模板抽离？" class="headerlink" title="不用离线包 是否可以考虑 HTML/JS/CSS模板抽离？"></a>不用离线包 是否可以考虑 HTML/JS/CSS模板抽离？</h5><p>前端抽离公共样式CSS、逻辑JS、资源文件HTML、图片资源模板等内置于APP中，这样进入H5只需要本地加载模板，而且加载模板的同时也可以并行进行网络请求页面数据，再将数据注入到模板中</p>
+<h4 id="拦截方案"><a href="#拦截方案" class="headerlink" title="拦截方案"></a>拦截方案</h4><h5 id="方案一：NSURLProtocol拦截方式"><a href="#方案一：NSURLProtocol拦截方式" class="headerlink" title="方案一：NSURLProtocol拦截方式"></a>方案一：NSURLProtocol拦截方式</h5><p>NSURLProtocol 拦截方式，使用WKBrowsingContextController和registerSchemeForCustomProtocol。通过反射的方式拿到了私有的 class/selector。通过把注册把 http 和 https 请求交给 NSURLProtocol 处理。通过这种方式确实可以拦截请求，但是发现post请求的body会出现丢失的问题。而且NSURLProtocol一经注册就是全局开启。我们希望他只会拦截接入了离线包的页面，但是没有办法控制他，他会拦截所有页面的请求，包括第三方合作页面，显然这是无法接受的。</p>
+<h5 id="方案二：WKURLSchemeHandler拦截方式-【推荐】"><a href="#方案二：WKURLSchemeHandler拦截方式-【推荐】" class="headerlink" title="方案二：WKURLSchemeHandler拦截方式 【推荐】"></a>方案二：WKURLSchemeHandler拦截方式 【推荐】</h5><p>iOS 11上, WebKit 团队终于开放了WKWebView加载自定义资源的API：WKURLSchemeHandler。<br>着手前，要与前端统一URL-Scheme，如：customScheme，资源定义成customScheme://xxx/path/xxxx.css。native端使用时，先注册customScheme，WKWebView请求加载网页，遇到customScheme的资源，就会被hock住，然后使用本地已下载好的资源进行加载。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- 根据 http 协议来判定哪些资源可以被缓存以及缓存的时长</span><br><span class="line">- 添加自定义的控制策略，仅允许部分类型的资源进行缓存</span><br></pre></td></tr></table></figure>
+<h4 id="WKWebview缓存池"><a href="#WKWebview缓存池" class="headerlink" title="WKWebview缓存池"></a>WKWebview缓存池</h4><p>复用原理：<br>预先预备两个Set,一个是正被visiableWebViewSet，一个是空闲等待使用的reusableWebViewSet。在启动AppDelegate页面的时候首先创建出来单例对象ZXYWebViewPool【因为不想在启动过程中占用太多时间】我们将初始化webView放在了首页加载完成后。在首页加载完成后，通过通知告知ZXYWebViewPool，初始化一个webView，并加入到reusableWebViewSet，当h5页面需要使用时候，就从reusableWebViewSet中取出放入到visiableWebViewSet中，使用完成后（dealloc）放回到reusableWebViewSet中。</p>
+<h4 id="替换url-scheme"><a href="#替换url-scheme" class="headerlink" title="替换url scheme"></a>替换url scheme</h4><p>在创建WkWebView时<br>1、需要实现一个自定义的WKURLSchemeHandler类<br>2、注册自定义scheme才能实现拦截</p>
+<p>在WKWebView requst之前通过规则直接把http(s)替换为自定义的scheme，拦截生效</p>
+<p>需要注意:<br>前端这边加载js等资源都是用相对路径，前端的ajax请求，像post请求，scheme使用http(s)不使用自定义协议，这样native不会拦截，完全交给H5与服务器交互，就不会发生发送post请求，body丢失的情况。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2022/11/10/app%E7%A7%92%E5%BC%80H5%E4%BC%98%E5%8C%96%E6%8E%A2%E7%A9%B6/">app秒开H5优化探究</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问  的个人博客">Nick</a></p>
+  <p><span>发布时间:</span>2022年11月10日 - 09:11</p>
+  <p><span>最后更新:</span>2022年11月10日 - 18:11</p>
+  <p><span>原始链接:</span><a href="/2022/11/10/app%E7%A7%92%E5%BC%80H5%E4%BC%98%E5%8C%96%E6%8E%A2%E7%A9%B6/" title="app秒开H5优化探究">http://nickchenhao.github.io./2022/11/10/app%E7%A7%92%E5%BC%80H5%E4%BC%98%E5%8C%96%E6%8E%A2%E7%A9%B6/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://nickchenhao.github.io./2022/11/10/app%E7%A7%92%E5%BC%80H5%E4%BC%98%E5%8C%96%E6%8E%A2%E7%A9%B6/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> 转载请保留原文链接及作者，谢谢！</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
 
 
       
     </div>
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WKWebView/" rel="tag"><i class="fa fa-tag"></i> WKWebView</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/10/19/H5%E4%B8%8E%E5%8E%9F%E7%94%9F%E4%BA%A4%E4%BA%92%E6%96%B9%E5%BC%8F/" rel="next" title="H5与原生交互方式">
+                <i class="fa fa-chevron-left"></i> H5与原生交互方式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -345,6 +556,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDcyNy8yMTI1MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -366,8 +586,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -431,6 +660,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%81%9A%E4%BC%98%E5%8C%96%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">为什么要做优化？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebView%E5%8A%A0%E8%BD%BDH5%E9%A1%B5%E9%9D%A2%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">WebView加载H5页面过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88"><span class="nav-number">2.1.</span> <span class="nav-text">优化方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%BB%E7%BA%BF%E5%8C%85"><span class="nav-number">2.2.</span> <span class="nav-text">离线包</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E5%8F%91"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">分发</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.2.0.2.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8D%E7%94%A8%E7%A6%BB%E7%BA%BF%E5%8C%85-%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E8%80%83%E8%99%91-HTML-JS-CSS%E6%A8%A1%E6%9D%BF%E6%8A%BD%E7%A6%BB%EF%BC%9F"><span class="nav-number">2.2.0.3.</span> <span class="nav-text">不用离线包 是否可以考虑 HTML&#x2F;JS&#x2F;CSS模板抽离？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%A6%E6%88%AA%E6%96%B9%E6%A1%88"><span class="nav-number">2.2.1.</span> <span class="nav-text">拦截方案</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9ANSURLProtocol%E6%8B%A6%E6%88%AA%E6%96%B9%E5%BC%8F"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">方案一：NSURLProtocol拦截方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9AWKURLSchemeHandler%E6%8B%A6%E6%88%AA%E6%96%B9%E5%BC%8F-%E3%80%90%E6%8E%A8%E8%8D%90%E3%80%91"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">方案二：WKURLSchemeHandler拦截方式 【推荐】</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WKWebview%E7%BC%93%E5%AD%98%E6%B1%A0"><span class="nav-number">2.2.2.</span> <span class="nav-text">WKWebview缓存池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2url-scheme"><span class="nav-number">2.2.3.</span> <span class="nav-text">替换url scheme</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -574,6 +819,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

@@ -1863,4 +1863,64 @@ ex:DES和3DES的分组长度都是64比特。即每次只能加密64比特的明
 <h6 id="Native中"><a href="#Native中" class="headerlink" title="Native中"></a>Native中</h6><p>在有WKWebView的控制器中 与WKWebView桥接建立关联<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">bridge <span class="operator">=</span> <span class="type">WKWebViewJavascriptBridge</span>(webView: webView)</span><br></pre></td></tr></table></figure><br>在需要的地方<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Native监听JS方法</span></span><br><span class="line">bridge.register(handlerName: <span class="type">String</span>, handler: <span class="keyword">@escaping</span> <span class="type">WKWebViewJavascriptBridgeBase</span>.<span class="type">Handler</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// JS监听Native方法</span></span><br><span class="line">bridge.call(handlerName: <span class="type">String</span>, data: <span class="keyword">Any</span><span class="operator">?</span> <span class="operator">=</span> <span class="literal">nil</span>, callback: <span class="type">WKWebViewJavascriptBridgeBase</span>.<span class="type">Callback</span>? <span class="operator">=</span> <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure><br>示例：<br><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// testiOSCallback 是JS定义的方法 获取JS方法传递过来的数据</span></span><br><span class="line">bridge.register(handlerName: <span class="string">&quot;testiOSCallback&quot;</span>) </span><br><span class="line">&#123; (parameters, callback) <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;testiOSCallback called: <span class="subst">\(String(describing: parameters))</span>&quot;</span>)</span><br><span class="line">    <span class="comment">// 可向JS方法 传递数据</span></span><br><span class="line">    callback<span class="operator">?</span>(<span class="string">&quot;Response from testiOSCallback&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// testJavascriptHandler 是Native定义的方法 传递数据给JS</span></span><br><span class="line">bridge.call(handlerName: <span class="string">&quot;testJavascriptHandler&quot;</span>, data: data) </span><br><span class="line">&#123; (response) <span class="keyword">in</span></span><br><span class="line">	<span class="comment">// response 是JS传递过来的数据</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;testJavascriptHandler responded: <span class="subst">\(String(describing: response))</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 ]]></content>
   </entry>
+  <entry>
+    <title>app秒开H5优化探究</title>
+    <url>/2022/11/10/app%E7%A7%92%E5%BC%80H5%E4%BC%98%E5%8C%96%E6%8E%A2%E7%A9%B6/</url>
+    <content><![CDATA[<h2 id="为什么要做优化？"><a href="#为什么要做优化？" class="headerlink" title="为什么要做优化？"></a>为什么要做优化？</h2><p>Global Web Performance Matters for ecommerce 的报告中指出：<br>47%的用户更在乎网页在2秒内是否完成加载。<br>52%的在线用户认为网页打开速度影响到他们对网站的忠实度。<br>每慢1秒造成页面 PV 降低11%，用户满意度也随之降低降低16%。<br>近半数移动用户因为在10秒内仍未打开页面从而放弃。</p>
+<span id="more"></span>
+<h2 id="WebView加载H5页面过程"><a href="#WebView加载H5页面过程" class="headerlink" title="WebView加载H5页面过程"></a>WebView加载H5页面过程</h2><p>初始化 webview -&gt; 请求页面 -&gt; 下载数据 -&gt; 解析HTML -&gt; 请求 js/css 资源 -&gt; dom 渲染 -&gt; 解析 JS 执行 -&gt; JS 请求数据 -&gt; 解析渲染 -&gt; 下载渲染图片</p>
+<h3 id="优化方案"><a href="#优化方案" class="headerlink" title="优化方案"></a>优化方案</h3><ul>
+<li><p>前端优化</p>
+<ul>
+<li>合并资源，减少http请求数</li>
+<li>加快请求速度：预解析DNS，减少域名数，并行加载，CDN 分发</li>
+</ul>
+</li>
+<li><p>客户端优化</p>
+<ul>
+<li>离线包方案：把一个个功能模块的所有相关页面和资源打包下发</li>
+<li>提前初始化 添加webview缓存池，可以用两个或多个 webview 重复使用</li>
+</ul>
+</li>
+<li><p>预加载数据</p>
+<ul>
+<li>总结：缓存/预加载/并行，缓存一切网络请求，尽量在用户打开之前就加载好所有内容，能并行做的事不串行做。</li>
+</ul>
+</li>
+</ul>
+<p><strong>优化中心思想：减少资源的网络请求，把第一页要展示的原素尽量预先加载。 </strong></p>
+<h3 id="离线包"><a href="#离线包" class="headerlink" title="离线包"></a>离线包</h3><h5 id="分发"><a href="#分发" class="headerlink" title="分发"></a>分发</h5><p>公司CDN可实现离线包分发，在对象存储中放置离线包文件和一个额外的 info.json 文件(例如：<a href="https://xxx/statics/info.json)：">https://xxx/statics/info.json)：</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;version&quot;</span>:<span class="string">&quot;xxx&quot;</span>,</span><br><span class="line">    <span class="string">&quot;files&quot;</span>: [</span><br><span class="line">       <span class="string">&quot;https://xxx/index.html&quot;</span>,</span><br><span class="line">       <span class="string">&quot;https://xxx/logo.add928b525.png&quot;</span>,</span><br><span class="line">       <span class="string">&quot;https://xxx/main.c609e010f4.js&quot;</span>,</span><br><span class="line">       <span class="string">&quot;https://xxx/vender.821f3aa0d2e606967ad3.css&quot;</span>,</span><br><span class="line">       <span class="string">&quot;https://xxx/manifest.json&quot;</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，app存储当次的version，当下次请求时version变化，就说明资源有更新，需更新下载。</p>
+<h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><ul>
+<li>离线包内容：css，js，html，通用的图片等</li>
+<li>下载时机：在app启动的时候，开启线程下载资源，注意不要影响app的启动。</li>
+<li>存放位置：选用沙盒中的/Library/Caches。 因为资源会不定时更新，而/Library/Documents更适合存放一些重要的且不经常更新的数据。</li>
+<li>更新逻辑：请求CDN上的info.json资源，返回的version与本地保存的不同，则资源变化需更新下载。</li>
+</ul>
+<p>注：第一次运行时，需要在/Library/Caches中创建自定义文件夹，并全量下载资源。<br>下载逻辑：</p>
+<ul>
+<li>获取CDN和沙盒中资源</li>
+<li>本地沙盒有但cdn上没有的资源文件，需要删除，以防文件越积越多</li>
+<li>已经下载过的文件跳过，不需要重新下载浪费资源</li>
+<li>下载有变化的资源文件，存储至对应的沙盒文件夹中</li>
+<li>下载下来的是zip包 需要解压处理</li>
+</ul>
+<p>思考：假如离线资源包仅仅发生了一点点改变，每个用户如果都要下载全部的离线包？如果用户量巨大的话，带宽也是个大问题</p>
+<h5 id="不用离线包-是否可以考虑-HTML-JS-CSS模板抽离？"><a href="#不用离线包-是否可以考虑-HTML-JS-CSS模板抽离？" class="headerlink" title="不用离线包 是否可以考虑 HTML/JS/CSS模板抽离？"></a>不用离线包 是否可以考虑 HTML/JS/CSS模板抽离？</h5><p>前端抽离公共样式CSS、逻辑JS、资源文件HTML、图片资源模板等内置于APP中，这样进入H5只需要本地加载模板，而且加载模板的同时也可以并行进行网络请求页面数据，再将数据注入到模板中</p>
+<h4 id="拦截方案"><a href="#拦截方案" class="headerlink" title="拦截方案"></a>拦截方案</h4><h5 id="方案一：NSURLProtocol拦截方式"><a href="#方案一：NSURLProtocol拦截方式" class="headerlink" title="方案一：NSURLProtocol拦截方式"></a>方案一：NSURLProtocol拦截方式</h5><p>NSURLProtocol 拦截方式，使用WKBrowsingContextController和registerSchemeForCustomProtocol。通过反射的方式拿到了私有的 class/selector。通过把注册把 http 和 https 请求交给 NSURLProtocol 处理。通过这种方式确实可以拦截请求，但是发现post请求的body会出现丢失的问题。而且NSURLProtocol一经注册就是全局开启。我们希望他只会拦截接入了离线包的页面，但是没有办法控制他，他会拦截所有页面的请求，包括第三方合作页面，显然这是无法接受的。</p>
+<h5 id="方案二：WKURLSchemeHandler拦截方式-【推荐】"><a href="#方案二：WKURLSchemeHandler拦截方式-【推荐】" class="headerlink" title="方案二：WKURLSchemeHandler拦截方式 【推荐】"></a>方案二：WKURLSchemeHandler拦截方式 【推荐】</h5><p>iOS 11上, WebKit 团队终于开放了WKWebView加载自定义资源的API：WKURLSchemeHandler。<br>着手前，要与前端统一URL-Scheme，如：customScheme，资源定义成customScheme://xxx/path/xxxx.css。native端使用时，先注册customScheme，WKWebView请求加载网页，遇到customScheme的资源，就会被hock住，然后使用本地已下载好的资源进行加载。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- 根据 http 协议来判定哪些资源可以被缓存以及缓存的时长</span><br><span class="line">- 添加自定义的控制策略，仅允许部分类型的资源进行缓存</span><br></pre></td></tr></table></figure>
+<h4 id="WKWebview缓存池"><a href="#WKWebview缓存池" class="headerlink" title="WKWebview缓存池"></a>WKWebview缓存池</h4><p>复用原理：<br>预先预备两个Set,一个是正被visiableWebViewSet，一个是空闲等待使用的reusableWebViewSet。在启动AppDelegate页面的时候首先创建出来单例对象ZXYWebViewPool【因为不想在启动过程中占用太多时间】我们将初始化webView放在了首页加载完成后。在首页加载完成后，通过通知告知ZXYWebViewPool，初始化一个webView，并加入到reusableWebViewSet，当h5页面需要使用时候，就从reusableWebViewSet中取出放入到visiableWebViewSet中，使用完成后（dealloc）放回到reusableWebViewSet中。</p>
+<h4 id="替换url-scheme"><a href="#替换url-scheme" class="headerlink" title="替换url scheme"></a>替换url scheme</h4><p>在创建WkWebView时<br>1、需要实现一个自定义的WKURLSchemeHandler类<br>2、注册自定义scheme才能实现拦截</p>
+<p>在WKWebView requst之前通过规则直接把http(s)替换为自定义的scheme，拦截生效</p>
+<p>需要注意:<br>前端这边加载js等资源都是用相对路径，前端的ajax请求，像post请求，scheme使用http(s)不使用自定义协议，这样native不会拦截，完全交给H5与服务器交互，就不会发生发送post请求，body丢失的情况。</p>
+]]></content>
+      <categories>
+        <category>性能优化</category>
+      </categories>
+      <tags>
+        <tag>WKWebView</tag>
+      </tags>
+  </entry>
 </search>
