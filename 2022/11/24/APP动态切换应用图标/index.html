@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Swift," />
 
 
 
@@ -86,15 +86,22 @@
 
 
 
-<meta name="description" content="越努力,越幸运...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="陈某人">
-<meta property="og:url" content="http://nickchenhao.github.io./archives/2022/05/index.html">
+<meta name="description" content="如何在应用中添加图标更换功能Xcode13以及iOS15发布之前，Apple其实已经支持在应用内切换图标了，通过将不同的ICON图标打到包内，并手动配置，然后通过业务代码修改ICON。当时的应用场景主要是提供给用户主动切换不同的图标，更换成自己喜欢的图标风格。iOS15之后，苹果支持将上线AppStore的包进行图标切换，目的是根据不同的图标判断用户转化。因此在Xcode13之后，多ICON的设置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="APP动态切换应用图标">
+<meta property="og:url" content="http://nickchenhao.github.io./2022/11/24/APP%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87/index.html">
 <meta property="og:site_name" content="陈某人">
-<meta property="og:description" content="越努力,越幸运...">
+<meta property="og:description" content="如何在应用中添加图标更换功能Xcode13以及iOS15发布之前，Apple其实已经支持在应用内切换图标了，通过将不同的ICON图标打到包内，并手动配置，然后通过业务代码修改ICON。当时的应用场景主要是提供给用户主动切换不同的图标，更换成自己喜欢的图标风格。iOS15之后，苹果支持将上线AppStore的包进行图标切换，目的是根据不同的图标判断用户转化。因此在Xcode13之后，多ICON的设置">
 <meta property="og:locale">
+<meta property="og:image" content="http://nickchenhao.github.io./images/iOS动态更换应用图标-0.png">
+<meta property="og:image" content="http://nickchenhao.github.io./images/iOS动态更换应用图标-1.png">
+<meta property="og:image" content="http://nickchenhao.github.io./images/iOS动态更换应用图标-2.png">
+<meta property="article:published_time" content="2022-11-24T02:59:09.000Z">
+<meta property="article:modified_time" content="2022-11-24T03:34:15.155Z">
 <meta property="article:author" content="陈某人">
+<meta property="article:tag" content="Swift">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://nickchenhao.github.io./images/iOS动态更换应用图标-0.png">
 
 
 
@@ -124,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://nickchenhao.github.io./archives/2022/05/"/>
+  <link rel="canonical" href="http://nickchenhao.github.io./2022/11/24/APP动态切换应用图标/"/>
 
 
 
 
 
-  <title>归档 | 陈某人</title>
+  <title>APP动态切换应用图标 | 陈某人</title>
   
 
 
@@ -149,7 +156,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
     
   <a target="_blank" rel="noopener" href="https://github.com/NickChenHao" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>
@@ -289,74 +296,212 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 22 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2022">2022</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2022/11/24/APP%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/16940026?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈某人">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2022/05/18/%E5%87%BD%E6%95%B0%E5%BC%8FSwift%E6%A6%82%E5%BF%B5/" itemprop="url">
-              
-                <span itemprop="name">函数式Swift概念</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">APP动态切换应用图标</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-05-18T15:38:37+08:00"
-              content="2022-05-18" >
-          05-18
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-11-24T10:59:09+08:00">
+                2022-11-24
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/11/24/APP%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2022/11/24/APP%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="如何在应用中添加图标更换功能"><a href="#如何在应用中添加图标更换功能" class="headerlink" title="如何在应用中添加图标更换功能"></a>如何在应用中添加图标更换功能</h2><p>Xcode13以及iOS15发布之前，Apple其实已经支持在应用内切换图标了，通过将不同的ICON图标打到包内，并手动配置，然后通过业务代码修改ICON。当时的应用场景主要是提供给用户主动切换不同的图标，更换成自己喜欢的图标风格。<br>iOS15之后，苹果支持将上线AppStore的包进行图标切换，目的是根据不同的图标判断用户转化。因此在Xcode13之后，多ICON的设置方法由之前的手动配置，改成了更加方便的配置方式。</p>
+<span id="more"></span>
+<h3 id="iOS10-3-iOS15：手动通过添加Info-plist字段来配置"><a href="#iOS10-3-iOS15：手动通过添加Info-plist字段来配置" class="headerlink" title="iOS10.3~iOS15：手动通过添加Info.plist字段来配置"></a>iOS10.3~iOS15：手动通过添加Info.plist字段来配置</h3><p>此方案为iOS15之前的旧方案，适用于“不需要通过App Store切换图标”的场景，Xcode13以下的版本可以这样使用。</p>
+<p><strong>1.Info.plist添加如下配置：</strong></p>
+<p><img src="/images/iOS动态更换应用图标-0.png" alt=""></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>CFBundleIcons<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>CFBundleAlternateIcons<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">key</span>&gt;</span>DemoIcon<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">key</span>&gt;</span>CFBundleIconFiles<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">string</span>&gt;</span>DemoIcon-20<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">string</span>&gt;</span>DemoIcon-29<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">string</span>&gt;</span>DemoIcon-40<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">string</span>&gt;</span>DemoIcon-60<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">key</span>&gt;</span>UIPrerenderedIcon<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">false</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>CFBundleIcons~ipad<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>CFBundleAlternateIcons<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">key</span>&gt;</span>DemoIcon<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">key</span>&gt;</span>CFBundleIconFiles<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">string</span>&gt;</span>DemoIcon-29<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">string</span>&gt;</span>DemoIcon-40<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">string</span>&gt;</span>DemoIcon-60<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">string</span>&gt;</span>DemoIcon-76<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">string</span>&gt;</span>DemoIcon-83.5<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">key</span>&gt;</span>UIPrerenderedIcon<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">false</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>说明一下：</strong></p>
+<ul>
+<li>CFBundleIcons 和 CFBundleIcons~ipad 分别是对应的 iPhone 和 iPad 的图标更换适配；</li>
+<li>CFBundleAlternateIcons 的 value 值是以键值对形式存在的字典，每一个 key 就是对应的图标名称，到时候就是根据这个名称去查找图片资源的；</li>
+<li>比如 DemoIcon 就是对应的图标资源名称；</li>
+<li>图标不能有圆角、透明度，不能有 alpha 通道。</li>
+<li>图片资源需要放在app项目根目录才能正常更换图标</li>
+</ul>
+<h3 id="iOS15及之后"><a href="#iOS15及之后" class="headerlink" title="iOS15及之后"></a>iOS15及之后</h3><p>iOS15 及之后，Apple 官方为了方便更换应用图标，以应对更加灵活的市场，对动态更换应用图标功能做了一些调整。而该方式的原理实际上就是将之前通过 info.plist 的获取图标的方式，通过 Include All App Icon Assets 将 Assets 中的应用图标集自动添加到 info.plist 中，方便读取。<br>iOS15及之后，只需要通过 Assets -&gt; + -&gt; iOS -&gt; iOS App Icon 的方式新建一个 AppIcon 图标集，并自定义名称。</p>
+<p><img src="/images/iOS动态更换应用图标-1.png" alt=""></p>
+<p>再之后，通过 项目工程 -&gt; TARGETS -&gt; Build Settings -&gt; 搜索 Include All App Icon Assets，并将其参数值更改为 YES 即可。</p>
+<p><img src="/images/iOS动态更换应用图标-2.png" alt=""></p>
+<p>另外此种方式需要通过苹果官方审核才能在线上使用，届时可以通过 App Store Connect 后台管理网站进行切换应用图标。<br>（由于需要兼容 iOS15 以下的系统，所以此种方式并未进行线上审核测试，只是进行了本地代码测试）</p>
+<h3 id="代码调用"><a href="#代码调用" class="headerlink" title="代码调用"></a>代码调用</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 获取当前所有的 AppIcon 集</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> iconsDict <span class="operator">=</span> <span class="type">Bundle</span>.main.object(forInfoDictionaryKey: <span class="string">&quot;CFBundleIcons&quot;</span>) <span class="keyword">as?</span> [<span class="type">String</span>:<span class="keyword">Any</span>] &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> alternateIcons <span class="operator">=</span> iconsDict[<span class="string">&quot;CFBundleAlternateIcons&quot;</span>] <span class="keyword">as?</span> [<span class="type">String</span>:<span class="keyword">Any</span>] &#123;</span><br><span class="line">        <span class="built_in">debugPrint</span>(alternateIcons.keys)</span><br><span class="line">        alternateIcons.keys.forEach &#123; item <span class="keyword">in</span></span><br><span class="line">            <span class="built_in">debugPrint</span>(item)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 更换应用图标</span></span><br><span class="line"><span class="type">UIApplication</span>.shared.setAlternateIconName(iconName) &#123; error <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">if</span> error <span class="operator">!=</span> <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="type">HUD</span>.flashFailure(<span class="string">&quot;更换应用图标失败<span class="subst">\n</span><span class="subst">\(String(describing: error<span class="operator">?</span>.localizedDescription))</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 恢复默认应用图标</span></span><br><span class="line"><span class="type">UIApplication</span>.shared.setAlternateIconName(<span class="literal">nil</span>, completionHandler: <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2022/11/24/APP%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87/">APP动态切换应用图标</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问  的个人博客">Nick</a></p>
+  <p><span>发布时间:</span>2022年11月24日 - 10:11</p>
+  <p><span>最后更新:</span>2022年11月24日 - 11:11</p>
+  <p><span>原始链接:</span><a href="/2022/11/24/APP%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87/" title="APP动态切换应用图标">http://nickchenhao.github.io./2022/11/24/APP%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://nickchenhao.github.io./2022/11/24/APP%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2%E5%BA%94%E7%94%A8%E5%9B%BE%E6%A0%87/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> 转载请保留原文链接及作者，谢谢！</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+    });
+    });  
+</script>
 
 
       
-
     </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/11/10/app%E7%A7%92%E5%BC%80H5%E4%BC%98%E5%8C%96%E6%8E%A2%E7%A9%B6/" rel="next" title="app秒开H5优化探究">
+                <i class="fa fa-chevron-left"></i> app秒开H5优化探究
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -364,6 +509,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NDcyNy8yMTI1MQ=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -385,8 +539,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -450,6 +613,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E5%BA%94%E7%94%A8%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%9B%BE%E6%A0%87%E6%9B%B4%E6%8D%A2%E5%8A%9F%E8%83%BD"><span class="nav-number">1.</span> <span class="nav-text">如何在应用中添加图标更换功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS10-3-iOS15%EF%BC%9A%E6%89%8B%E5%8A%A8%E9%80%9A%E8%BF%87%E6%B7%BB%E5%8A%A0Info-plist%E5%AD%97%E6%AE%B5%E6%9D%A5%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">iOS10.3~iOS15：手动通过添加Info.plist字段来配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS15%E5%8F%8A%E4%B9%8B%E5%90%8E"><span class="nav-number">1.2.</span> <span class="nav-text">iOS15及之后</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%B0%83%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">代码调用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -593,6 +772,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
