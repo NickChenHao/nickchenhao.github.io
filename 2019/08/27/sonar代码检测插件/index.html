@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"nickchenhao.github.io.","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="SonarQube®是一种自动代码审查工具，用于检测代码中的错误，漏洞和代码异味。它可以与您现有的工作流程集成，以便在项目分支和拉取请求之间进行连续的代码检查。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sonar代码检测插件">
+<meta property="og:url" content="http://nickchenhao.github.io./2019/08/27/sonar%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B%E6%8F%92%E4%BB%B6/index.html">
+<meta property="og:site_name" content="Nick">
+<meta property="og:description" content="SonarQube®是一种自动代码审查工具，用于检测代码中的错误，漏洞和代码异味。它可以与您现有的工作流程集成，以便在项目分支和拉取请求之间进行连续的代码检查。">
+<meta property="og:locale">
+<meta property="og:image" content="http://nickchenhao.github.io./images/sonar%E7%9B%AE%E5%BD%95.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6693936-15f9b678d17617f8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp">
+<meta property="og:image" content="http://nickchenhao.github.io./images/sonarqube%E9%85%8D%E7%BD%AE.png">
+<meta property="article:published_time" content="2019-08-27T01:07:04.000Z">
+<meta property="article:modified_time" content="2019-09-06T01:10:26.793Z">
+<meta property="article:author" content="陈浩">
+<meta property="article:tag" content="sonar">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://nickchenhao.github.io./images/sonar%E7%9B%AE%E5%BD%95.png">
+
+
+<link rel="canonical" href="http://nickchenhao.github.io./2019/08/27/sonar%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B%E6%8F%92%E4%BB%B6/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://nickchenhao.github.io./2019/08/27/sonar%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B%E6%8F%92%E4%BB%B6/","path":"2019/08/27/sonar代码检测插件/","title":"sonar代码检测插件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>sonar代码检测插件 | Nick</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Nick</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">1.</span> <span class="nav-text">参考文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.</span> <span class="nav-text">环境</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%BC%94%E7%A4%BA%E7%89%88%E6%9C%AC%EF%BC%9A"><span class="nav-number">2.1.1.</span> <span class="nav-text">演示版本：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java%E7%8E%AF%E5%A2%83%E4%B8%8EMySQL%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.2.</span> <span class="nav-text">Java环境与MySQL安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E7%9A%84%E6%8F%92%E4%BB%B6"><span class="nav-number">2.1.3.</span> <span class="nav-text">需要的插件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E7%8E%AF%E5%A2%83%E7%9B%AE%E5%BD%95%E7%BB%84%E6%88%90-usr-local"><span class="nav-number">2.1.4.</span> <span class="nav-text">最后环境目录组成 &#x2F;usr&#x2F;local</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAMySQL%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.2.</span> <span class="nav-text">创建MySQL数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.4.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%86%85%E9%9C%80%E8%A6%81%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%96%87%E4%BB%B6%EF%BC%88%E6%A0%B9%E7%9B%AE%E5%BD%95%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">项目内需要的两个文件（根目录）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">安装执行过程中的命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL"><span class="nav-number">3.1.</span> <span class="nav-text">MySQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sonarqube"><span class="nav-number">3.2.</span> <span class="nav-text">sonarqube</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">安装执行过程中的问题</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">陈浩</p>
+  <div class="site-description" itemprop="description">学习路上,与君共勉,越努力,越幸运...</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2019/08/27/sonar%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B%E6%8F%92%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈浩">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nick">
+      <meta itemprop="description" content="学习路上,与君共勉,越努力,越幸运...">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="sonar代码检测插件 | Nick">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          sonar代码检测插件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-08-27 09:07:04" itemprop="dateCreated datePublished" datetime="2019-08-27T09:07:04+08:00">2019-08-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2019-09-06 09:10:26" itemprop="dateModified" datetime="2019-09-06T09:10:26+08:00">2019-09-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F%E6%A3%80%E6%B5%8B/" itemprop="url" rel="index"><span itemprop="name">代码质量检测</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>SonarQube®是一种自动代码审查工具，用于检测代码中的错误，漏洞和代码异味。它可以与您现有的工作流程集成，以便在项目分支和拉取请求之间进行连续的代码检查。</p>
+<span id="more"></span>
+
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://www.jianshu.com/p/6b61783b9a38">基于Sonar的iOS代码质量检测系统</a><br><a href="https://www.jianshu.com/p/b41262fca5b8">mac搭建SonarQube</a><br><a href="https://www.jianshu.com/p/7f3b08e3a479">iOS mac sonar安装指南</a><br><a href="https://www.jianshu.com/p/3b70aa6af07b">Objective C接入Sonar代码扫描</a></p>
+<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><h4 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h4><h5 id="演示版本："><a href="#演示版本：" class="headerlink" title="演示版本："></a>演示版本：</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">JDK：1.8.0_221</span><br><span class="line">MySQL：5.7.27</span><br><span class="line">Sonarqube：7.1</span><br><span class="line">Sonar-runner：2.4</span><br><span class="line">Sonar-scanner：3.3.0.1492-macosx</span><br></pre></td></tr></table></figure>
+
+<h5 id="Java环境与MySQL安装"><a href="#Java环境与MySQL安装" class="headerlink" title="Java环境与MySQL安装"></a>Java环境与MySQL安装</h5><ul>
+<li>进入<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">jdk1.8</a>安装界面,下载macos版本</li>
+<li>进入<a href="https://dev.mysql.com/downloads/mysql/5.6.html#downloads">MySQL</a>下载界面，下载之后安装，安装完成后，进入系统偏好设置，可看到MySql选项，代表已安装成功</li>
+</ul>
+<h5 id="需要的插件"><a href="#需要的插件" class="headerlink" title="需要的插件"></a>需要的插件</h5><ul>
+<li><p>sonarqube</p>
+<ul>
+<li><a href="https://www.sonarqube.org/downloads/">服务端 sonarqube</a> </li>
+<li><a href="http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.3/sonar-runner-dist-2.4.zip">客户端 sonar-runner</a> 解压路径：&#x2F;user&#x2F;local</li>
+</ul>
+</li>
+<li><p>Sonar-Scanner<br>下载解压到&#x2F;usr&#x2F;local  <a href="https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner">Sonar-Scanner</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install sonar-scanner</span><br></pre></td></tr></table></figure></li>
+<li><p>Xcpretty</p>
+</li>
+</ul>
+<p>最新方法： <code>sudo gem install xcpretty -n/usr/local/bin</code><br>旧方法：<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/Backelite/xcpretty.git</span><br><span class="line">cd xcpretty</span><br><span class="line">git checkout fix/duration_of_failed_tests_workaround</span><br><span class="line">gem build xcpretty.gemspec</span><br><span class="line">sudo gem install --both xcpretty-0.2.2.gem -n/usr/local/bin</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>OCLint</li>
+</ul>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew tap oclint/formulae    </span><br><span class="line">brew install oclint</span><br></pre></td></tr></table></figure>
+<p> 检查路径：&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;oclint&#x2F;0.13</p>
+<ul>
+<li>slather</li>
+</ul>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install slather</span><br></pre></td></tr></table></figure>
+<ul>
+<li>lizard<ul>
+<li><code>sudo pip install lizard</code></li>
+<li>若没有安装pip 下载文件 <a href="/download/get-pip.py">get-pip.py</a></li>
+<li>并执行<code>sudo python get-pip.py</code></li>
+</ul>
+</li>
+<li>sonar-objective-c-plugin-0.5.0-SNAPSHOT.jar<br>插件下载地址:<a href="https://github.com/ChenTF/iOS-sonarShell">https://github.com/ChenTF/iOS-sonarShell</a><br>解压放在：sonarqube-7.1&#x2F;extensions&#x2F;plugins&#x2F;</li>
+</ul>
+<h5 id="最后环境目录组成-usr-local"><a href="#最后环境目录组成-usr-local" class="headerlink" title="最后环境目录组成 &#x2F;usr&#x2F;local"></a>最后环境目录组成 &#x2F;usr&#x2F;local</h5><p><img src="/images/sonar%E7%9B%AE%E5%BD%95.png" alt="sonar目录"></p>
+<h4 id="创建MySQL数据库"><a href="#创建MySQL数据库" class="headerlink" title="创建MySQL数据库"></a>创建MySQL数据库</h4> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mysql-5.7.27-macos10.14-x86_64/bin</span><br><span class="line"></span><br><span class="line">mysql -u root -p </span><br><span class="line">mysql&gt; CREATE DATABASE sonar CHARACTER SET utf8 COLLATE utf8_general_ci;</span><br><span class="line">mysql&gt; CREATE USER &#x27;sonar&#x27; IDENTIFIED BY &#x27;sonar&#x27;;</span><br><span class="line">mysql&gt; GRANT ALL ON sonar.* TO &#x27;sonar&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;sonar&#x27;;</span><br><span class="line">mysql&gt; GRANT ALL ON sonar.* TO &#x27;sonar&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;sonar&#x27;;</span><br><span class="line">mysql&gt; FLUSH PRIVILEGES;</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><ul>
+<li>修改confsonar.properties</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/sonarqube-7.1/confsonar.properties</span><br><span class="line"></span><br><span class="line">sonar.host.url=http://localhost:9000/sonarqube</span><br><span class="line">sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance</span><br><span class="line">sonar.jdbc.username=sonar</span><br><span class="line">sonar.jdbc.password=sonar</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改wrapper.conf</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/sonarqube-7.1/wrapper.conf </span><br><span class="line">wrapper.java.command=/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/java</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改sonar.properties</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/sonarqube-7.1/conf/sonar.properties</span><br><span class="line"></span><br><span class="line">sonar.jdbc.username=sonar</span><br><span class="line">sonar.jdbc.password=sonar</span><br><span class="line">sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance&amp;useSSL=false</span><br><span class="line">sonar.jdbc.maxActive=60</span><br><span class="line">sonar.jdbc.maxIdle=5</span><br><span class="line">sonar.jdbc.minIdle=2</span><br><span class="line">sonar.jdbc.maxWait=5000</span><br><span class="line">sonar.jdbc.minEvictableIdleTimeMillis=600000</span><br><span class="line">sonar.jdbc.timeBetweenEvictionRunsMillis=30000</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改sonar-runner.properties</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/sonar-runner-2.4/conf/sonar-runner.properties</span><br><span class="line"></span><br><span class="line">sonar.host.url=http://localhost:9000</span><br><span class="line">sonar.jdbc.url=jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true&amp;useConfigs=maxPerformance</span><br><span class="line">sonar.sourceEncoding=UTF-8</span><br><span class="line">sonar.login=admin</span><br><span class="line">sonar.password=admin</span><br><span class="line">sonar.jdbc.username=sonar</span><br><span class="line">sonar.jdbc.password=sonar</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改 sonar-scanner.properties</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#----- Default SonarQube server</span><br><span class="line">sonar.host.url=http://localhost:9000/sonarqube</span><br><span class="line"></span><br><span class="line">#----- Default source code encoding</span><br><span class="line">sonar.sourceEncoding=UTF-8</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br><span class="line"></span><br><span class="line">export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH:.</span><br><span class="line">export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.</span><br><span class="line">export OCLINT_HOME=/usr/local/Cellar/oclint/0.13</span><br><span class="line">export PATH=$OCLINT_HOME/bin:$PATH</span><br><span class="line"></span><br><span class="line">退出  :wq</span><br><span class="line">保存  source ~/.bash_profile</span><br><span class="line">验证  sonar-runner -version</span><br></pre></td></tr></table></figure>
+<p><strong>注：检查JAVA_HOME 和 OCLINT_HOME 的路径是否正确 可能有不同</strong></p>
+<p>修改完成保存后，终端执行<br><code>cd /usr/local/sonarqube-7.1/bin/macosx-universal-64</code> 和 <code>./sonar.sh start</code><br>打开浏览器访问<a href="http://localhost:9000/">http://localhost:9000</a> 若正常进入则配置成功</p>
+<p><strong>安装中文插件</strong><br><img src="https://upload-images.jianshu.io/upload_images/6693936-15f9b678d17617f8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1000/format/webp"></p>
+<h4 id="项目内需要的两个文件（根目录）"><a href="#项目内需要的两个文件（根目录）" class="headerlink" title="项目内需要的两个文件（根目录）"></a>项目内需要的两个文件（根目录）</h4><p><a href="/download/run-sonar.sh">run-sonar.sh</a><br><a href="/download/sonar-project.properties">sonar-project.properties</a>（可修改对应的项目名称、版本号）</p>
+<p>启动sonar<br><code>cd /usr/local/sonarqube-7.1/bin/macosx-universal-64</code> 和 <code>./sonar.sh start</code><br>最后在项目根目录执行<br><code>./run-sonar.sh</code></p>
+<h3 id="安装执行过程中的命令"><a href="#安装执行过程中的命令" class="headerlink" title="安装执行过程中的命令"></a>安装执行过程中的命令</h3><h4 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h4><p>查看数据库<br><code>SHOW DATABASES; </code><br>删除数据库<br><code>DROP DATABASE sonar; </code><br>查看账户<br><code>select user,host from user; </code><br>删除账户<br><code>delete from mysql.user where user=&#39;sonar&#39;;</code> <br>启动<br><code>sudo /usr/local/mysql/support-files/mysql.server start</code><br>停止<br><code>sudo /usr/local/mysql/support-files/mysql.server stop</code><br>重启<br><code>sudo /usr/local/mysql/support-files/mysql.server restart</code></p>
+<p><strong>注：</strong> <a href="https://www.jianshu.com/p/4cc5640eec4b">完全卸载MAC上的mysql</a></p>
+<h4 id="sonarqube"><a href="#sonarqube" class="headerlink" title="sonarqube"></a>sonarqube</h4><p><code>cd /usr/local/sonarqube-7.1/bin/macosx-universal-64</code><br>启动<br><code>./sonar.sh start</code><br>停止<br><code>./sonar.sh stop</code><br>重启<br><code>./sonar.sh restart</code></p>
+<h3 id="安装执行过程中的问题"><a href="#安装执行过程中的问题" class="headerlink" title="安装执行过程中的问题"></a>安装执行过程中的问题</h3><hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">main ERROR Null object returned for RollingFile in Appenders.</span><br><span class="line">main ERROR Unable to locate appender &quot;file_es&quot; for logger config &quot;root&quot;</span><br></pre></td></tr></table></figure>
+<p>解决：需要将配置文件log4j2.properties  中<code>logger.deprecation.level=warn</code>  改为 ERROR   ( 文件位置<code>/user/local/sonarqube-7.1/temp</code>)  <strong>若没有该设置 直接添加</strong></p>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WrapperSimpleApp: Encountered an error running main: java.nio.file.AccessDeniedException:</span><br></pre></td></tr></table></figure>
+<p>解决：删除 <code>/user/local/sonarqube-7.1/temp</code> 文件下所有内容即可</p>
+<hr>
+<p>mac下安装mysql，连接出现Access denied for user ‘root‘@’localhost’ (using password: YES)<br>解决：<a href="https://blog.csdn.net/lyl123_456/article/details/82426212">https://blog.csdn.net/lyl123_456/article/details/82426212</a></p>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR: Re-run SonarQube Scanner using the -X switch to enable full debug logging.ERROR: SonarQube scanner exited with non-zero code: 1Finished: FAILURE</span><br></pre></td></tr></table></figure>
+<p>解决：<img src="/images/sonarqube%E9%85%8D%E7%BD%AE.png" alt="问题解决"></p>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Another active Homebrew update process is already in progress. Please wait for it to finish or terminate it to continue.</span><br></pre></td></tr></table></figure>
+<p>解决： 执行 <code>rm -rf /usr/local/var/homebrew/locks</code></p>
+<hr>
+<p>扫描成功后最后查看网站，代码重复率有数字，其他代码质量为0<br>解决：查看project：sonar-project.properties文件，配置这2句 可以尝试。。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sonar.objectivec.oclint.report=oclint.xml（这个是报告的名字）</span><br><span class="line">sonar.objectivec.oclint.reportPath=sonar-reports/oclint.xml（这个是报告的路径）</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1046 (3D000): No database selected</span><br></pre></td></tr></table></figure>
+<p>解决： <code>mysql&gt; use mysql</code></p>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1396 (HY000): Operation CREATE USER failed for &#x27;sonar&#x27;@&#x27;%&#x27;</span><br></pre></td></tr></table></figure>
+<p>解决：换个名称<code>CREATE USER &#39;sonarqube&#39; IDENTIFIED BY &#39;sonarqube&#39;;</code></p>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.io.FileNotFoundException: /usr/local/sonarqube-7.1/extensions/plugins/sonar-objective-c-plugin-0.5.0-SNAPSHOT.jar (No such file or directory)</span><br></pre></td></tr></table></figure>
+<p>解决：冲突 去掉对应的文件 重新运行sonar</p>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.RuntimeException: can not run elasticsearch as root</span><br></pre></td></tr></table></figure>
+<p>解决：运行命令将<code>sudo /usr/local//sonarqube-7.1/bin/macosx-universal-64/sonar.sh start</code> 修改为 <code>cd /usr/local//sonarqube-7.1/bin/macosx-universal-64</code>  和  <code>./sonar.sh start</code> </p>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">若项目根目录 执行 ./run-sonar.sh 出错 -bash: ./run-sonar.sh: Permission denied  </span><br></pre></td></tr></table></figure>
+<p>解决：<code>chmod u=rxw run-sonar.sh</code> 修改权限</p>
+<hr>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: one compiler command contains multiple jobs:  </span><br></pre></td></tr></table></figure>
+<p>解决：<br>     •	将 Project 和 Targets 中 Building Settings 下的 COMPILER_INDEX_STORE_ENABLE 设置为 NO<br>     •	在 podfile 中 target ‘xx’ do 前面添加下面的脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">post_install do |installer|</span><br><span class="line">    installer.pods_project.targets.each do |target|</span><br><span class="line">        target.build_configurations.each do |config|</span><br><span class="line">            config.build_settings[&#x27;COMPILER_INDEX_STORE_ENABLE&#x27;] = &quot;NO&quot;</span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/sonar/" rel="tag"># sonar</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/08/16/%E5%8E%9F%E7%94%9F%E9%9B%86%E6%88%90codePush%E7%83%AD%E6%9B%B4%E6%96%B0RN%E5%8A%9F%E8%83%BD/" rel="prev" title="原生集成code-push热更新RN功能">
+                  <i class="fa fa-angle-left"></i> 原生集成code-push热更新RN功能
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/02/13/%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1/" rel="next" title="学习数据建模">
+                  学习数据建模 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈浩</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

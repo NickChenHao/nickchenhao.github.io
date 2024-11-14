@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"nickchenhao.github.io.","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="先附上参考的文章：iOS无埋点数据SDK实践之路iOS无埋点数据统计实践 该方案的统计功能？ APP进入前台 按钮点击 （点击次数、按钮名称、点击方法） cell点击 界面停留时长 APP进入后台  如何实现无埋点利用运行时机制，将类原生方法替换成用户自定义的方法，相当于强行在原本调用栈中插入一个方法，我们在其中插入一段统计代码即可。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 无埋点数据统计方案设计">
+<meta property="og:url" content="http://nickchenhao.github.io./2019/07/03/iOS-%E6%97%A0%E5%9F%8B%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="Nick">
+<meta property="og:description" content="先附上参考的文章：iOS无埋点数据SDK实践之路iOS无埋点数据统计实践 该方案的统计功能？ APP进入前台 按钮点击 （点击次数、按钮名称、点击方法） cell点击 界面停留时长 APP进入后台  如何实现无埋点利用运行时机制，将类原生方法替换成用户自定义的方法，相当于强行在原本调用栈中插入一个方法，我们在其中插入一段统计代码即可。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-07-03T03:23:44.000Z">
+<meta property="article:modified_time" content="2019-07-24T08:56:27.046Z">
+<meta property="article:author" content="陈浩">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://nickchenhao.github.io./2019/07/03/iOS-%E6%97%A0%E5%9F%8B%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://nickchenhao.github.io./2019/07/03/iOS-%E6%97%A0%E5%9F%8B%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/","path":"2019/07/03/iOS-无埋点数据统计方案设计/","title":"iOS 无埋点数据统计方案设计"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iOS 无埋点数据统计方案设计 | Nick</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Nick</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%88%E9%99%84%E4%B8%8A%E5%8F%82%E8%80%83%E7%9A%84%E6%96%87%E7%AB%A0%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">先附上参考的文章：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%A5%E6%96%B9%E6%A1%88%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">该方案的统计功能？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%97%A0%E5%9F%8B%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">如何实现无埋点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9B%BF%E6%8D%A2%E6%96%B9%E6%B3%95-Method-Swizzling"><span class="nav-number">3.1.</span> <span class="nav-text">如何替换方法:Method Swizzling</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#swizzling%E5%87%BD%E6%95%B0%E7%9A%84%E6%97%B6%E6%9C%BA"><span class="nav-number">3.2.</span> <span class="nav-text">swizzling函数的时机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1%E4%BB%A3%E7%A0%81"><span class="nav-number">3.3.</span> <span class="nav-text">加入数据统计代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%96%B9%E5%BC%8F%EF%BC%9A%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.4.</span> <span class="nav-text">统计方式：操作数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%B8%8A%E4%BC%A0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.5.</span> <span class="nav-text">数据上传服务器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">4.</span> <span class="nav-text">引用方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E9%83%A8%E5%88%86%E3%80%90%E9%87%8D%E8%A6%81%E3%80%91"><span class="nav-number">5.</span> <span class="nav-text">更新部分【重要】</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">引用方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">5.2.</span> <span class="nav-text">使用说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E7%9A%84%E6%8B%BC%E6%8E%A5%E6%95%B0%E6%8D%AE"><span class="nav-number">5.3.</span> <span class="nav-text">上传的拼接数据</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">陈浩</p>
+  <div class="site-description" itemprop="description">学习路上,与君共勉,越努力,越幸运...</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2019/07/03/iOS-%E6%97%A0%E5%9F%8B%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈浩">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nick">
+      <meta itemprop="description" content="学习路上,与君共勉,越努力,越幸运...">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iOS 无埋点数据统计方案设计 | Nick">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS 无埋点数据统计方案设计
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-07-03 11:23:44" itemprop="dateCreated datePublished" datetime="2019-07-03T11:23:44+08:00">2019-07-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2019-07-24 16:56:27" itemprop="dateModified" datetime="2019-07-24T16:56:27+08:00">2019-07-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h4 id="先附上参考的文章："><a href="#先附上参考的文章：" class="headerlink" title="先附上参考的文章："></a>先附上参考的文章：</h4><p><a href="https://www.jianshu.com/p/69ce01e15042">iOS无埋点数据SDK实践之路</a><br><a href="https://www.jianshu.com/p/a6afc6252965">iOS无埋点数据统计实践</a></p>
+<h4 id="该方案的统计功能？"><a href="#该方案的统计功能？" class="headerlink" title="该方案的统计功能？"></a>该方案的统计功能？</h4><ul>
+<li>APP进入前台</li>
+<li>按钮点击 （点击次数、按钮名称、点击方法）</li>
+<li>cell点击</li>
+<li>界面停留时长</li>
+<li>APP进入后台</li>
+</ul>
+<h4 id="如何实现无埋点"><a href="#如何实现无埋点" class="headerlink" title="如何实现无埋点"></a>如何实现无埋点</h4><p>利用运行时机制，将类原生方法替换成用户自定义的方法，相当于强行在原本调用栈中插入一个方法，我们在其中插入一段统计代码即可。</p>
+<span id="more"></span>
+<h5 id="如何替换方法-Method-Swizzling"><a href="#如何替换方法-Method-Swizzling" class="headerlink" title="如何替换方法:Method Swizzling"></a>如何替换方法:Method Swizzling</h5><p>函数的调用涉及到3个重要的点：Class、SEL、IMP，Calss作为类型，Method由SEL和IMP组成。我们通过交换Method的IMP达到替换被调用函数的目的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">核心方法：</span><br><span class="line">- (void)sel_exchangeFirstSel:(SEL)sel1 secondSel:(SEL)sel2 &#123;</span><br><span class="line">    [self sel_exchangeClass:[self class] FirstSel:sel1 secondSel:sel2];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)sel_exchangeClass:(Class)Class FirstSel:(SEL)sel1 secondSel:(SEL)sel2 &#123;</span><br><span class="line">    Method firstMethod = class_getInstanceMethod(Class, sel1);</span><br><span class="line">    Method secondMethod = class_getInstanceMethod(Class, sel2);</span><br><span class="line">    method_exchangeImplementations(firstMethod, secondMethod);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em><strong>注：</strong></em> 这里主要交换的方法</p>
+<table>
+<thead>
+<tr>
+<th align="center">系统类</th>
+<th align="center">类方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">UIControl</td>
+<td align="center">sendAction:to:forEvent</td>
+</tr>
+<tr>
+<td align="center">UIGestureRecognizer</td>
+<td align="center">addTarget:action:</td>
+</tr>
+<tr>
+<td align="center">initWithTarget:action:</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">UIView</td>
+<td align="center">addGestureRecognizer</td>
+</tr>
+<tr>
+<td align="center">UITableView</td>
+<td align="center">setDelegate</td>
+</tr>
+<tr>
+<td align="center">tableView:didSelectRowAtIndexPath:</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">NSNotificationCenter</td>
+<td align="center">postNotification</td>
+</tr>
+<tr>
+<td align="center">postNotificationName:object:userInfo:</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">UIViewController</td>
+<td align="center">viewDidAppear:</td>
+</tr>
+<tr>
+<td align="center">viewDidDisappear:</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h5 id="swizzling函数的时机"><a href="#swizzling函数的时机" class="headerlink" title="swizzling函数的时机"></a>swizzling函数的时机</h5><p>+(void)load函数在你动态加载或者静态引用了这个类的时候，该函数就会被执行，它并不需要你显示的去创建一个类后才会执行，同时它只会执行一次，几乎是完美的swizzling时机。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">举例 UIControl</span><br><span class="line"></span><br><span class="line">+ (void)load &#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        </span><br><span class="line">        //创建新的sendAction:to:forEvent:方法</span><br><span class="line">        [self sel_exchangeFirstSel:@selector(sendAction:to:forEvent:) secondSel:@selector(ch_sendAction:to:forEvent:)];</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="加入数据统计代码"><a href="#加入数据统计代码" class="headerlink" title="加入数据统计代码"></a>加入数据统计代码</h5><p>在swizzling成功后，我们在其中加入统计代码。为了保证响应链的完整，我们还需要调用替换过的方法，让事件传递下去，不去影响系统的处理。</p>
+<ul>
+<li>这里采用 <code>内联函数</code> 将该方法包起来使用 用于过滤黑名单（不参与统计的控制器）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/** 黑名单 不需要追踪的控制器 */</span><br><span class="line">#import &lt;UIKit/UIKit.h&gt;</span><br><span class="line">UIKIT_STATIC_INLINE BOOL kShouldTrackClass(Class aClass)&#123;</span><br><span class="line">    static NSSet *blacklistedClasses = nil;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">//        NSString *path = [[NSBundle mainBundle] pathForResource:@&quot;BlackListed&quot; ofType:@&quot;plist&quot;];</span><br><span class="line">//        NSArray *blacklistedClassNames = [NSArray arrayWithContentsOfFile:path];</span><br><span class="line">        </span><br><span class="line">        NSArray *blacklistedClassNames = [LogDAO sharedInstance].blackListArray;</span><br><span class="line">        NSMutableSet *transformedClasses = [NSMutableSet setWithCapacity:blacklistedClassNames.count];</span><br><span class="line">        for (NSString *className in blacklistedClassNames) &#123;</span><br><span class="line">            [transformedClasses addObject:NSClassFromString(className)];</span><br><span class="line">        &#125;</span><br><span class="line">        blacklistedClasses = [transformedClasses copy];</span><br><span class="line">    &#125;);</span><br><span class="line">    return ![blacklistedClasses containsObject:aClass];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="统计方式：操作数据库"><a href="#统计方式：操作数据库" class="headerlink" title="统计方式：操作数据库"></a>统计方式：操作数据库</h5><ul>
+<li>数据库地址：<code>/var/mobile/Containers/Data/Application/······/Library/Caches/TheOnlineTax/Database/log.sqlite</code></li>
+<li>数据库表名为 <code>info_log</code></li>
+<li>表中的参数 也是模型中的属性</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">typedef NS_ENUM(NSUInteger, LogType) &#123;</span><br><span class="line">    LogTypeNone = 0,    // 未知</span><br><span class="line">    LogTypeLaunch,      // app 启动或前台</span><br><span class="line">    LogTypeButtonClick, // 按钮点击</span><br><span class="line">    LogTypeCellClick,   // cell点击</span><br><span class="line">    LogTypeVCRemainTime,// 界面停留时间</span><br><span class="line">    LogTypeTerminated,  // app 终止或后台</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy) NSString *vc_id;// 控制器名称 </span><br><span class="line">@property (nonatomic) NSTimeInterval remainTime; //停留时间</span><br><span class="line">@property (nonatomic, copy) NSString *btn_id;// 按钮名称</span><br><span class="line">@property (nonatomic, copy) NSString *functionName;// 方法名称</span><br><span class="line">@property (nonatomic, assign) NSInteger num;// 点击次数</span><br><span class="line">@property (nonatomic) NSTimeInterval lastTime; //最后执行时间</span><br><span class="line">@property (nonatomic, assign) LogType logType; //记录类型</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>插入之前会判断是否存在 若存在只更新表</li>
+<li>按钮次数 是通过 vc_id 和 btn_id 进行查表 累加所得</li>
+<li>具体逻辑可看LogDAO文件</li>
+</ul>
+<h5 id="数据上传服务器"><a href="#数据上传服务器" class="headerlink" title="数据上传服务器"></a>数据上传服务器</h5><p>因没有后台存储这些统计出来的数据，暂时使用后端云Bmob存储</p>
+<ul>
+<li>触发上传的时机</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">目前设计 (上传成功数据库的表里数据清空)</span><br><span class="line">1.是APP进入后台自动触发触发 </span><br><span class="line">2.用户退出登录操作触发</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上传的拼接数据</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">NSString *userID = @&quot;0&quot;;//必须默认0</span><br><span class="line">    if ([AppDelegate trackGetUserID].length&gt;0) &#123;</span><br><span class="line">        userID = [AppDelegate trackGetUserID];</span><br><span class="line">    &#125;</span><br><span class="line">    NSDictionary *dic = @&#123;</span><br><span class="line">                          //模型数组转成字典数组</span><br><span class="line">                          @&quot;list&quot; : [LogDTO mj_keyValuesArrayWithObjectArray:[[LogDAO sharedInstance] getAllData]],</span><br><span class="line">                          //应用名称</span><br><span class="line">                          @&quot;productName&quot; : kDisplayName,</span><br><span class="line">                          //bundleId</span><br><span class="line">                          @&quot;productID&quot; : [[NSBundle mainBundle] bundleIdentifier],</span><br><span class="line">                          //应用版本号</span><br><span class="line">                          @&quot;version&quot; : kVersion,</span><br><span class="line">                          //设备版本</span><br><span class="line">                          @&quot;osVersion&quot; : [NSString stringWithFormat:@&quot;%.1f&quot;,[DeviceAndSystemTool systemVersion]],</span><br><span class="line">                          //设备机型</span><br><span class="line">                          @&quot;osDeviceType&quot; : KStringIsEmpty([DeviceAndSystemTool getDeviceName]),</span><br><span class="line">                          //网络类型</span><br><span class="line">                          @&quot;networkType&quot; : KStringIsEmpty([DeviceAndSystemTool networkTypeName]),</span><br><span class="line">                          //运营商</span><br><span class="line">                          @&quot;isp&quot; : KStringIsEmpty([DeviceAndSystemTool wsd_telephonyNetworkInfo]),</span><br><span class="line">                          //定位（省市区）</span><br><span class="line">                          @&quot;gps&quot; : KStringIsEmpty(self.strLocationInfo)</span><br><span class="line">                          &#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>APP启动会先获取服务器的数据 若有只在原有基础上更新不会新增一条数据（改动是TrackData和updateAT字段）会根据UserID字段区分数据</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/** 新增一条数据 */</span><br><span class="line"></span><br><span class="line">    BmobObject *trackBmob = [BmobObject objectWithClassName:@&quot;TrackAction&quot;];</span><br><span class="line">    [trackBmob setObject:dic forKey:@&quot;TrackData&quot;];</span><br><span class="line">    [trackBmob setObject:[AppDelegate trackGetUserID] forKey:@&quot;UserID&quot;];</span><br><span class="line">    [trackBmob saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) &#123;</span><br><span class="line">        //进行操作</span><br><span class="line">        if (isSuccessful) &#123;</span><br><span class="line">            if (handler) &#123;</span><br><span class="line">                handler(YES,nil);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            if (handler) &#123;</span><br><span class="line">                handler(NO,error);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">/** 更新一条数据 */</span><br><span class="line"></span><br><span class="line">//创建查表对象</span><br><span class="line">    BmobQuery   *bquery = [BmobQuery queryWithClassName:@&quot;TrackAction&quot;];</span><br><span class="line">    //设置查询中该字段是有值的结果</span><br><span class="line">    [bquery whereKeyExists:@&quot;UserID&quot;];</span><br><span class="line">    //设置查询中该字段 值是否相等的结果</span><br><span class="line">    [bquery whereKey:@&quot;UserID&quot; equalTo:[AppDelegate trackGetUserID]];</span><br><span class="line">    //查询</span><br><span class="line">    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) &#123;</span><br><span class="line">        if (error)&#123;</span><br><span class="line">            //进行错误处理</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            if (array) &#123;</span><br><span class="line">                BmobObject *obj = array[0];</span><br><span class="line"></span><br><span class="line">                NSString *userID = @&quot;0&quot;;//必须默认0</span><br><span class="line">                if ([AppDelegate trackGetUserID].length&gt;0) &#123;</span><br><span class="line">                    userID = [AppDelegate trackGetUserID];</span><br><span class="line">                &#125;</span><br><span class="line">                NSDictionary *dic = @&#123;</span><br><span class="line">                                      //模型数组转成字典数组</span><br><span class="line">                                      @&quot;list&quot; : [LogDTO mj_keyValuesArrayWithObjectArray:[[LogDAO sharedInstance] getAllData]],</span><br><span class="line">                                      //userid</span><br><span class="line">                                      @&quot;userid&quot; : KStringIsEmpty(userID),</span><br><span class="line">                                      //应用名称</span><br><span class="line">                                      @&quot;productName&quot; : kDisplayName,</span><br><span class="line">                                      //bundleId</span><br><span class="line">                                      @&quot;productID&quot; : [[NSBundle mainBundle] bundleIdentifier],</span><br><span class="line">                                      //应用版本号</span><br><span class="line">                                      @&quot;version&quot; : kVersion,</span><br><span class="line">                                      //设备版本</span><br><span class="line">                                      @&quot;osVersion&quot; : [NSString stringWithFormat:@&quot;%.1f&quot;,[DeviceAndSystemTool systemVersion]],</span><br><span class="line">                                      //设备机型</span><br><span class="line">                                      @&quot;osDeviceType&quot; : KStringIsEmpty([DeviceAndSystemTool getDeviceName]),</span><br><span class="line">                                      //网络类型</span><br><span class="line">                                      @&quot;networkType&quot; : KStringIsEmpty([DeviceAndSystemTool networkTypeName]),</span><br><span class="line">                                      //运营商</span><br><span class="line">                                      @&quot;isp&quot; : KStringIsEmpty([DeviceAndSystemTool wsd_telephonyNetworkInfo]),</span><br><span class="line">                                      //定位（省市区）</span><br><span class="line">                                      @&quot;gps&quot; : KStringIsEmpty(self.strLocationInfo)</span><br><span class="line">                                      &#125;;</span><br><span class="line"></span><br><span class="line">                BmobObject *obj1 = [BmobObject objectWithoutDataWithClassName:obj.className objectId:obj.objectId];</span><br><span class="line">                //设置cheatMode为YES</span><br><span class="line">                [obj1 setObject:dic forKey:@&quot;TrackData&quot;];</span><br><span class="line">                //异步更新数据</span><br><span class="line">                [obj1 updateInBackground];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+
+<h4 id="引用方法："><a href="#引用方法：" class="headerlink" title="引用方法："></a>引用方法：</h4><p>目前没有集成到pod上 只能手动导入 这是相关文件：<a href="https://github.com/NickChenHao/TrackAction.git">GitHub</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">【 使用说明 】</span><br><span class="line"> 1.需要依赖 pod &#x27;MJExtension&#x27; 和 pod &#x27;AFNetworking&#x27; 请确保项目中已有</span><br><span class="line"> 2.将文件拖入项目中</span><br><span class="line"> 3.需在pch文件中引用  #import &quot;TrackAction.h&quot;</span><br><span class="line"> 4.需在AppDelegate.m文件中</span><br><span class="line">   a.调用 createTablesNeeded 创建数据库</span><br><span class="line">   b.重写 trackGetUserID     配置userID</span><br><span class="line">   c.重写 trackServiceURL    配置上传服务器的地址</span><br><span class="line"> 5.可添加不需要统计的控制器在BlackListed.plist</span><br></pre></td></tr></table></figure>
+
+<h4 id="更新部分【重要】"><a href="#更新部分【重要】" class="headerlink" title="更新部分【重要】"></a>更新部分【重要】</h4><h5 id="引用方法"><a href="#引用方法" class="headerlink" title="引用方法"></a><del>引用方法</del></h5><ul>
+<li>手动导入 这是相关文件：<a href="https://github.com/NickChenHao/TrackAction.git">GitHub</a></li>
+<li>引用svn私有库 <code>pod &#39;ASTrackAction&#39;,&#39;1.0.0&#39;</code></li>
+</ul>
+<h5 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a><del>使用说明</del></h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">【 使用说明 】</span><br><span class="line"> 1.依赖 pod &#x27;MJExtension&#x27; 和 pod &#x27;AFNetworking&#x27;</span><br><span class="line"> 2.需在pch文件中引用  #import &quot;TrackAction.h&quot;</span><br><span class="line"> 3.需在AppDelegate里的方法实现 配置track信息的方法 在LogDAO类中 （不开启埋点功能 注释即可）</span><br></pre></td></tr></table></figure>
+<h5 id="上传的拼接数据"><a href="#上传的拼接数据" class="headerlink" title="上传的拼接数据"></a><del>上传的拼接数据</del></h5><p>修改为<br>1.先判断是开启埋点功能<br>2.再判断是否自定义服务器地址 若有则AFN请求 若无则上传至Bmob后端云</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">    if (!self.isOpenTracker) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    NSString *userID = @&quot;0&quot;;//必须默认0</span><br><span class="line">    if (self.userId.length&gt;0) &#123;</span><br><span class="line">        userID = self.userId;</span><br><span class="line">    &#125;</span><br><span class="line">    NSDictionary *dic = @&#123;</span><br><span class="line">                          //模型数组转成字典数组</span><br><span class="line">                          @&quot;list&quot; : [LogDTO mj_keyValuesArrayWithObjectArray:[[LogDAO sharedInstance] getAllData]],</span><br><span class="line">                          //userid</span><br><span class="line">                          @&quot;userid&quot; : KStringIsEmpty(userID),</span><br><span class="line">                          //应用名称</span><br><span class="line">                          @&quot;productName&quot; : kDisplayName,</span><br><span class="line">                          //bundleId</span><br><span class="line">                          @&quot;productID&quot; : [[NSBundle mainBundle] bundleIdentifier],</span><br><span class="line">                          //应用版本号</span><br><span class="line">                          @&quot;version&quot; : kVersion,</span><br><span class="line">                          //设备版本</span><br><span class="line">                          @&quot;osVersion&quot; : [NSString stringWithFormat:@&quot;%.1f&quot;,[DeviceAndSystemTool systemVersion]],</span><br><span class="line">                          //设备机型</span><br><span class="line">                          @&quot;osDeviceType&quot; : KStringIsEmpty([DeviceAndSystemTool getDeviceName]),</span><br><span class="line">                          //网络类型</span><br><span class="line">                          @&quot;networkType&quot; : KStringIsEmpty([DeviceAndSystemTool networkTypeName]),</span><br><span class="line">                          //运营商</span><br><span class="line">                          @&quot;isp&quot; : KStringIsEmpty([DeviceAndSystemTool wsd_telephonyNetworkInfo]),</span><br><span class="line">                          //定位（省市区）</span><br><span class="line">                          @&quot;gps&quot; : KStringIsEmpty(self.strLocationInfo)</span><br><span class="line">                          &#125;;</span><br><span class="line"></span><br><span class="line">    if (!ISEMPTY(self.serviceURL)) &#123;</span><br><span class="line">#pragma mark - AFN</span><br><span class="line"></span><br><span class="line">        [TrackActionServiceManager postParameter:dic Success:^(NSURLSessionDataTask *operation, id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">            if (handler) &#123;</span><br><span class="line">                handler(YES,nil);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; Failure:^(NSURLSessionDataTask *operation, NSError *error) &#123;</span><br><span class="line"></span><br><span class="line">            if (handler) &#123;</span><br><span class="line">                handler(NO,error);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;else&#123;</span><br><span class="line"></span><br><span class="line">#pragma mark - 后端云SDK</span><br><span class="line"></span><br><span class="line">        BmobObject *trackBmob = [BmobObject objectWithClassName:@&quot;TrackAction&quot;];</span><br><span class="line">        [trackBmob setObject:dic forKey:@&quot;TrackData&quot;];</span><br><span class="line">        [trackBmob setObject:self.userId forKey:@&quot;UserID&quot;];</span><br><span class="line">        [trackBmob saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) &#123;</span><br><span class="line">            //进行操作</span><br><span class="line">            if (isSuccessful) &#123;</span><br><span class="line">                if (handler) &#123;</span><br><span class="line">                    handler(YES,nil);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                if (handler) &#123;</span><br><span class="line">                    handler(NO,error);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/06/18/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%B8%8B%E8%BD%BD/" rel="prev" title="自定义图片下载">
+                  <i class="fa fa-angle-left"></i> 自定义图片下载
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/16/%E7%A7%81%E6%9C%89%E9%A1%B9%E7%9B%AE%E6%88%96%E5%8A%9F%E8%83%BD%E9%9B%86%E6%88%90%E5%88%B0SVN-%E9%80%9A%E8%BF%87pod%E4%B8%8B%E8%BD%BD/" rel="next" title="私有项目或功能集成到SVN 通过pod下载">
+                  私有项目或功能集成到SVN 通过pod下载 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈浩</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

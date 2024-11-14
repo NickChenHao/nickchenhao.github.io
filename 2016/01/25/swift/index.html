@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"nickchenhao.github.io.","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Swift最基本的语法变化 导入框架 import UIKit  定义标识符时，必须声明该标识符是变量还是常量声明标识符的格式:变量&#x2F;常量关键字 名称 : 数据类型  语句结束时不需要加 ;如果同一行有多个语句,则依然需要加但是不建议一行多条语句  Swift中的打印语句: print(“打印的内容”)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="swift笔记1">
+<meta property="og:url" content="http://nickchenhao.github.io./2016/01/25/swift/index.html">
+<meta property="og:site_name" content="Nick">
+<meta property="og:description" content="Swift最基本的语法变化 导入框架 import UIKit  定义标识符时，必须声明该标识符是变量还是常量声明标识符的格式:变量&#x2F;常量关键字 名称 : 数据类型  语句结束时不需要加 ;如果同一行有多个语句,则依然需要加但是不建议一行多条语句  Swift中的打印语句: print(“打印的内容”)">
+<meta property="og:locale">
+<meta property="article:published_time" content="2016-01-25T13:32:42.000Z">
+<meta property="article:modified_time" content="2019-06-13T03:15:37.055Z">
+<meta property="article:author" content="陈浩">
+<meta property="article:tag" content="swift">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://nickchenhao.github.io./2016/01/25/swift/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://nickchenhao.github.io./2016/01/25/swift/","path":"2016/01/25/swift/","title":"swift笔记1"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>swift笔记1 | Nick</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Nick</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Swift%E6%9C%80%E5%9F%BA%E6%9C%AC%E7%9A%84%E8%AF%AD%E6%B3%95%E5%8F%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">Swift最基本的语法变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B8%B8%E9%87%8F%E5%92%8C%E5%8F%98%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">什么是常量和变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F"><span class="nav-number">2.0.1.</span> <span class="nav-text">注意:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%8E%A8%E5%AF%BC"><span class="nav-number">2.1.</span> <span class="nav-text">类型推导</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">注意:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swift%E4%B8%AD%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">Swift中基本运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#guard%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">guard的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#switch%E5%88%86%E6%94%AF"><span class="nav-number">5.</span> <span class="nav-text">switch分支</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8%E8%A1%A5%E5%85%85"><span class="nav-number">5.0.1.</span> <span class="nav-text">简单使用补充:</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="nav-number">6.</span> <span class="nav-text">循环的介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%86%99%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">for循环的写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while%E5%92%8Cdo-while%E5%BE%AA%E7%8E%AF"><span class="nav-number">8.</span> <span class="nav-text">while和do while循环</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">陈浩</p>
+  <div class="site-description" itemprop="description">学习路上,与君共勉,越努力,越幸运...</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2016/01/25/swift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈浩">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nick">
+      <meta itemprop="description" content="学习路上,与君共勉,越努力,越幸运...">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="swift笔记1 | Nick">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          swift笔记1
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-01-25 21:32:42" itemprop="dateCreated datePublished" datetime="2016-01-25T21:32:42+08:00">2016-01-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2019-06-13 11:15:37" itemprop="dateModified" datetime="2019-06-13T11:15:37+08:00">2019-06-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/swift%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">swift笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="Swift最基本的语法变化"><a href="#Swift最基本的语法变化" class="headerlink" title="Swift最基本的语法变化"></a>Swift最基本的语法变化</h2><ul>
+<li><p>导入框架 import UIKit</p>
+</li>
+<li><p>定义标识符时，必须声明该标识符是变量还是常量声明标识符的<br>格式:变量&#x2F;常量关键字 名称 : 数据类型</p>
+</li>
+<li><p>语句结束时不需要加 ;如果同一行有多个语句,则依然需要加<br>但是不建议一行多条语句</p>
+</li>
+<li><p>Swift中的打印语句: print(“打印的内容”)</p>
+<span id="more"></span></li>
+</ul>
+<h2 id="什么是常量和变量"><a href="#什么是常量和变量" class="headerlink" title="什么是常量和变量"></a>什么是常量和变量</h2><ul>
+<li>在Swift中规定:在定义一个标识符时必须明确说明该标识符是一个常量还是变量<br>1.使用let来定义常量,定义之后不可以修改<br>2.使用var来定义变量,定义之后可以修改</li>
+</ul>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h4><p>在真实使用过程中,建议先定义常量,如果需要修改再修改为变量(更加安全)<br>是指向的对象不可以再进行修改.但是可以通过指针获得对象后,修改对象内部的属性</p>
+<h3 id="类型推导"><a href="#类型推导" class="headerlink" title="类型推导"></a>类型推导</h3><p>Swift是强类型的语言<br>Swift中任何一个标识符都有明确的类型</p>
+<h4 id="注意-1"><a href="#注意-1" class="headerlink" title="注意:"></a>注意:</h4><p>1.如果定义一个标识符时有直接进行赋值,那么标识符后面的类型可以省略.<br>2.因为Swift有类型推导,会自动根据后面的赋值来决定前面的标识符的数据类型 可以通过option+鼠标左键 来查看变量的数据类型 </p>
+<h2 id="Swift中基本运算"><a href="#Swift中基本运算" class="headerlink" title="Swift中基本运算"></a>Swift中基本运算</h2><p>1.Swift中在进行基本运算时必须保证类型一致,否则会出错相同类型之间才可以进行运算<br>因为Swift中没有隐式转换</p>
+<p>2.数据类型的转化Int类型转成Double类型:Double(标识符)<br>Double类型转成Int类型:Int(标识符)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let a = 10</span><br><span class="line">let b = 3.14</span><br><span class="line">// 错误写法 </span><br><span class="line">//let c = a + b </span><br><span class="line">//let c = a * b</span><br><span class="line">// 正确写法</span><br><span class="line">let c = Double(a) + blet </span><br><span class="line">d = a + Int(b)</span><br></pre></td></tr></table></figure>
+
+<p>if分支语句<br>和OC中if语句有一定的区别判断句可以不加()<br>在Swift的判断句中必须有明确的真假不再有非0即真<br>必须有明确的Bool值<br>Bool有两个取值:false&#x2F;true</p>
+<h2 id="guard的使用"><a href="#guard的使用" class="headerlink" title="guard的使用"></a>guard的使用</h2><p>guard语句必须带有else语句，它的语法如下：当条件表达式为true时候跳过else语句中的内容，执行语句组内容<br>条件表达式为false时候执行else语句中的内容，跳转语句一般是return、break、continue和throw</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">guard 条件表达式 else &#123;  // 条换语句 </span><br><span class="line">  break&#125;</span><br><span class="line">语句组</span><br></pre></td></tr></table></figure>
+<h2 id="switch分支"><a href="#switch分支" class="headerlink" title="switch分支"></a>switch分支</h2><p>基本用法和OC用法一致<br>不同之处:switch后可以不跟()<br>case后可以不跟break(默认会有break)</p>
+<h4 id="简单使用补充"><a href="#简单使用补充" class="headerlink" title="简单使用补充:"></a>简单使用补充:</h4><p>1.一个case判断中,可以判断多个值<br>多个值以, 隔开 如果希望出现之前的case穿透,则可以使用关键字fallthrough</p>
+<p>2.什么是区间?通常我们指的是数字区间:0<del>10,100</del>200</p>
+<p>3.swift中的区间常见有两种半开半闭区间:0..&lt;10 表示:0<del>9,不包括10<br>闭区间:0…10 表示:0</del>10</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let score = 88switch score &#123;</span><br><span class="line">    case 0..&lt;60:    </span><br><span class="line">        print(&quot;不及格&quot;)</span><br><span class="line">    case 60..&lt;80:    </span><br><span class="line">        print(&quot;几个&quot;)</span><br><span class="line">    case 80..&lt;90:    </span><br><span class="line">        print(&quot;良好&quot;)</span><br><span class="line">    case 90..&lt;100:    </span><br><span class="line">        print(&quot;优秀&quot;)</span><br><span class="line">    default:   </span><br><span class="line">        print(&quot;满分&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="循环的介绍"><a href="#循环的介绍" class="headerlink" title="循环的介绍"></a>循环的介绍</h2><ul>
+<li>在开发中经常会需要循环</li>
+<li>常见的循环有:for&#x2F;while&#x2F;do while.</li>
+<li>这里我们只介绍for&#x2F;while,因为for&#x2F;while最常见</li>
+</ul>
+<h2 id="for循环的写法"><a href="#for循环的写法" class="headerlink" title="for循环的写法"></a>for循环的写法</h2><ul>
+<li>最常规写法</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 传统写法</span><br><span class="line">for var i = 0; i &lt; 10; i++ &#123; </span><br><span class="line">     print(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>区间for循环</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//半开半闭区间</span><br><span class="line">for i in 0..&lt;10 &#123; </span><br><span class="line">    print(i)</span><br><span class="line">&#125;</span><br><span class="line">//闭区间</span><br><span class="line">for i in 0...10 &#123; </span><br><span class="line">    print(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>特殊写法如果在for循环中不需要用到下标i</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for _ in 0..&lt;10 &#123; </span><br><span class="line">    print(&quot;hello&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="while和do-while循环"><a href="#while和do-while循环" class="headerlink" title="while和do while循环"></a>while和do while循环</h2><ul>
+<li>while循环</li>
+<li>while的判断句必须有正确的真假,没有非0即真</li>
+<li>while后面的()可以省略</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = 0</span><br><span class="line">while a &lt; 10 &#123; </span><br><span class="line">    a++</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>do while循环使用</li>
+<li>repeat关键字来代替了do</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let b = 0</span><br><span class="line">repeat &#123; </span><br><span class="line">    print(b)</span><br><span class="line">    b++</span><br><span class="line">&#125; while b &lt; 20</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/swift/" rel="tag"># swift</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2016/01/26/swift%E7%AC%94%E8%AE%B02/" rel="next" title="swift笔记2">
+                  swift笔记2 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈浩</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

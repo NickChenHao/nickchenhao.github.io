@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"nickchenhao.github.io.","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言2020年年关，“新冠状病毒”感染所致的肺炎肆虐全国，成为了继2003年非典以来更严重的瘟疫。口罩是预防肺炎的有效手段之一，口罩的种类有多种，比如纱布口罩、医用口罩（如N95）、日用口罩、防尘口罩等，口罩的制作过程、工艺、样式大致相同，但使用对象会因为不同的使用场景而不同，比如普通民众和医生使用的口罩，室内生产线上的工人和场外工地上的工人使用的口罩。口罩当前已成为了“硬通货”，堪比日常的油盐酱">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习数据建模">
+<meta property="og:url" content="http://nickchenhao.github.io./2020/02/13/%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1/index.html">
+<meta property="og:site_name" content="Nick">
+<meta property="og:description" content="前言2020年年关，“新冠状病毒”感染所致的肺炎肆虐全国，成为了继2003年非典以来更严重的瘟疫。口罩是预防肺炎的有效手段之一，口罩的种类有多种，比如纱布口罩、医用口罩（如N95）、日用口罩、防尘口罩等，口罩的制作过程、工艺、样式大致相同，但使用对象会因为不同的使用场景而不同，比如普通民众和医生使用的口罩，室内生产线上的工人和场外工地上的工人使用的口罩。口罩当前已成为了“硬通货”，堪比日常的油盐酱">
+<meta property="og:locale">
+<meta property="og:image" content="http://nickchenhao.github.io./images/%E5%8F%A3%E7%BD%A9%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1.png">
+<meta property="article:published_time" content="2020-02-13T08:01:54.000Z">
+<meta property="article:modified_time" content="2020-02-13T08:20:54.683Z">
+<meta property="article:author" content="陈浩">
+<meta property="article:tag" content="数据建模">
+<meta property="article:tag" content="PDMan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://nickchenhao.github.io./images/%E5%8F%A3%E7%BD%A9%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1.png">
+
+
+<link rel="canonical" href="http://nickchenhao.github.io./2020/02/13/%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"http://nickchenhao.github.io./2020/02/13/%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1/","path":"2020/02/13/学习数据建模/","title":"学习数据建模"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>学习数据建模 | Nick</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Nick</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99"><span class="nav-number">2.</span> <span class="nav-text">学习资料</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E7%9B%AE%E5%BD%95"><span class="nav-number">3.</span> <span class="nav-text">模块目录</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#module-MASK-relation%7D-from"><span class="nav-number">3.0.1.</span> <span class="nav-text">1. 关联关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#module-MASK-tableList-from"><span class="nav-number">3.0.2.</span> <span class="nav-text">2. 表清单</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#module-MASK-tableColumnList-from"><span class="nav-number">3.0.3.</span> <span class="nav-text">3. 表列清单</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_KIND-from"><span class="nav-number">3.0.3.1.</span> <span class="nav-text">3.1 MASK_KIND【种类】</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_STANDARD-from"><span class="nav-number">3.0.3.2.</span> <span class="nav-text">3.2 MASK_STANDARD【执行标准】</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_FUNCTION-from"><span class="nav-number">3.0.3.3.</span> <span class="nav-text">3.3 MASK_FUNCTION【功能】</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_COMPOSITIONS-from"><span class="nav-number">3.0.3.4.</span> <span class="nav-text">3.4 MASK_COMPOSITIONS【产品构成】</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_USER-from"><span class="nav-number">3.0.3.5.</span> <span class="nav-text">3.5 MASK_USER【使用对象】</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_RANGE-from"><span class="nav-number">3.0.3.6.</span> <span class="nav-text">3.6 MASK_RANGE【适用场景】</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_RISK-from"><span class="nav-number">3.0.3.7.</span> <span class="nav-text">3.7 MASK_RISK【风险等级】</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%85%B3%E8%81%94%E5%85%B3%E7%B3%BB"><span class="nav-number"></span> <span class="nav-text">1.关联关系
+ </span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#module-MASK-relation"><span class="nav-number">0.0.1.</span> <span class="nav-text">1.关联关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#module-MASK-tableList"><span class="nav-number">0.0.2.</span> <span class="nav-text">2.表清单</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#module-MASK-tableColumnList"><span class="nav-number">0.0.3.</span> <span class="nav-text">3.表列清单</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_KIND"><span class="nav-number">0.0.3.1.</span> <span class="nav-text">MASK_KIND【种类】</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_STANDARD"><span class="nav-number">0.0.3.2.</span> <span class="nav-text">MASK_STANDARD【执行标准】</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_FUNCTION"><span class="nav-number">0.0.3.3.</span> <span class="nav-text">MASK_FUNCTION【功能】</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_COMPOSITIONS"><span class="nav-number">0.0.3.4.</span> <span class="nav-text">MASK_COMPOSITIONS【产品构成】</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_USER"><span class="nav-number">0.0.3.5.</span> <span class="nav-text">MASK_USER【使用对象】</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_RANGE"><span class="nav-number">0.0.3.6.</span> <span class="nav-text">MASK_RANGE【适用场景】</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#module-MASK-tableColumnList-MASK_RISK"><span class="nav-number">0.0.3.7.</span> <span class="nav-text">MASK_RISK【风险等级】</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">陈浩</p>
+  <div class="site-description" itemprop="description">学习路上,与君共勉,越努力,越幸运...</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2020/02/13/%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="陈浩">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Nick">
+      <meta itemprop="description" content="学习路上,与君共勉,越努力,越幸运...">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="学习数据建模 | Nick">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          学习数据建模
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-02-13 16:01:54 / Modified: 16:20:54" itemprop="dateCreated datePublished" datetime="2020-02-13T16:01:54+08:00">2020-02-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>2020年年关，“新冠状病毒”感染所致的肺炎肆虐全国，成为了继2003年非典以来更严重的瘟疫。口罩是预防肺炎的有效手段之一，口罩的种类有多种，比如纱布口罩、医用口罩（如N95）、日用口罩、防尘口罩等，口罩的制作过程、工艺、样式大致相同，但使用对象会因为不同的使用场景而不同，比如普通民众和医生使用的口罩，室内生产线上的工人和场外工地上的工人使用的口罩。<br>口罩当前已成为了“硬通货”，堪比日常的油盐酱醋，全国各地都在加班加点生产，近日，富士康和比亚迪已宣布开始生产口罩。<br>请根据以上材料结合设计模式的相关知识对口罩进行建模？</p>
+<span id="more"></span>
+
+<h3 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h3><p><a href="https://blog.csdn.net/zhangchen2449/article/details/80530027">商品销售数据建模及分析</a><br><a href="https://blog.csdn.net/gao2175/article/details/90206739">3个问题带你入门数据建模</a><br><a href="https://www.iteye.com/blog/student-lp-2212743">数据仓库建设-数据建模</a><br><a href="http://www.itxm.cn/post/6976.html">数据建模详解</a></p>
+<h3 id="模块目录"><a href="#模块目录" class="headerlink" title="模块目录"></a>模块目录</h3><ul>
+<li><p><a href="#module-MASK-relation" title="关联关系"><h5 id="module-MASK-relation}-from">1. 关联关系</h5></a></p>
+</li>
+<li><p><a href="#module-MASK-tableList" title="表清单"><h5 id="module-MASK-tableList-from">2. 表清单</h5></a></p>
+</li>
+<li><p><a href="#module-MASK-tableColumnList" title="表列清单"><h5 id="module-MASK-tableColumnList-from">3. 表列清单</h5></a></p>
+<ul>
+<li><a href="#module-MASK-tableColumnList-MASK_KIND" title="MASK_KIND"><h6 id="module-MASK-tableColumnList-MASK_KIND-from">3.1 MASK_KIND【种类】</h6></a></li>
+<li><a href="#module-MASK-tableColumnList-MASK_STANDARD" title="MASK_STANDARD"><h6 id="module-MASK-tableColumnList-MASK_STANDARD-from">3.2 MASK_STANDARD【执行标准】</h6></a></li>
+<li><a href="#module-MASK-tableColumnList-MASK_FUNCTION" title="MASK_FUNCTION"><h6 id="module-MASK-tableColumnList-MASK_FUNCTION-from">3.3 MASK_FUNCTION【功能】</h6></a></li>
+<li><a href="#module-MASK-tableColumnList-MASK_COMPOSITIONS" title="MASK_COMPOSITIONS"><h6 id="module-MASK-tableColumnList-MASK_COMPOSITIONS-from">3.4 MASK_COMPOSITIONS【产品构成】</h6></a></li>
+<li><a href="#module-MASK-tableColumnList-MASK_USER" title="MASK_USER"><h6 id="module-MASK-tableColumnList-MASK_USER-from">3.5 MASK_USER【使用对象】</h6></a></li>
+<li><a href="#module-MASK-tableColumnList-MASK_RANGE" title="MASK_RANGE"><h6 id="module-MASK-tableColumnList-MASK_RANGE-from">3.6 MASK_RANGE【适用场景】</h6></a></li>
+<li><a href="#module-MASK-tableColumnList-MASK_RISK" title="MASK_RISK"><h6 id="module-MASK-tableColumnList-MASK_RISK-from">3.7 MASK_RISK【风险等级】</h6></a></li>
+</ul>
+<hr>
+</li>
+</ul>
+<h2 id="1-关联关系"><a href="#1-关联关系" class="headerlink" title="1.关联关系
+ "></a><a href="#module-MASK-relation-from"><h5 id="module-MASK-relation">1.关联关系</h5></a>
+ </h2><p><img src="/images/%E5%8F%A3%E7%BD%A9%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1.png" alt="MASK-关系图"></p>
+<hr>
+<p> <a href="#module-MASK-tableList-from"><h5 id="module-MASK-tableList">2.表清单</h5></a></p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>代码</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>种类</td>
+<td>MASK_KIND</td>
+<td></td>
+</tr>
+<tr>
+<td>执行标准</td>
+<td>MASK_STANDARD</td>
+<td></td>
+</tr>
+<tr>
+<td>功能</td>
+<td>MASK_FUNCTION</td>
+<td></td>
+</tr>
+<tr>
+<td>产品构成</td>
+<td>MASK_COMPOSITIONS</td>
+<td></td>
+</tr>
+<tr>
+<td>使用对象</td>
+<td>MASK_USER</td>
+<td></td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>MASK_RANGE</td>
+<td></td>
+</tr>
+<tr>
+<td>风险等级</td>
+<td>MASK_RISK</td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<p> <a href="#module-MASK-tableColumnList-from"><h5 id="module-MASK-tableColumnList">3.表列清单</h5></a></p>
+<hr>
+<ul>
+<li><a href="#module-MASK-tableColumnList-MASK_KIND-from"><h6 id="module-MASK-tableColumnList-MASK_KIND">MASK_KIND【种类】</h6></a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>名称</th>
+<th>数据类型(MYSQL)</th>
+<th>主键</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID</td>
+<td>种类ID</td>
+<td>VARCHAR(32)</td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>NAME</td>
+<td>种类名称</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>IMAGE</td>
+<td>种类图片</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PIRCE</td>
+<td>价格</td>
+<td>DECIMAL(32,8)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>STANDARD_ID</td>
+<td>所属执行标准</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CONMPOSITIONS_ID</td>
+<td>所属组成成分</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>FUNCTION_ID</td>
+<td>所属功能</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RANGE_ID</td>
+<td>适用场景</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DIMENSIONS</td>
+<td>尺寸规格</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>VENDORS</td>
+<td>生产厂商</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATED_BY</td>
+<td>创建人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATED_TIME</td>
+<td>创建时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_BY</td>
+<td>更新人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_TIME</td>
+<td>更新时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<ul>
+<li><a href="#module-MASK-tableColumnList-MASK_STANDARD-from"><h6 id="module-MASK-tableColumnList-MASK_STANDARD">MASK_STANDARD【执行标准】</h6></a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>名称</th>
+<th>数据类型(MYSQL)</th>
+<th>主键</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID</td>
+<td>标准ID</td>
+<td>VARCHAR(32)</td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>NAME</td>
+<td>标准名称</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>LEVEL</td>
+<td>防护等级</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATED_BY</td>
+<td>创建人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATED_TIME</td>
+<td>创建时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_BY</td>
+<td>更新人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_TIME</td>
+<td>更新时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<ul>
+<li><a href="#module-MASK-tableColumnList-MASK_FUNCTION-from"><h6 id="module-MASK-tableColumnList-MASK_FUNCTION">MASK_FUNCTION【功能】</h6></a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>名称</th>
+<th>数据类型(MYSQL)</th>
+<th>主键</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID</td>
+<td>功能ID</td>
+<td>VARCHAR(32)</td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>FUNCTIONS</td>
+<td>功能项</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>NOTICE</td>
+<td>注意项</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CYCLE</td>
+<td>使用周期</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>THEORY</td>
+<td>工作原理</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATED_BY</td>
+<td>创建人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATED_TIME</td>
+<td>创建时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_BY</td>
+<td>更新人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_TIME</td>
+<td>更新时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<ul>
+<li><a href="#module-MASK-tableColumnList-MASK_COMPOSITIONS-from"><h6 id="module-MASK-tableColumnList-MASK_COMPOSITIONS">MASK_COMPOSITIONS【产品构成】</h6></a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>名称</th>
+<th>数据类型(MYSQL)</th>
+<th>主键</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID</td>
+<td>组成成分ID</td>
+<td>VARCHAR(32)</td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>GATHER</td>
+<td>构成</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>FORM</td>
+<td>形式</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RESERVE</td>
+<td>储存条件</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>BATCHNUM</td>
+<td>生产批号</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PRODUCTDATE</td>
+<td>生产日期</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>VALIDITY</td>
+<td>有效期</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ENTERPRISE</td>
+<td>生产企业</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ADDRESS</td>
+<td>生产地址</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATED_BY</td>
+<td>创建人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATED_TIME</td>
+<td>创建时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_BY</td>
+<td>更新人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_TIME</td>
+<td>更新时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<ul>
+<li><a href="#module-MASK-tableColumnList-MASK_USER-from"><h6 id="module-MASK-tableColumnList-MASK_USER">MASK_USER【使用对象】</h6></a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>名称</th>
+<th>数据类型(MYSQL)</th>
+<th>主键</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID</td>
+<td>对象ID</td>
+<td>VARCHAR(32)</td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>NAME</td>
+<td>对象名称</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>KIND_ID</td>
+<td>种类ID</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GENDER</td>
+<td>性别</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>AGE</td>
+<td>年龄</td>
+<td>INT</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PROFESSION</td>
+<td>职业</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CHANNEL</td>
+<td>购买渠道</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RISK_ID</td>
+<td>风险等级</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UNSUITABLE_USER</td>
+<td>不适人群</td>
+<td>VARCHAR(512)</td>
+<td></td>
+<td>心脏或呼吸系统有困难的人（如哮喘肺气肿）、怀孕、佩戴后头晕、呼吸困难和皮肤敏感。</td>
+</tr>
+<tr>
+<td>CREATED_BY</td>
+<td>创建人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATED_TIME</td>
+<td>创建时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_BY</td>
+<td>更新人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_TIME</td>
+<td>更新时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<ul>
+<li><a href="#module-MASK-tableColumnList-MASK_RANGE-from"><h6 id="module-MASK-tableColumnList-MASK_RANGE">MASK_RANGE【适用场景】</h6></a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>名称</th>
+<th>数据类型(MYSQL)</th>
+<th>主键</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID</td>
+<td>场景ID</td>
+<td>VARCHAR(32)</td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>NAME</td>
+<td>场景名称</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RISK_ID</td>
+<td>风险等级</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATED_BY</td>
+<td>创建人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATED_TIME</td>
+<td>创建时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_BY</td>
+<td>更新人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_TIME</td>
+<td>更新时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<ul>
+<li><a href="#module-MASK-tableColumnList-MASK_RISK-from"><h6 id="module-MASK-tableColumnList-MASK_RISK">MASK_RISK【风险等级】</h6></a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>名称</th>
+<th>数据类型(MYSQL)</th>
+<th>主键</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID</td>
+<td>风险ID</td>
+<td>VARCHAR(32)</td>
+<td>√</td>
+<td></td>
+</tr>
+<tr>
+<td>NAME</td>
+<td>等级名称</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>EXPLAIN</td>
+<td>风险说明</td>
+<td>VARCHAR(512)</td>
+<td></td>
+<td>高、较高、中、较低、低等级 判定</td>
+</tr>
+<tr>
+<td>CREATED_BY</td>
+<td>创建人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CREATED_TIME</td>
+<td>创建时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_BY</td>
+<td>更新人</td>
+<td>VARCHAR(32)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UPDATED_TIME</td>
+<td>更新时间</td>
+<td>DATETIME</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1/" rel="tag"># 数据建模</a>
+              <a href="/tags/PDMan/" rel="tag"># PDMan</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/08/27/sonar%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B%E6%8F%92%E4%BB%B6/" rel="prev" title="sonar代码检测插件">
+                  <i class="fa fa-angle-left"></i> sonar代码检测插件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/11/13/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%9C%A8-iOS18-%E4%B8%AD%E5%A4%B1%E6%95%88/" rel="next" title="画中画在 iOS18 中失效？">
+                  画中画在 iOS18 中失效？ <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">陈浩</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
