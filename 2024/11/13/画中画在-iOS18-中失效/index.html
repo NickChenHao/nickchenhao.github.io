@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"nickchenhao.github.io.","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="记录一次 升级xcode的坑AVPictureInPictureController  画中画 iOS18 打开相机后失效  用 xcode16     运行 iOS18   画中画在相机里失效 用 xcode16     运行 iOS17   画中画在相机里正常 用 xcode15.4  运行 iOS18   画中画在相机里正常  如果不升级xcode就没有问题，但是也不是根本解决方法网上和Ch">
+    <meta name="description" content="记录一次 升级xcode的坑AVPictureInPictureController  画中画 iOS18 打开相机后失效  用 xcode16     运行 iOS18   画中画在相机里失效 用 xcode16     运行 iOS17   画中画在相机里正常 用 xcode15.4  运行 iOS18   画中画在相机里正常  如果不升级xcode就没有问题，但这也不是根本解决方法 可能还要">
 <meta property="og:type" content="article">
 <meta property="og:title" content="画中画在 iOS18 中失效？">
 <meta property="og:url" content="http://nickchenhao.github.io./2024/11/13/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%9C%A8-iOS18-%E4%B8%AD%E5%A4%B1%E6%95%88/index.html">
 <meta property="og:site_name" content="Nick">
-<meta property="og:description" content="记录一次 升级xcode的坑AVPictureInPictureController  画中画 iOS18 打开相机后失效  用 xcode16     运行 iOS18   画中画在相机里失效 用 xcode16     运行 iOS17   画中画在相机里正常 用 xcode15.4  运行 iOS18   画中画在相机里正常  如果不升级xcode就没有问题，但是也不是根本解决方法网上和Ch">
+<meta property="og:description" content="记录一次 升级xcode的坑AVPictureInPictureController  画中画 iOS18 打开相机后失效  用 xcode16     运行 iOS18   画中画在相机里失效 用 xcode16     运行 iOS17   画中画在相机里正常 用 xcode15.4  运行 iOS18   画中画在相机里正常  如果不升级xcode就没有问题，但这也不是根本解决方法 可能还要">
 <meta property="og:locale">
 <meta property="article:published_time" content="2024-11-13T09:15:04.000Z">
-<meta property="article:modified_time" content="2024-11-13T10:18:58.907Z">
+<meta property="article:modified_time" content="2024-11-14T02:34:43.596Z">
 <meta property="article:author" content="陈浩">
 <meta property="article:tag" content="Swift">
 <meta name="twitter:card" content="summary">
@@ -183,9 +183,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
-      
 
-      <time title="Created: 2024-11-13 17:15:04 / Modified: 18:18:58" itemprop="dateCreated datePublished" datetime="2024-11-13T17:15:04+08:00">2024-11-13</time>
+      <time title="Created: 2024-11-13 17:15:04" itemprop="dateCreated datePublished" datetime="2024-11-13T17:15:04+08:00">2024-11-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2024-11-14 10:34:43" itemprop="dateModified" datetime="2024-11-14T10:34:43+08:00">2024-11-14</time>
     </span>
 
   
@@ -203,7 +209,7 @@
 <li>用 xcode16     运行 iOS17   画中画在相机里正常</li>
 <li>用 xcode15.4  运行 iOS18   画中画在相机里正常</li>
 </ul>
-<p>如果不升级xcode就没有问题，但是也不是根本解决方法<br>网上和ChatGPT都没有类似情况<br>发现是版本问题 也是巧合 正好使用xcode15.4打包项目</p>
+<p>如果不升级xcode就没有问题，但这也不是根本解决方法 可能还要等xcode的修复这个问题吧<br>网上和ChatGPT都没有类似情况<br>发现是版本问题 也是巧合 正好使用xcode15.4打包项目</p>
 <p><strong>总结：不要乱升级 xcode</strong></p>
 
     </div>
