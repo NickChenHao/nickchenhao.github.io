@@ -19,29 +19,26 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"nickchenhao.github.io.","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.21.1","exturl":false,"sidebar":{"position":"right","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="参考文章结合cocoapods谈iOS私有库的三种管理方式利用公司SVN服务器 使用cocoaPods管理自己的私有库 步骤注： 需要安装repo-svn插件 gem install cocoapods-repo-svn （PS：会报权限问题，出现的Error可以忽略，改成sudo gem install cocoapods-repo-svn）">
+    <meta name="description" content="起因是 UI 设计 给不了 Lottie 带颜色的动画，说是 AE 加入颜色导出会报错，只能用 gif 代替。。。 AE 研究不了，那就看看 gif 怎么转成 Lottie 方法吧">
 <meta property="og:type" content="article">
-<meta property="og:title" content="私有项目或功能集成到SVN 通过pod下载">
-<meta property="og:url" content="http://nickchenhao.github.io./2019/07/16/%E7%A7%81%E6%9C%89%E9%A1%B9%E7%9B%AE%E6%88%96%E5%8A%9F%E8%83%BD%E9%9B%86%E6%88%90%E5%88%B0SVN-%E9%80%9A%E8%BF%87pod%E4%B8%8B%E8%BD%BD/index.html">
+<meta property="og:title" content="gif转成Lottie的一种方法">
+<meta property="og:url" content="http://nickchenhao.github.io./2025/01/08/gif%E8%BD%AC%E6%88%90Lottie%E7%9A%84%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="陈某人">
-<meta property="og:description" content="参考文章结合cocoapods谈iOS私有库的三种管理方式利用公司SVN服务器 使用cocoaPods管理自己的私有库 步骤注： 需要安装repo-svn插件 gem install cocoapods-repo-svn （PS：会报权限问题，出现的Error可以忽略，改成sudo gem install cocoapods-repo-svn）">
+<meta property="og:description" content="起因是 UI 设计 给不了 Lottie 带颜色的动画，说是 AE 加入颜色导出会报错，只能用 gif 代替。。。 AE 研究不了，那就看看 gif 怎么转成 Lottie 方法吧">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-07-16T03:28:33.000Z">
-<meta property="article:modified_time" content="2019-08-05T01:54:07.800Z">
+<meta property="article:published_time" content="2025-01-08T09:53:57.000Z">
+<meta property="article:modified_time" content="2025-01-08T10:05:51.770Z">
 <meta property="article:author" content="陈某人">
-<meta property="article:tag" content="SVN">
-<meta property="article:tag" content="cocoapods">
-<meta property="article:tag" content="pod">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://nickchenhao.github.io./2019/07/16/%E7%A7%81%E6%9C%89%E9%A1%B9%E7%9B%AE%E6%88%96%E5%8A%9F%E8%83%BD%E9%9B%86%E6%88%90%E5%88%B0SVN-%E9%80%9A%E8%BF%87pod%E4%B8%8B%E8%BD%BD/">
+<link rel="canonical" href="http://nickchenhao.github.io./2025/01/08/gif%E8%BD%AC%E6%88%90Lottie%E7%9A%84%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://nickchenhao.github.io./2019/07/16/%E7%A7%81%E6%9C%89%E9%A1%B9%E7%9B%AE%E6%88%96%E5%8A%9F%E8%83%BD%E9%9B%86%E6%88%90%E5%88%B0SVN-%E9%80%9A%E8%BF%87pod%E4%B8%8B%E8%BD%BD/","path":"2019/07/16/私有项目或功能集成到SVN-通过pod下载/","title":"私有项目或功能集成到SVN 通过pod下载"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://nickchenhao.github.io./2025/01/08/gif%E8%BD%AC%E6%88%90Lottie%E7%9A%84%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/","path":"2025/01/08/gif转成Lottie的一种方法/","title":"gif转成Lottie的一种方法"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>私有项目或功能集成到SVN 通过pod下载 | 陈某人</title>
+<title>gif转成Lottie的一种方法 | 陈某人</title>
   
 
 
@@ -127,7 +124,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -139,7 +136,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="nav-number">1.</span> <span class="nav-text">参考文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">说明</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -195,7 +191,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2019/07/16/%E7%A7%81%E6%9C%89%E9%A1%B9%E7%9B%AE%E6%88%96%E5%8A%9F%E8%83%BD%E9%9B%86%E6%88%90%E5%88%B0SVN-%E9%80%9A%E8%BF%87pod%E4%B8%8B%E8%BD%BD/">
+    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2025/01/08/gif%E8%BD%AC%E6%88%90Lottie%E7%9A%84%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/nick.jpg">
@@ -208,12 +204,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="私有项目或功能集成到SVN 通过pod下载 | 陈某人">
+      <meta itemprop="name" content="gif转成Lottie的一种方法 | 陈某人">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          私有项目或功能集成到SVN 通过pod下载
+          gif转成Lottie的一种方法
         </h1>
 
         <div class="post-meta-container">
@@ -223,15 +219,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2019-07-16 11:28:33" itemprop="dateCreated datePublished" datetime="2019-07-16T11:28:33+08:00">2019-07-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2019-08-05 09:54:07" itemprop="dateModified" datetime="2019-08-05T09:54:07+08:00">2019-08-05</time>
+      <time title="创建时间：2025-01-08 17:53:57 / 修改时间：18:05:51" itemprop="dateCreated datePublished" datetime="2025-01-08T17:53:57+08:00">2025-01-08</time>
     </span>
 
   
@@ -243,36 +233,14 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="https://www.jianshu.com/p/cbb8931499da">结合cocoapods谈iOS私有库的三种管理方式</a><br><a href="https://www.jianshu.com/p/217841b3eb7d">利用公司SVN服务器 使用cocoaPods管理自己的私有库</a></p>
-<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><p><strong>注：</strong> 需要安装repo-svn插件 <code>gem install cocoapods-repo-svn</code> （PS：会报权限问题，出现的Error可以忽略，改成<code>sudo gem install cocoapods-repo-svn</code>）</p>
+    <div class="post-body" itemprop="articleBody"><p>起因是 UI 设计 给不了 Lottie 带颜色的动画，说是 AE 加入颜色导出会报错，只能用 gif 代替。。。</p>
+<p>AE 研究不了，那就看看 gif 怎么转成 Lottie 方法吧</p>
 <span id="more"></span>
-<ul>
-<li>创建podspec文件   <code>pod spec create 文件名</code></li>
-<li>将项目或功能上传至SVN<ul>
-<li>有(branches、tags、trunk)三个目录 一般放到truck或者branches里 </li>
-<li>通过打标签设置版本号 (先在tags里创建该文件空的，然后选择tag选择到该文件下打版本标签)</li>
-</ul>
-</li>
-<li><code>pod repo-svn add tags  svn上tags的地址</code> （添加项目）   可在 <code>~/.cocoapods/repos/</code> 查看</li>
-<li><code>pod repo-svn update tags</code> （更新项目）</li>
-<li>可在podfile文件中添加 （tags在svn上的地址）</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plugin &#x27;cocoapods-repo-svn&#x27;, :sources =&gt; [</span><br><span class="line">   中括号内的 为tags在SVN上的地址、也是podspec里source地址加上/tags</span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>直接 <code>pod ‘名称’, ‘版本号’ </code></li>
-<li><code>pod install</code> 即可 </li>
-<li>若有修改SVN中的文件 需要先 删除pod缓存 <code>open ~/Library/Caches/Cocoapods </code> 再<code>pod install</code></li>
-</ul>
-<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ul>
-<li><p>可通过 <code>pod spec lint TrackAction.podspec --verbose --use-libraries --allow-warnings</code> 检查错误 </p>
-</li>
-<li><p>集成到GitHub 通过pod管理  原理类似  可在简书 <a href="https://www.jianshu.com/bookmarks">收藏的文章</a> 中查找 </p>
-</li>
-<li><p>cocoapods缓存问题  解决修改了tags里内容但pod下来却没有更新<br>   删除pod  <code>~/Library/Caches/Cocoapods </code>  <br>   <a href="https://www.jianshu.com/p/f936794aa512">https://www.jianshu.com/p/f936794aa512</a>  </p>
-</li>
-<li><p>需要注意的地方 在项目中写在pch的头文件 若要集成出来  需要在对应的文件里写上这个头文件 不然会报错找不到</p>
-</li>
-</ul>
+
+<p>网上找了好多在线转的，都不太理想。<br>目前只有先将 Gif 转成 MP4：<a href="https://ezgif.com/gif-to-mp4">https://ezgif.com/gif-to-mp4</a><br>再将 MP4 转成 Lottie：<a href="https://observablehq.com/@forresto/video-to-lottie">https://observablehq.com/@forresto/video-to-lottie</a><br>因为 gif 中的动画背景是透明的，所以 MP4 转成 Lottie 的网站中需要将 <code>extractFrames方法</code>替换成</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">async function extractFrames(&#123;</span><br><span class="line">  videoEl,</span><br><span class="line">  clipStart,</span><br><span class="line">  clipEnd,</span><br><span class="line">  numFrames,</span><br><span class="line">  quality = 0.8,</span><br><span class="line">  outputScale = 1,</span><br><span class="line">  alpha = 1 // 设置透明度 (1: 完全不透明)</span><br><span class="line">&#125;) &#123;</span><br><span class="line">  // 暂停视频播放</span><br><span class="line">  videoEl.pause();</span><br><span class="line"></span><br><span class="line">  const canvas = document.createElement(&#x27;canvas&#x27;);</span><br><span class="line">  const context = canvas.getContext(&#x27;2d&#x27;);</span><br><span class="line">  const outputWidth = outputScale * videoEl.videoWidth;</span><br><span class="line">  const outputHeight = outputScale * videoEl.videoHeight;</span><br><span class="line">  canvas.width = outputWidth;</span><br><span class="line">  canvas.height = outputHeight;</span><br><span class="line"></span><br><span class="line">  const frames = [];</span><br><span class="line"></span><br><span class="line">  for (let i = 0; i &lt; numFrames; i++) &#123;</span><br><span class="line">    const duration = clipEnd - clipStart;</span><br><span class="line">    if (duration &lt;= 0) &#123;</span><br><span class="line">      throw new Error(&#x27;clipEnd is before clipStart&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">    const time = i * (duration / (Math.max(2, numFrames) - 1)) + clipStart;</span><br><span class="line"></span><br><span class="line">    // 跳转到指定时间</span><br><span class="line">    const seekedTime = await seekTo(videoEl, time);</span><br><span class="line"></span><br><span class="line">    // 清空 Canvas 背景，确保透明</span><br><span class="line">    context.clearRect(0, 0, canvas.width, canvas.height);</span><br><span class="line"></span><br><span class="line">    // 设置全局透明度</span><br><span class="line">    context.globalAlpha = alpha;</span><br><span class="line"></span><br><span class="line">    // 绘制视频帧到 Canvas</span><br><span class="line">    context.drawImage(videoEl, 0, 0, outputWidth, outputHeight);</span><br><span class="line"></span><br><span class="line">    // 获取帧像素数据</span><br><span class="line">    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);</span><br><span class="line">    const data = imageData.data;</span><br><span class="line"></span><br><span class="line">    // 将白色像素（或近似白色）改为透明</span><br><span class="line">    for (let j = 0; j &lt; data.length; j += 4) &#123;</span><br><span class="line">      const r = data[j];     // 红色通道</span><br><span class="line">      const g = data[j + 1]; // 绿色通道</span><br><span class="line">      const b = data[j + 2]; // 蓝色通道</span><br><span class="line">      const a = data[j + 3]; // 透明度通道</span><br><span class="line"></span><br><span class="line">      // 判断是否是白色（或接近白色）</span><br><span class="line">      if (r &gt; 240 &amp;&amp; g &gt; 240 &amp;&amp; b &gt; 240 &amp;&amp; a &gt; 0) &#123;</span><br><span class="line">        // 将其改为透明</span><br><span class="line">        data[j + 3] = 0;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 将修改后的像素数据写回 Canvas</span><br><span class="line">    context.putImageData(imageData, 0, 0);</span><br><span class="line"></span><br><span class="line">    // 将帧数据存储为透明背景的 PNG</span><br><span class="line">    frames.push(&#123;</span><br><span class="line">      time,</span><br><span class="line">      seekedTime,</span><br><span class="line">      data: canvas.toDataURL(&#x27;image/png&#x27;, quality) // 输出透明背景帧</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return frames;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还有<code>lottie.layers.push 中的jpg</code>改成 png 使其支持 alpha 通道<br>其他不用改变 按步骤上传视频 然后导出就行了！</p>
+<p>这样 Lottie 动画就是带颜色的啦～</p>
 
     </div>
 
@@ -281,24 +249,16 @@
     
 
     <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/SVN/" rel="tag"># SVN</a>
-              <a href="/tags/cocoapods/" rel="tag"># cocoapods</a>
-              <a href="/tags/pod/" rel="tag"># pod</a>
-          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2019/07/03/iOS-%E6%97%A0%E5%9F%8B%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/" rel="prev" title="iOS 无埋点数据统计方案设计">
-                  <i class="fa fa-angle-left"></i> iOS 无埋点数据统计方案设计
+                <a href="/2024/11/22/Flutter-%E4%BE%A7%E6%BB%91%E4%BC%9A%E5%AF%BC%E8%87%B4-TextField-%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0%E7%84%A6%E7%82%B9%EF%BC%9F/" rel="prev" title="Flutter  侧滑会导致 TextField 获取不到焦点？">
+                  <i class="fa fa-angle-left"></i> Flutter  侧滑会导致 TextField 获取不到焦点？
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2019/07/22/RN%E9%9B%86%E6%88%90%E5%88%B0%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/" rel="next" title="RN集成到原生应用">
-                  RN集成到原生应用 <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
