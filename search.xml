@@ -1758,70 +1758,139 @@ ex:DES和3DES的分组长度都是64比特。即每次只能加密64比特的明
   <entry>
     <title>web3 学习</title>
     <url>/2025/02/28/web3-%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<h2 id="📚-第一阶段：筑基篇（1个月）"><a href="#📚-第一阶段：筑基篇（1个月）" class="headerlink" title="📚 第一阶段：筑基篇（1个月）"></a>📚 第一阶段：筑基篇（1个月）</h2><h3 id="目标：理解区块链核心概念"><a href="#目标：理解区块链核心概念" class="headerlink" title="目标：理解区块链核心概念"></a>目标：理解区块链核心概念</h3><h4 id="必看视频（1-5倍速观看）"><a href="#必看视频（1-5倍速观看）" class="headerlink" title="必看视频（1.5倍速观看）"></a>必看视频（1.5倍速观看）</h4><ul>
-<li><a href="https://www.bilibili.com/video/BV1Vx411X7KK">【北京大学】区块链技术与应用</a>（肖臻教授，技术原理必学）  </li>
-<li><a href="https://www.bilibili.com/video/BV1Vx411X7KK">【北京大学】区块链技术原理</a>（肖臻教授，打基础必看）</li>
-<li><a href="https://www.zhihu.com/zvideo/1553471935253180416">为什么Web3需要前端工程师？</a>（知乎实战解析）</li>
-<li><a href="https://www.zhihu.com/zvideo/1553471935253180416">Web3前端工程师的一天</a>（知乎实战案例）  <span id="more"></span></li>
+    <content><![CDATA[<h1 id="2025-年-Web3-应用开发与前端开发学习路线"><a href="#2025-年-Web3-应用开发与前端开发学习路线" class="headerlink" title="2025 年 Web3 应用开发与前端开发学习路线"></a>2025 年 Web3 应用开发与前端开发学习路线</h1><p>本学习路线涵盖从入门到进阶的知识点，提供可跳转的链接，涵盖常用开发工具（如 RainbowKit 等），并列举了在 Bilibili 和 YouTube 上点赞评论较高、发布时间较新的 Web3 相关视频。</p>
+<span id="more"></span>
+<h2 id="1-前端开发基础"><a href="#1-前端开发基础" class="headerlink" title="1. 前端开发基础"></a>1. 前端开发基础</h2><p>在开始 Web3 开发之前，掌握前端开发的基础知识是必要的。</p>
+<ul>
+<li><p><strong>HTML 与 CSS</strong>：学习如何构建和设计网页。</p>
+<ul>
+<li><a href="https://www.w3schools.com/html/">W3Schools HTML 教程</a></li>
+<li><a href="https://www.w3schools.com/css/">W3Schools CSS 教程</a></li>
 </ul>
-<h4 id="通勤音频（30分钟-天）"><a href="#通勤音频（30分钟-天）" class="headerlink" title="通勤音频（30分钟&#x2F;天）"></a>通勤音频（30分钟&#x2F;天）</h4><ul>
-<li>🎧 <a href="https://www.xiaoyuzhoufm.com/podcast/6244a1f3c3f6f7d2fef4b3b2">播客《Web3 101》</a>（基础概念解读）  </li>
-<li>🎧 <a href="https://www.dedao.cn/course/4qY8k9vQ6m">得到《Web3入门20讲》</a>（系统知识框架）</li>
-<li>🎧 <a href="https://www.dedao.cn/course/4qY8k9vQ6m">得到《Web3简明课》</a>（快速建立知识框架）</li>
+</li>
+<li><p><strong>JavaScript</strong>：作为前端开发的核心语言，掌握其语法和功能。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide">MDN JavaScript 教程</a></li>
 </ul>
-<h4 id="实战工具"><a href="#实战工具" class="headerlink" title="实战工具"></a>实战工具</h4><ul>
-<li><a href="https://metamask.io/zh/">MetaMask钱包</a>（第一个链上身份）  </li>
-<li><a href="https://etherscan.io/">Etherscan交易查询</a>（每天分析1笔交易）</li>
+</li>
+<li><p><strong>前端框架</strong>：学习主流的前端框架，如 React、Vue 或 Angular，以提高开发效率。</p>
+<ul>
+<li><a href="https://reactjs.org/docs/getting-started.html">React 官方文档</a></li>
+<li><a href="https://vuejs.org/v2/guide/">Vue.js 官方文档</a></li>
+<li><a href="https://angular.io/docs">Angular 官方文档</a></li>
 </ul>
-<hr>
-<h2 id="🛠️-第二阶段：工具篇（2-3个月）"><a href="#🛠️-第二阶段：工具篇（2-3个月）" class="headerlink" title="🛠️ 第二阶段：工具篇（2-3个月）"></a>🛠️ 第二阶段：工具篇（2-3个月）</h2><h3 id="目标：掌握开发三件套"><a href="#目标：掌握开发三件套" class="headerlink" title="目标：掌握开发三件套"></a>目标：掌握开发三件套</h3><h4 id="Vue3-Web3集成"><a href="#Vue3-Web3集成" class="headerlink" title="Vue3+Web3集成"></a>Vue3+Web3集成</h4><ul>
-<li>🎥 <a href="https://www.bilibili.com/video/BV1Y44y1q7cC">Vue3开发DeFi应用</a>（手把手项目教学）  </li>
-<li>💻 <a href="https://github.com/smilezjz/vue-web3-demo">代码模板</a>（开箱即用）</li>
+</li>
 </ul>
-<h4 id="Ethers-js精要"><a href="#Ethers-js精要" class="headerlink" title="Ethers.js精要"></a>Ethers.js精要</h4><ul>
-<li>📖 <a href="https://learnblockchain.cn/docs/ethers.js/">中文文档</a>（重点看Provider模块）  </li>
-<li><a href="https://github.com/ChainSafe/web3.js/tree/main/docs/code_examples">Web3.js案例集合</a></li>
-<li>🚀 <a href="https://codesandbox.io/s/web3-vue3-balance-3jq2p">在线练习</a>（实时运行环境）</li>
+<h2 id="2-Web3-基础知识"><a href="#2-Web3-基础知识" class="headerlink" title="2. Web3 基础知识"></a>2. Web3 基础知识</h2><p>理解 Web3 的基本概念和区块链原理是开发去中心化应用的前提。</p>
+<ul>
+<li><p><strong>区块链基础</strong>：了解区块链的工作原理、共识机制和应用场景。</p>
+<ul>
+<li><a href="https://ethereum.org/zh/developers/docs/">以太坊官方文档</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/1016959663602400">区块链技术入门</a></li>
 </ul>
-<h4 id="移动端开发"><a href="#移动端开发" class="headerlink" title="移动端开发"></a>移动端开发</h4><ul>
-<li>🎥 <a href="https://ke.qq.com/course/6093182">Flutter钱包开发</a>（腾讯课堂实战课）  </li>
-<li>📱 <a href="https://github.com/bluehack42/Flutter-Web3-Wallet">跨平台模板</a>（含生物识别功能）  </li>
-<li>📦 <a href="https://github.com/bluehack42/Flutter-Web3-Wallet">硬件钱包集成模板</a></li>
+</li>
+<li><p><strong>Web3 概述</strong>：了解 Web3 的起源、愿景以及与 Web2 的区别。</p>
+<ul>
+<li><a href="https://www.web3.foundation/zh/">Web3 基础知识</a></li>
 </ul>
-<hr>
-<h2 id="🚀-第三阶段：项目篇（3个月）"><a href="#🚀-第三阶段：项目篇（3个月）" class="headerlink" title="🚀 第三阶段：项目篇（3个月）"></a>🚀 第三阶段：项目篇（3个月）</h2><h3 id="目标：打造面试作品集"><a href="#目标：打造面试作品集" class="headerlink" title="目标：打造面试作品集"></a>目标：打造面试作品集</h3><h4 id="碎片化项目"><a href="#碎片化项目" class="headerlink" title="碎片化项目"></a>碎片化项目</h4><ul>
-<li><a href="https://github.com/solidex/web3-nft-gallery">NFT画廊</a>（1小时&#x2F;次，分步完成）  </li>
-<li><a href="https://github.com/ConsenSys/multi-chain-dashboard">多链看板</a>（支持ETH&#x2F;Polygon）</li>
+</li>
 </ul>
-<h4 id="音频学习"><a href="#音频学习" class="headerlink" title="音频学习"></a>音频学习</h4><ul>
-<li>🎧 <a href="https://www.ximalaya.com/sound/56366828">Solidity极简课</a>（做饭也能听）  </li>
-<li>🎧 <a href="https://www.ximalaya.com/sound/58921451">智能合约安全</a>（防范常见漏洞）</li>
+<h2 id="3-智能合约开发"><a href="#3-智能合约开发" class="headerlink" title="3. 智能合约开发"></a>3. 智能合约开发</h2><p>智能合约是 Web3 应用的核心，学习如何编写和部署智能合约至关重要。</p>
+<ul>
+<li><p><strong>Solidity 编程语言</strong>：以太坊智能合约的主要编程语言。</p>
+<ul>
+<li><a href="https://docs.soliditylang.org/zh/v0.8.0/">Solidity 官方文档</a></li>
+<li><a href="https://solidity-cn.readthedocs.io/zh/develop/">Solidity 中文文档</a></li>
 </ul>
-<h4 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a>面试准备</h4><ul>
-<li><a href="https://github.com/OffcierCia/Web3-Developer-Roadmap">题库大全</a>（每天刷1题）  </li>
-<li><a href="https://mianshiya.com/web3">模拟面试</a>（微信小程序随时练）</li>
+</li>
+<li><p><strong>开发工具</strong>：使用 Remix、Truffle 或 Hardhat 等工具进行智能合约开发和测试。</p>
+<ul>
+<li><a href="https://remix.ethereum.org/">Remix 在线 IDE</a></li>
+<li><a href="https://www.trufflesuite.com/">Truffle 框架</a></li>
+<li><a href="https://hardhat.org/">Hardhat 开发环境</a></li>
 </ul>
-<hr>
-<h2 id="💰-第四阶段："><a href="#💰-第四阶段：" class="headerlink" title="💰 第四阶段："></a>💰 第四阶段：</h2><h3 id="目标：建立收入安全网"><a href="#目标：建立收入安全网" class="headerlink" title="目标：建立收入安全网"></a>目标：建立收入安全网</h3><h4 id="快速变现"><a href="#快速变现" class="headerlink" title="快速变现"></a>快速变现</h4><ul>
-<li><a href="https://dorahacks.io/">DoraHacks赏金</a>（搜索”前端”标签 中文任务多）  </li>
-<li><a href="https://gitcoin.co/">Gitcoin任务</a>（优先选$50-$200小任务） </li>
-<li><a href="https://layer3.xyz/">Layer3</a>(链上凭证)</li>
+</li>
 </ul>
-<h4 id="远程工作"><a href="#远程工作" class="headerlink" title="远程工作"></a>远程工作</h4><ul>
-<li><a href="https://eleduck.com/categories/5">电鸭社区</a>（中文岗位发布） </li>
-<li><a href="https://www.dejob.top/job">DeJob</a> (web3、远程招聘)</li>
-<li><a href="https://web3.career/remote-jobs">Web3Career</a></li>
-<li><a href="https://w3hitchhiker.gitbook.io/">W3.Hitchhiker</a>（华人友好项目）</li>
+<h2 id="4-前端与区块链交互"><a href="#4-前端与区块链交互" class="headerlink" title="4. 前端与区块链交互"></a>4. 前端与区块链交互</h2><p>学习如何在前端应用中与区块链进行交互。</p>
+<ul>
+<li><p><strong>Web3.js 与 Ethers.js</strong>：JavaScript 库，用于与以太坊区块链交互。</p>
+<ul>
+<li><a href="https://web3js.readthedocs.io/en/v1.3.4/">Web3.js 文档</a></li>
+<li><a href="https://docs.ethers.io/v5/">Ethers.js 文档</a></li>
 </ul>
-<h3 id="加入Web3相关TG群"><a href="#加入Web3相关TG群" class="headerlink" title="加入Web3相关TG群"></a>加入Web3相关TG群</h3><hr>
-<h2 id="🔗-资源包"><a href="#🔗-资源包" class="headerlink" title="🔗 资源包"></a>🔗 资源包</h2><h3 id="精选合集"><a href="#精选合集" class="headerlink" title="精选合集"></a>精选合集</h3><ul>
-<li><a href="https://space.bilibili.com/349326293/channel/collectiondetail?sid=1500076">B站全栈路径</a>  </li>
-<li><a href="https://www.youtube.com/playlist?list=PL0KDZ-7oxVUhvXhS6X2MvsD8Uqj0YVw6H">YouTube中文精选</a></li>
+</li>
+<li><p><strong>钱包集成</strong>：学习如何在应用中集成钱包，如 MetaMask。</p>
+<ul>
+<li><a href="https://metamask.io/">MetaMask 官方网站</a></li>
 </ul>
-<h3 id="应急工具"><a href="#应急工具" class="headerlink" title="应急工具"></a>应急工具</h3><ul>
-<li><a href="https://thirdweb.com/dashboard">ThirdWeb生成器</a>（10分钟创建DApp）  </li>
-<li><a href="https://fleek.co/">Fleek托管</a>（免费部署链上简历）</li>
+</li>
+<li><p><strong>RainbowKit</strong>：用于在 React 应用中轻松集成钱包连接功能的工具。</p>
+<ul>
+<li><a href="https://www.rainbowkit.com/docs/introduction">RainbowKit 文档</a></li>
 </ul>
+</li>
+</ul>
+<h2 id="5-去中心化存储与身份认证"><a href="#5-去中心化存储与身份认证" class="headerlink" title="5. 去中心化存储与身份认证"></a>5. 去中心化存储与身份认证</h2><p>了解去中心化存储和身份认证在 Web3 应用中的应用。</p>
+<ul>
+<li><p><strong>IPFS</strong>：分布式存储协议，用于存储和共享文件。</p>
+<ul>
+<li><a href="https://docs.ipfs.io/">IPFS 官方文档</a></li>
+</ul>
+</li>
+<li><p><strong>去中心化身份认证（DID）</strong>：学习去中心化身份的概念和实现。</p>
+<ul>
+<li><a href="https://www.w3.org/TR/did-core/">DID 文档</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="6-常用开发工具"><a href="#6-常用开发工具" class="headerlink" title="6. 常用开发工具"></a>6. 常用开发工具</h2><p>以下是一些常用的开发工具，帮助提高开发效率。</p>
+<ul>
+<li><p><strong>Remix</strong>：在线智能合约开发环境。</p>
+<ul>
+<li><a href="https://remix.ethereum.org/">Remix 在线 IDE</a></li>
+</ul>
+</li>
+<li><p><strong>Truffle</strong>：以太坊开发框架，提供智能合约的编译、部署和测试功能。</p>
+<ul>
+<li><a href="https://www.trufflesuite.com/">Truffle 框架</a></li>
+</ul>
+</li>
+<li><p><strong>Hardhat</strong>：以太坊开发环境，支持插件扩展，方便调试和测试。</p>
+<ul>
+<li><a href="https://hardhat.org/">Hardhat 开发环境</a></li>
+</ul>
+</li>
+<li><p><strong>MetaMask</strong>：浏览器插件钱包，方便与以太坊区块链交互。</p>
+<ul>
+<li><a href="https://metamask.io/">MetaMask 官方网站</a></li>
+</ul>
+</li>
+<li><p><strong>RainbowKit</strong>：React 组件库，简化钱包连接功能的实现。</p>
+<ul>
+<li><a href="https://www.rainbowkit.com/docs/introduction">RainbowKit 文档</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="7-推荐视频资源"><a href="#7-推荐视频资源" class="headerlink" title="7. 推荐视频资源"></a>7. 推荐视频资源</h2><p>以下是一些在 Bilibili 和 YouTube 上点赞评论较高、发布时间较新的 Web3 相关视频，供您参考学习。</p>
+<ul>
+<li><p><strong>Bilibili</strong>：</p>
+<ul>
+<li><a href="https://www.bilibili.com/video/BV1Gk4y147Ex/">Web3 学习路线图</a></li>
+<li><a href="https://www.bilibili.com/video/BV14A411178x/?spm_id_from=333.337.search-card.all.click&vd_source=1705f0c588139215ea65124e687fa306">千锋教育前端Web3.0 DeFi项目实战教程</a></li>
+<li><a href="https://www.bilibili.com/video/BV1TxNtetEaj/?spm_id_from=333.337.search-card.all.click&vd_source=1705f0c588139215ea65124e687fa306">Web3 前端训练营上</a></li>
+<li><a href="https://www.bilibili.com/video/BV1kFBQYEECF/?spm_id_from=333.337.search-card.all.click&vd_source=1705f0c588139215ea65124e687fa306">Web3 前端训练营下</a></li>
+<li><a href="https://www.bilibili.com/video/BV1pM4m1S74X/?spm_id_from=333.337.search-card.all.click&vd_source=1705f0c588139215ea65124e687fa306">Web3 前端框架和合约关系</a></li>
+</ul>
+</li>
+<li><p><strong>YouTube</strong>：</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=H82UBvRtkuc">Web3 Dapp 开发学习路线图 | 14 | Web3 前端基础库</a></li>
+<li><a href="https://www.youtube.com/watch?v=kavKpgYKzeg">Web3 Dapp 开发学习路线图 | 15 | Web3 前端交互库</a></li>
+<li><a href="https://www.youtube.com/watch?v=6alsggA957I">Web3.0 从入门到精通学习路线图</a></li>
+</ul>
+</li>
+</ul>
+<p>通过以上学习路线的逐步深入，您将从前端开发的基础知识开始，逐步掌握 Web3 应用开发的核心技能，最终能够独立开发复杂的去中心化应用。祝您的学习之旅顺利！</p>
 ]]></content>
       <tags>
         <tag>Web3</tag>
