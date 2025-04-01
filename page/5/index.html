@@ -188,7 +188,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2019/08/16/%E5%8E%9F%E7%94%9F%E9%9B%86%E6%88%90codePush%E7%83%AD%E6%9B%B4%E6%96%B0RN%E5%8A%9F%E8%83%BD/">
+    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2019/06/12/SDWebImage%E5%88%9D%E7%BA%A7%E7%A0%94%E7%A9%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/nick.jpg">
@@ -206,7 +206,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/08/16/%E5%8E%9F%E7%94%9F%E9%9B%86%E6%88%90codePush%E7%83%AD%E6%9B%B4%E6%96%B0RN%E5%8A%9F%E8%83%BD/" class="post-title-link" itemprop="url">原生集成code-push热更新RN功能</a>
+          <a href="/2019/06/12/SDWebImage%E5%88%9D%E7%BA%A7%E7%A0%94%E7%A9%B6/" class="post-title-link" itemprop="url">SDWebImage初探</a>
         </h2>
 
         <div class="post-meta-container">
@@ -217,14 +217,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-08-16 13:37:26" itemprop="dateCreated datePublished" datetime="2019-08-16T13:37:26+08:00">2019-08-16</time>
+      <time title="创建时间：2019-06-12 11:08:26" itemprop="dateCreated datePublished" datetime="2019-06-12T11:08:26+08:00">2019-06-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2019-08-30 14:06:16" itemprop="dateModified" datetime="2019-08-30T14:06:16+08:00">2019-08-30</time>
+      <time title="修改时间：2019-06-18 11:33:58" itemprop="dateModified" datetime="2019-06-18T11:33:58+08:00">2019-06-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -232,7 +232,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/RN/" itemprop="url" rel="index"><span itemprop="name">RN</span></a>
+          <a href="/categories/%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A1%86%E6%9E%B6/" itemprop="url" rel="index"><span itemprop="name">第三方框架</span></a>
         </span>
     </span>
 
@@ -246,11 +246,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>code-push是一个微软开发的云服务器。通过它，开发者可以直接在用户的设备上部署手机应用更新。code-push相当于一个中心仓库，开发者可以推送当前的更新（包括JS&#x2F;HTML&#x2F;CSS&#x2F;IMAGE等）到code-push，然后应用将会查询是否有更新。<br>虽然苹果禁了很多热更新，但是，code-push 还是可以用的。项目是 ReactNative 的，总结了下 iOS 的 code-push 的使用方法。</p>
-<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a href="https://www.jianshu.com/p/6a5e00d22723">code-push热更新详细接入教程</a><br><a href="https://www.jianshu.com/p/6bbb8020c29e">code-push热更新配置（命令整理）</a></p>
+          <p>记录一下SDWebImage第三方源码的研究</p>
+<h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><img src="/images/SDWebImage%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="流程图"></p>
+<h4 id="流程说明"><a href="#流程说明" class="headerlink" title="流程说明"></a>流程说明</h4>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/08/16/%E5%8E%9F%E7%94%9F%E9%9B%86%E6%88%90codePush%E7%83%AD%E6%9B%B4%E6%96%B0RN%E5%8A%9F%E8%83%BD/#more" rel="contents">
+              <a class="btn" href="/2019/06/12/SDWebImage%E5%88%9D%E7%BA%A7%E7%A0%94%E7%A9%B6/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -281,7 +282,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2019/08/27/sonar%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B%E6%8F%92%E4%BB%B6/">
+    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2017/01/23/%E5%8F%91%E5%B8%83%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/nick.jpg">
@@ -299,7 +300,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/08/27/sonar%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B%E6%8F%92%E4%BB%B6/" class="post-title-link" itemprop="url">sonar代码检测插件</a>
+          <a href="/2017/01/23/%E5%8F%91%E5%B8%83%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">发布过程的问题</a>
         </h2>
 
         <div class="post-meta-container">
@@ -310,14 +311,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-08-27 09:07:04" itemprop="dateCreated datePublished" datetime="2019-08-27T09:07:04+08:00">2019-08-27</time>
+      <time title="创建时间：2017-01-23 00:00:00" itemprop="dateCreated datePublished" datetime="2017-01-23T00:00:00+08:00">2017-01-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2019-09-06 09:10:26" itemprop="dateModified" datetime="2019-09-06T09:10:26+08:00">2019-09-06</time>
+      <time title="修改时间：2019-06-13 11:15:53" itemprop="dateModified" datetime="2019-06-13T11:15:53+08:00">2019-06-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -325,7 +326,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F%E6%A3%80%E6%B5%8B/" itemprop="url" rel="index"><span itemprop="name">代码质量检测</span></a>
+          <a href="/categories/%E5%8F%91%E5%B8%83%E9%97%AE%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">发布问题</span></a>
         </span>
     </span>
 
@@ -339,10 +340,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>SonarQube®是一种自动代码审查工具，用于检测代码中的错误，漏洞和代码异味。它可以与您现有的工作流程集成，以便在项目分支和拉取请求之间进行连续的代码检查。</p>
+          <h3 id="发布时遇到的一些问题"><a href="#发布时遇到的一些问题" class="headerlink" title="发布时遇到的一些问题"></a>发布时遇到的一些问题</h3><h4 id="iOS10-之后需要添加info-plist文件配置"><a href="#iOS10-之后需要添加info-plist文件配置" class="headerlink" title="iOS10 之后需要添加info.plist文件配置:"></a>iOS10 之后需要添加info.plist文件配置:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">     &lt;key&gt;NSBluetoothPeripheralUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开蓝牙可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSCameraUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开相机可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSContactsUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开通讯录可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSMicrophoneUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开麦克风可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开相册可以吗？&lt;/string&gt;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/08/27/sonar%E4%BB%A3%E7%A0%81%E6%A3%80%E6%B5%8B%E6%8F%92%E4%BB%B6/#more" rel="contents">
+              <a class="btn" href="/2017/01/23/%E5%8F%91%E5%B8%83%E9%97%AE%E9%A2%98/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -373,7 +374,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2020/02/13/%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1/">
+    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2016/04/05/%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/nick.jpg">
@@ -391,7 +392,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/02/13/%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1/" class="post-title-link" itemprop="url">学习数据建模</a>
+          <a href="/2016/04/05/%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/" class="post-title-link" itemprop="url">数据安全</a>
         </h2>
 
         <div class="post-meta-container">
@@ -401,9 +402,24 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2020-02-13 16:01:54 / 修改时间：16:20:54" itemprop="dateCreated datePublished" datetime="2020-02-13T16:01:54+08:00">2020-02-13</time>
+      <time title="创建时间：2016-04-05 00:00:00" itemprop="dateCreated datePublished" datetime="2016-04-05T00:00:00+08:00">2016-04-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-06-13 11:15:50" itemprop="dateModified" datetime="2019-06-13T11:15:50+08:00">2019-06-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">数据安全</span></a>
+        </span>
     </span>
 
   
@@ -416,10 +432,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>2020年年关，“新冠状病毒”感染所致的肺炎肆虐全国，成为了继2003年非典以来更严重的瘟疫。口罩是预防肺炎的有效手段之一，口罩的种类有多种，比如纱布口罩、医用口罩（如N95）、日用口罩、防尘口罩等，口罩的制作过程、工艺、样式大致相同，但使用对象会因为不同的使用场景而不同，比如普通民众和医生使用的口罩，室内生产线上的工人和场外工地上的工人使用的口罩。<br>口罩当前已成为了“硬通货”，堪比日常的油盐酱醋，全国各地都在加班加点生产，近日，富士康和比亚迪已宣布开始生产口罩。<br>请根据以上材料结合设计模式的相关知识对口罩进行建模？</p>
+          <h3 id="1-Base64"><a href="#1-Base64" class="headerlink" title="1.Base64"></a>1.Base64</h3><h4 id="1-Base64简单说明"><a href="#1-Base64简单说明" class="headerlink" title="1.Base64简单说明"></a>1.Base64简单说明</h4><pre><code>描述：Base64可以成为密码学的基石，非常重要。
+特点：可以将任意的二进制数据进行Base64编码
+结果：所有的数据都能被编码为并只用65个字符就能表示的文本文件。
+65字符：A~Z a~z 0~9 + / =
+对文件进行base64编码后文件数据的变化：编码后的数据~=编码前数据的4/3，会大1/3左右。
+</code></pre>
+<h4 id="2-命令行进行Base64编码和解码"><a href="#2-命令行进行Base64编码和解码" class="headerlink" title="2.命令行进行Base64编码和解码"></a>2.命令行进行Base64编码和解码</h4><pre><code>编码：base64 123.png -o 123.txt
+解码：base64 123.txt -o test.png -D
+</code></pre>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/02/13/%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E5%BB%BA%E6%A8%A1/#more" rel="contents">
+              <a class="btn" href="/2016/04/05/%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
