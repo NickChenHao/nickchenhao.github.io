@@ -148,13 +148,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -179,6 +179,91 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2026/09/28/xcode26.4+%20%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/nick.jpg">
+      <meta itemprop="name" content="陈某人">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="陈某人">
+      <meta itemprop="description" content="勇敢的人，先享受世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 陈某人">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2026/09/28/xcode26.4+%20%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Xcode26.4+ 适配问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2026-09-28 00:00:00 / 修改时间：17:49:20" itemprop="dateCreated datePublished" datetime="2026-09-28T00:00:00+08:00">2026-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">适配问题</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>1、<br>OC第三方有的会报错<code>#import &lt;netinet6/in6.h&gt;</code><br>因为内置的一些文件 不给暴露了（AFN、ZFPlayer、SensorsAnalyticsSDK、UleNetworkKit、UleWidget_PhotoBrowser） <br>可在podFile里添加：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">post_install <span class="keyword">do</span> |<span class="params">installer</span>|</span><br><span class="line">    <span class="comment"># 修复第三方库中的 netinet6/in6.h</span></span><br><span class="line">    pods_root = installer.sandbox.root.to_s</span><br><span class="line">    target_import = <span class="string">&#x27;#import &lt;netinet6/in6.h&gt;&#x27;</span></span><br><span class="line">    <span class="title class_">Dir</span>.glob(<span class="title class_">File</span>.join(pods_root, <span class="string">&#x27;**&#x27;</span>, <span class="string">&#x27;*.&#123;h,m,mm&#125;&#x27;</span>), <span class="title class_">File</span><span class="symbol">:</span><span class="symbol">:FNM_EXTGLOB</span>).each <span class="keyword">do</span> |<span class="params">path</span>|</span><br><span class="line">        <span class="keyword">next</span> <span class="keyword">unless</span> <span class="title class_">File</span>.file?(path)</span><br><span class="line">        <span class="comment"># 先快速检查目标字符串</span></span><br><span class="line">        found = <span class="literal">false</span></span><br><span class="line">        <span class="title class_">File</span>.foreach(path) <span class="keyword">do</span> |<span class="params">line</span>|</span><br><span class="line">            <span class="keyword">if</span> line.<span class="keyword">include</span>?(target_import)</span><br><span class="line">                found = <span class="literal">true</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">next</span> <span class="keyword">unless</span> found</span><br><span class="line">        content = <span class="title class_">File</span>.read(path)</span><br><span class="line">        new_content = content.gsub(</span><br><span class="line">            <span class="regexp">/^(\s*)#import\s*&lt;netinet6\/in6\.h&gt;\s*$/</span>,</span><br><span class="line">            <span class="string">&#x27;\1// #import &lt;netinet6/in6.h&gt;&#x27;</span></span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">next</span> <span class="keyword">if</span> new_content == content</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">            <span class="comment"># 如果第三方文件没有写权限，增加 owner 写权限</span></span><br><span class="line">            <span class="keyword">unless</span> <span class="title class_">File</span>.writable?(path)</span><br><span class="line">                <span class="title class_">File</span>.chmod(<span class="title class_">File</span>.stat(path).mode |<span class="params"> 0200, path)</span></span><br><span class="line"><span class="params">            <span class="keyword">end</span></span></span><br><span class="line"><span class="params">            File.write(path, new_content)</span></span><br><span class="line"><span class="params">        <span class="keyword">rescue</span></span></span><br><span class="line"><span class="params">            # 忽略无法修改的文件</span></span><br><span class="line"><span class="params">        <span class="keyword">end</span></span></span><br><span class="line"><span class="params">    <span class="keyword">end</span></span></span><br><span class="line"><span class="params"><span class="keyword">end</span></span></span><br></pre></td></tr></table></figure>
+
+<p>2、 YYText里<br><code>Chained comparison &#39;X &lt; Y &lt; Z&#39; does not behave the same as a mathematical expression</code> 会导致 <code>pod lib lint</code>、<code>pod repo push</code> 失败<br>可以改成：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> _insideComposedCharacterSequences:line position:position block:<span class="operator">^</span>(<span class="type">CGFloat</span> left, <span class="type">CGFloat</span> right, <span class="type">NSUInteger</span> prev, <span class="type">NSUInteger</span> next) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isVertical) &#123;</span><br><span class="line">        position <span class="operator">=</span> fabs(left <span class="operator">-</span> point.y) <span class="operator">&lt;</span> fabs(right <span class="operator">-</span> point.y) <span class="operator">?</span> prev : next;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        position <span class="operator">=</span> fabs(left <span class="operator">-</span> point.x) <span class="operator">&lt;</span> fabs(right <span class="operator">-</span> point.x) <span class="operator">?</span> prev : next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> _insideEmoji:line position:position block:<span class="operator">^</span>(<span class="type">CGFloat</span> left, <span class="type">CGFloat</span> right, <span class="type">NSUInteger</span> prev, <span class="type">NSUInteger</span> next) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isVertical) &#123;</span><br><span class="line">        position <span class="operator">=</span> fabs(left <span class="operator">-</span> point.y) <span class="operator">&lt;</span> fabs(right <span class="operator">-</span> point.y) <span class="operator">?</span> prev : next;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        position <span class="operator">=</span> fabs(left <span class="operator">-</span> point.x) <span class="operator">&lt;</span> fabs(right <span class="operator">-</span> point.x) <span class="operator">?</span> prev : next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>或 使用xcode-26.3及以下版本 终端执行 (只影响当前终端环境) <code>export DEVELOPER_DIR=/Applications/Xcode-26.3.app/Contents/Developer</code> 再去<code>pod lib lint</code>、<code>pod repo push</code></p>
+<p>3、Xcode27 工程里 iOS Deployment Target 需要将13.0改成15.0，PodFile里也需要修改，后续podspec里也要改成15.0<br>Xcode27 只支持</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -325,83 +410,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2025/02/28/web3-%E5%AD%A6%E4%B9%A0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://nickchenhao.github.io./2025/01/09/xcode-%E7%9C%9F%E6%9C%BA%E6%AD%A3%E5%B8%B8%E8%BF%90%E8%A1%8C%E4%BD%86%E6%A8%A1%E6%8B%9F%E5%99%A8%E6%8A%A5%E9%94%99%E7%9A%84%E4%B8%80%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/nick.jpg">
-      <meta itemprop="name" content="陈某人">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="陈某人">
-      <meta itemprop="description" content="勇敢的人，先享受世界！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 陈某人">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/01/09/xcode-%E7%9C%9F%E6%9C%BA%E6%AD%A3%E5%B8%B8%E8%BF%90%E8%A1%8C%E4%BD%86%E6%A8%A1%E6%8B%9F%E5%99%A8%E6%8A%A5%E9%94%99%E7%9A%84%E4%B8%80%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">xcode 真机正常运行但模拟器报错的一种解决方法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2025-01-09 11:51:50 / 修改时间：13:36:07" itemprop="dateCreated datePublished" datetime="2025-01-09T11:51:50+08:00">2025-01-09</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>xcode15 版本 有的项目 真机运行正常 但是模拟器不能正常运行（可能某些第三方库 不支持 arm64 ）</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2025/01/09/xcode-%E7%9C%9F%E6%9C%BA%E6%AD%A3%E5%B8%B8%E8%BF%90%E8%A1%8C%E4%BD%86%E6%A8%A1%E6%8B%9F%E5%99%A8%E6%8A%A5%E9%94%99%E7%9A%84%E4%B8%80%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
