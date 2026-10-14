@@ -1921,10 +1921,10 @@ ex:DES和3DES的分组长度都是64比特。即每次只能加密64比特的明
   <entry>
     <title>ios26+ 液态玻璃UI 适配</title>
     <url>/2026/09/28/ios26+%20%E6%B6%B2%E6%80%81%E7%8E%BB%E7%92%83UI%20%E9%80%82%E9%85%8D/</url>
-    <content><![CDATA[<p>禁用液态玻璃UI 的key  如果是27版本构建 会自动忽略<br><img src="/media/17918831926060/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_2e7e460b-665b-426f-afd9-a7ab82d4d23c.png" alt="企业微信截图_2e7e460b-665b-426f-afd9-a7ab82d4d23c"></p>
+    <content><![CDATA[<p>禁用液态玻璃UI 的key  如果是27版本构建 会自动忽略<br><a href="https://developer.apple.com/documentation/BundleResources/Information-Property-List/UIDesignRequiresCompatibility?changes=__2,__2,__2,__2">Apple Developer Documentation</a></p>
+<p>自定义的Tabbar 通过<code>   [self setValue:customTabBar forKey:@&quot;tabBar&quot;];</code>设置的 也会失效或者出现各种问题</p>
 <span id="more"></span>
 
-<p>自定义的Tabbar 通过<code>   [self setValue:customTabBar forKey:@&quot;tabBar&quot;];</code>设置的 也会失效或者出现各种问题</p>
 <p>iOS 26 的 TabBar 是悬浮式设计，页面侧滑返回时，如果 TabBar 的显示状态与导航栈不一致，就可能出现 TabBar 提前显示、位置跳动或动画不协调的问题。 这需要结合 UITabBarController 和 UINavigationController 的层级来处理.</p>
 <p>目前大多主流的层级是</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">UITabBarController</span><br><span class="line">├── BaseNavigationController（首页导航栈）</span><br><span class="line">│   └── HomeViewController（首页）</span><br><span class="line">│       └── DetailViewController（详情）</span><br><span class="line">│</span><br><span class="line">├── BaseNavigationController（商城导航栈）</span><br><span class="line">│   └── MallViewController（商城）</span><br><span class="line">│       └── DetailViewController（详情）</span><br><span class="line">│</span><br><span class="line">└── BaseNavigationController（我的导航栈）</span><br><span class="line">    └── MineViewController（我的）</span><br></pre></td></tr></table></figure>
