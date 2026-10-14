@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Flutter  侧滑会导致 TextField 获取不到焦点？</title>
+    <url>/2024/11/22/Flutter-%E4%BE%A7%E6%BB%91%E4%BC%9A%E5%AF%BC%E8%87%B4-TextField-%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0%E7%84%A6%E7%82%B9%EF%BC%9F/</url>
+    <content><![CDATA[<p>最近 Flutter写功能的时候发现一个 bug ：侧滑会导致 TextField 获取不到焦点 无法继续编辑文本内容</p>
+<p>flutter版本是 3.22.1 目前是最新的版本 以前的版本不确定有没有类似情况 </p>
+<span id="more"></span>
+
+<h4 id="场景："><a href="#场景：" class="headerlink" title="场景："></a>场景：</h4><p>ios 自带有侧滑功能， A界面有 TextField， B 界面也有 TextField </p>
+<h4 id="触发："><a href="#触发：" class="headerlink" title="触发："></a>触发：</h4><p>从 A 界面跳转到 B 界面  然后在 B 界面触发侧滑 返回到 A界面或者侧滑一点还停留在 B 界面</p>
+<h4 id="查找问题："><a href="#查找问题：" class="headerlink" title="查找问题："></a>查找问题：</h4><p>断点调试发现 没侧滑或者点击返回按钮时 FocusNode#b87c0(context: Focus)<br>但是侧滑返回的时候 FocusNode#b87c0(context: Focus, NOT FOCUSABLE)<br>多了一个 NOT FOCUSABLE<br>会将canRequestFocus改为false</p>
+<h4 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h4><p>统一处理方法：新建CustomFocusNode类 将canRequestFocus设置为true</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class CustomFocusNode extends FocusNode &#123;</span><br><span class="line">  @override</span><br><span class="line">  bool get canRequestFocus =&gt; true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再将使用到<code> FocusNode focusNode = FocusNode();</code>初始化的地方 替换为<code> CustomFocusNode focusNode = CustomFocusNode();</code>即可。</p>
+]]></content>
+      <tags>
+        <tag>Flutter</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RN集成到原生应用</title>
     <url>/2019/07/22/RN%E9%9B%86%E6%88%90%E5%88%B0%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8/</url>
     <content><![CDATA[<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="https://reactnative.cn/docs/integration-with-existing-apps">集成到现有原生应用</a><br><a href="https://www.jianshu.com/p/ea8dc1e078f1">将RN集成到iOS原生项目中</a><br><a href="https://www.jianshu.com/p/bdaef44c6207">RN嵌入到现有iOS原生应用</a><br><a href="https://www.jianshu.com/p/1927785a3ba7">将RN工程嵌入到现有iOS原生应用</a></p>
@@ -54,19 +72,6 @@
       </tags>
   </entry>
   <entry>
-    <title>gif转成Lottie的一种方法</title>
-    <url>/2025/01/08/gif%E8%BD%AC%E6%88%90Lottie%E7%9A%84%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>起因是 UI 设计 给不了 Lottie 带颜色的动画，说是 AE 加入颜色导出会报错，只能用 gif 代替。。。</p>
-<p>AE 研究不了，那就看看 gif 怎么转成 Lottie 方法吧</p>
-<span id="more"></span>
-
-<p>网上找了好多在线转的，都不太理想。<br>目前只有先将 Gif 转成 MP4：<a href="https://ezgif.com/gif-to-mp4">https://ezgif.com/gif-to-mp4</a><br>再将 MP4 转成 Lottie：<a href="https://observablehq.com/@forresto/video-to-lottie">https://observablehq.com/@forresto/video-to-lottie</a><br>因为 gif 中的动画背景是透明的，所以 MP4 转成 Lottie 的网站中需要将 <code>extractFrames方法</code>替换成</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">async function extractFrames(&#123;</span><br><span class="line">  videoEl,</span><br><span class="line">  clipStart,</span><br><span class="line">  clipEnd,</span><br><span class="line">  numFrames,</span><br><span class="line">  quality = 0.8,</span><br><span class="line">  outputScale = 1,</span><br><span class="line">  alpha = 1 // 设置透明度 (1: 完全不透明)</span><br><span class="line">&#125;) &#123;</span><br><span class="line">  // 暂停视频播放</span><br><span class="line">  videoEl.pause();</span><br><span class="line"></span><br><span class="line">  const canvas = document.createElement(&#x27;canvas&#x27;);</span><br><span class="line">  const context = canvas.getContext(&#x27;2d&#x27;);</span><br><span class="line">  const outputWidth = outputScale * videoEl.videoWidth;</span><br><span class="line">  const outputHeight = outputScale * videoEl.videoHeight;</span><br><span class="line">  canvas.width = outputWidth;</span><br><span class="line">  canvas.height = outputHeight;</span><br><span class="line"></span><br><span class="line">  const frames = [];</span><br><span class="line"></span><br><span class="line">  for (let i = 0; i &lt; numFrames; i++) &#123;</span><br><span class="line">    const duration = clipEnd - clipStart;</span><br><span class="line">    if (duration &lt;= 0) &#123;</span><br><span class="line">      throw new Error(&#x27;clipEnd is before clipStart&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">    const time = i * (duration / (Math.max(2, numFrames) - 1)) + clipStart;</span><br><span class="line"></span><br><span class="line">    // 跳转到指定时间</span><br><span class="line">    const seekedTime = await seekTo(videoEl, time);</span><br><span class="line"></span><br><span class="line">    // 清空 Canvas 背景，确保透明</span><br><span class="line">    context.clearRect(0, 0, canvas.width, canvas.height);</span><br><span class="line"></span><br><span class="line">    // 设置全局透明度</span><br><span class="line">    context.globalAlpha = alpha;</span><br><span class="line"></span><br><span class="line">    // 绘制视频帧到 Canvas</span><br><span class="line">    context.drawImage(videoEl, 0, 0, outputWidth, outputHeight);</span><br><span class="line"></span><br><span class="line">    // 获取帧像素数据</span><br><span class="line">    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);</span><br><span class="line">    const data = imageData.data;</span><br><span class="line"></span><br><span class="line">    // 将白色像素（或近似白色）改为透明</span><br><span class="line">    for (let j = 0; j &lt; data.length; j += 4) &#123;</span><br><span class="line">      const r = data[j];     // 红色通道</span><br><span class="line">      const g = data[j + 1]; // 绿色通道</span><br><span class="line">      const b = data[j + 2]; // 蓝色通道</span><br><span class="line">      const a = data[j + 3]; // 透明度通道</span><br><span class="line"></span><br><span class="line">      // 判断是否是白色（或接近白色）</span><br><span class="line">      if (r &gt; 240 &amp;&amp; g &gt; 240 &amp;&amp; b &gt; 240 &amp;&amp; a &gt; 0) &#123;</span><br><span class="line">        // 将其改为透明</span><br><span class="line">        data[j + 3] = 0;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 将修改后的像素数据写回 Canvas</span><br><span class="line">    context.putImageData(imageData, 0, 0);</span><br><span class="line"></span><br><span class="line">    // 将帧数据存储为透明背景的 PNG</span><br><span class="line">    frames.push(&#123;</span><br><span class="line">      time,</span><br><span class="line">      seekedTime,</span><br><span class="line">      data: canvas.toDataURL(&#x27;image/png&#x27;, quality) // 输出透明背景帧</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return frames;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>还有<code>lottie.layers.push 中的jpg</code>改成 png 使其支持 alpha 通道<br>其他不用改变 按步骤上传视频 然后导出就行了！</p>
-<p>这样 Lottie 动画就是带颜色的啦～</p>
-]]></content>
-  </entry>
-  <entry>
     <title>SDWebImage初探</title>
     <url>/2019/06/12/SDWebImage%E5%88%9D%E7%BA%A7%E7%A0%94%E7%A9%B6/</url>
     <content><![CDATA[<p>记录一下SDWebImage第三方源码的研究</p>
@@ -98,6 +103,165 @@
       </categories>
       <tags>
         <tag>SDWebImage</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>gif转成Lottie的一种方法</title>
+    <url>/2025/01/08/gif%E8%BD%AC%E6%88%90Lottie%E7%9A%84%E4%B8%80%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>起因是 UI 设计 给不了 Lottie 带颜色的动画，说是 AE 加入颜色导出会报错，只能用 gif 代替。。。</p>
+<p>AE 研究不了，那就看看 gif 怎么转成 Lottie 方法吧</p>
+<span id="more"></span>
+
+<p>网上找了好多在线转的，都不太理想。<br>目前只有先将 Gif 转成 MP4：<a href="https://ezgif.com/gif-to-mp4">https://ezgif.com/gif-to-mp4</a><br>再将 MP4 转成 Lottie：<a href="https://observablehq.com/@forresto/video-to-lottie">https://observablehq.com/@forresto/video-to-lottie</a><br>因为 gif 中的动画背景是透明的，所以 MP4 转成 Lottie 的网站中需要将 <code>extractFrames方法</code>替换成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">async function extractFrames(&#123;</span><br><span class="line">  videoEl,</span><br><span class="line">  clipStart,</span><br><span class="line">  clipEnd,</span><br><span class="line">  numFrames,</span><br><span class="line">  quality = 0.8,</span><br><span class="line">  outputScale = 1,</span><br><span class="line">  alpha = 1 // 设置透明度 (1: 完全不透明)</span><br><span class="line">&#125;) &#123;</span><br><span class="line">  // 暂停视频播放</span><br><span class="line">  videoEl.pause();</span><br><span class="line"></span><br><span class="line">  const canvas = document.createElement(&#x27;canvas&#x27;);</span><br><span class="line">  const context = canvas.getContext(&#x27;2d&#x27;);</span><br><span class="line">  const outputWidth = outputScale * videoEl.videoWidth;</span><br><span class="line">  const outputHeight = outputScale * videoEl.videoHeight;</span><br><span class="line">  canvas.width = outputWidth;</span><br><span class="line">  canvas.height = outputHeight;</span><br><span class="line"></span><br><span class="line">  const frames = [];</span><br><span class="line"></span><br><span class="line">  for (let i = 0; i &lt; numFrames; i++) &#123;</span><br><span class="line">    const duration = clipEnd - clipStart;</span><br><span class="line">    if (duration &lt;= 0) &#123;</span><br><span class="line">      throw new Error(&#x27;clipEnd is before clipStart&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line">    const time = i * (duration / (Math.max(2, numFrames) - 1)) + clipStart;</span><br><span class="line"></span><br><span class="line">    // 跳转到指定时间</span><br><span class="line">    const seekedTime = await seekTo(videoEl, time);</span><br><span class="line"></span><br><span class="line">    // 清空 Canvas 背景，确保透明</span><br><span class="line">    context.clearRect(0, 0, canvas.width, canvas.height);</span><br><span class="line"></span><br><span class="line">    // 设置全局透明度</span><br><span class="line">    context.globalAlpha = alpha;</span><br><span class="line"></span><br><span class="line">    // 绘制视频帧到 Canvas</span><br><span class="line">    context.drawImage(videoEl, 0, 0, outputWidth, outputHeight);</span><br><span class="line"></span><br><span class="line">    // 获取帧像素数据</span><br><span class="line">    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);</span><br><span class="line">    const data = imageData.data;</span><br><span class="line"></span><br><span class="line">    // 将白色像素（或近似白色）改为透明</span><br><span class="line">    for (let j = 0; j &lt; data.length; j += 4) &#123;</span><br><span class="line">      const r = data[j];     // 红色通道</span><br><span class="line">      const g = data[j + 1]; // 绿色通道</span><br><span class="line">      const b = data[j + 2]; // 蓝色通道</span><br><span class="line">      const a = data[j + 3]; // 透明度通道</span><br><span class="line"></span><br><span class="line">      // 判断是否是白色（或接近白色）</span><br><span class="line">      if (r &gt; 240 &amp;&amp; g &gt; 240 &amp;&amp; b &gt; 240 &amp;&amp; a &gt; 0) &#123;</span><br><span class="line">        // 将其改为透明</span><br><span class="line">        data[j + 3] = 0;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 将修改后的像素数据写回 Canvas</span><br><span class="line">    context.putImageData(imageData, 0, 0);</span><br><span class="line"></span><br><span class="line">    // 将帧数据存储为透明背景的 PNG</span><br><span class="line">    frames.push(&#123;</span><br><span class="line">      time,</span><br><span class="line">      seekedTime,</span><br><span class="line">      data: canvas.toDataURL(&#x27;image/png&#x27;, quality) // 输出透明背景帧</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return frames;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>还有<code>lottie.layers.push 中的jpg</code>改成 png 使其支持 alpha 通道<br>其他不用改变 按步骤上传视频 然后导出就行了！</p>
+<p>这样 Lottie 动画就是带颜色的啦～</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>iOS 无埋点数据统计方案设计</title>
+    <url>/2019/07/03/iOS-%E6%97%A0%E5%9F%8B%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<h4 id="先附上参考的文章："><a href="#先附上参考的文章：" class="headerlink" title="先附上参考的文章："></a>先附上参考的文章：</h4><p><a href="https://www.jianshu.com/p/69ce01e15042">iOS无埋点数据SDK实践之路</a><br><a href="https://www.jianshu.com/p/a6afc6252965">iOS无埋点数据统计实践</a></p>
+<h4 id="该方案的统计功能？"><a href="#该方案的统计功能？" class="headerlink" title="该方案的统计功能？"></a>该方案的统计功能？</h4><ul>
+<li>APP进入前台</li>
+<li>按钮点击 （点击次数、按钮名称、点击方法）</li>
+<li>cell点击</li>
+<li>界面停留时长</li>
+<li>APP进入后台</li>
+</ul>
+<h4 id="如何实现无埋点"><a href="#如何实现无埋点" class="headerlink" title="如何实现无埋点"></a>如何实现无埋点</h4><p>利用运行时机制，将类原生方法替换成用户自定义的方法，相当于强行在原本调用栈中插入一个方法，我们在其中插入一段统计代码即可。</p>
+<span id="more"></span>
+<h5 id="如何替换方法-Method-Swizzling"><a href="#如何替换方法-Method-Swizzling" class="headerlink" title="如何替换方法:Method Swizzling"></a>如何替换方法:Method Swizzling</h5><p>函数的调用涉及到3个重要的点：Class、SEL、IMP，Calss作为类型，Method由SEL和IMP组成。我们通过交换Method的IMP达到替换被调用函数的目的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">核心方法：</span><br><span class="line">- (void)sel_exchangeFirstSel:(SEL)sel1 secondSel:(SEL)sel2 &#123;</span><br><span class="line">    [self sel_exchangeClass:[self class] FirstSel:sel1 secondSel:sel2];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)sel_exchangeClass:(Class)Class FirstSel:(SEL)sel1 secondSel:(SEL)sel2 &#123;</span><br><span class="line">    Method firstMethod = class_getInstanceMethod(Class, sel1);</span><br><span class="line">    Method secondMethod = class_getInstanceMethod(Class, sel2);</span><br><span class="line">    method_exchangeImplementations(firstMethod, secondMethod);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em><strong>注：</strong></em> 这里主要交换的方法</p>
+<table>
+<thead>
+<tr>
+<th align="center">系统类</th>
+<th align="center">类方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">UIControl</td>
+<td align="center">sendAction:to:forEvent</td>
+</tr>
+<tr>
+<td align="center">UIGestureRecognizer</td>
+<td align="center">addTarget:action:</td>
+</tr>
+<tr>
+<td align="center">initWithTarget:action:</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">UIView</td>
+<td align="center">addGestureRecognizer</td>
+</tr>
+<tr>
+<td align="center">UITableView</td>
+<td align="center">setDelegate</td>
+</tr>
+<tr>
+<td align="center">tableView:didSelectRowAtIndexPath:</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">NSNotificationCenter</td>
+<td align="center">postNotification</td>
+</tr>
+<tr>
+<td align="center">postNotificationName:object:userInfo:</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">UIViewController</td>
+<td align="center">viewDidAppear:</td>
+</tr>
+<tr>
+<td align="center">viewDidDisappear:</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h5 id="swizzling函数的时机"><a href="#swizzling函数的时机" class="headerlink" title="swizzling函数的时机"></a>swizzling函数的时机</h5><p>+(void)load函数在你动态加载或者静态引用了这个类的时候，该函数就会被执行，它并不需要你显示的去创建一个类后才会执行，同时它只会执行一次，几乎是完美的swizzling时机。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">举例 UIControl</span><br><span class="line"></span><br><span class="line">+ (void)load &#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        </span><br><span class="line">        //创建新的sendAction:to:forEvent:方法</span><br><span class="line">        [self sel_exchangeFirstSel:@selector(sendAction:to:forEvent:) secondSel:@selector(ch_sendAction:to:forEvent:)];</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="加入数据统计代码"><a href="#加入数据统计代码" class="headerlink" title="加入数据统计代码"></a>加入数据统计代码</h5><p>在swizzling成功后，我们在其中加入统计代码。为了保证响应链的完整，我们还需要调用替换过的方法，让事件传递下去，不去影响系统的处理。</p>
+<ul>
+<li>这里采用 <code>内联函数</code> 将该方法包起来使用 用于过滤黑名单（不参与统计的控制器）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/** 黑名单 不需要追踪的控制器 */</span><br><span class="line">#import &lt;UIKit/UIKit.h&gt;</span><br><span class="line">UIKIT_STATIC_INLINE BOOL kShouldTrackClass(Class aClass)&#123;</span><br><span class="line">    static NSSet *blacklistedClasses = nil;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">//        NSString *path = [[NSBundle mainBundle] pathForResource:@&quot;BlackListed&quot; ofType:@&quot;plist&quot;];</span><br><span class="line">//        NSArray *blacklistedClassNames = [NSArray arrayWithContentsOfFile:path];</span><br><span class="line">        </span><br><span class="line">        NSArray *blacklistedClassNames = [LogDAO sharedInstance].blackListArray;</span><br><span class="line">        NSMutableSet *transformedClasses = [NSMutableSet setWithCapacity:blacklistedClassNames.count];</span><br><span class="line">        for (NSString *className in blacklistedClassNames) &#123;</span><br><span class="line">            [transformedClasses addObject:NSClassFromString(className)];</span><br><span class="line">        &#125;</span><br><span class="line">        blacklistedClasses = [transformedClasses copy];</span><br><span class="line">    &#125;);</span><br><span class="line">    return ![blacklistedClasses containsObject:aClass];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="统计方式：操作数据库"><a href="#统计方式：操作数据库" class="headerlink" title="统计方式：操作数据库"></a>统计方式：操作数据库</h5><ul>
+<li>数据库地址：<code>/var/mobile/Containers/Data/Application/······/Library/Caches/TheOnlineTax/Database/log.sqlite</code></li>
+<li>数据库表名为 <code>info_log</code></li>
+<li>表中的参数 也是模型中的属性</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typedef NS_ENUM(NSUInteger, LogType) &#123;</span><br><span class="line">    LogTypeNone = 0,    // 未知</span><br><span class="line">    LogTypeLaunch,      // app 启动或前台</span><br><span class="line">    LogTypeButtonClick, // 按钮点击</span><br><span class="line">    LogTypeCellClick,   // cell点击</span><br><span class="line">    LogTypeVCRemainTime,// 界面停留时间</span><br><span class="line">    LogTypeTerminated,  // app 终止或后台</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy) NSString *vc_id;// 控制器名称 </span><br><span class="line">@property (nonatomic) NSTimeInterval remainTime; //停留时间</span><br><span class="line">@property (nonatomic, copy) NSString *btn_id;// 按钮名称</span><br><span class="line">@property (nonatomic, copy) NSString *functionName;// 方法名称</span><br><span class="line">@property (nonatomic, assign) NSInteger num;// 点击次数</span><br><span class="line">@property (nonatomic) NSTimeInterval lastTime; //最后执行时间</span><br><span class="line">@property (nonatomic, assign) LogType logType; //记录类型</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>插入之前会判断是否存在 若存在只更新表</li>
+<li>按钮次数 是通过 vc_id 和 btn_id 进行查表 累加所得</li>
+<li>具体逻辑可看LogDAO文件</li>
+</ul>
+<h5 id="数据上传服务器"><a href="#数据上传服务器" class="headerlink" title="数据上传服务器"></a>数据上传服务器</h5><p>因没有后台存储这些统计出来的数据，暂时使用后端云Bmob存储</p>
+<ul>
+<li>触发上传的时机</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">目前设计 (上传成功数据库的表里数据清空)</span><br><span class="line">1.是APP进入后台自动触发触发 </span><br><span class="line">2.用户退出登录操作触发</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上传的拼接数据</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">NSString *userID = @&quot;0&quot;;//必须默认0</span><br><span class="line">    if ([AppDelegate trackGetUserID].length&gt;0) &#123;</span><br><span class="line">        userID = [AppDelegate trackGetUserID];</span><br><span class="line">    &#125;</span><br><span class="line">    NSDictionary *dic = @&#123;</span><br><span class="line">                          //模型数组转成字典数组</span><br><span class="line">                          @&quot;list&quot; : [LogDTO mj_keyValuesArrayWithObjectArray:[[LogDAO sharedInstance] getAllData]],</span><br><span class="line">                          //应用名称</span><br><span class="line">                          @&quot;productName&quot; : kDisplayName,</span><br><span class="line">                          //bundleId</span><br><span class="line">                          @&quot;productID&quot; : [[NSBundle mainBundle] bundleIdentifier],</span><br><span class="line">                          //应用版本号</span><br><span class="line">                          @&quot;version&quot; : kVersion,</span><br><span class="line">                          //设备版本</span><br><span class="line">                          @&quot;osVersion&quot; : [NSString stringWithFormat:@&quot;%.1f&quot;,[DeviceAndSystemTool systemVersion]],</span><br><span class="line">                          //设备机型</span><br><span class="line">                          @&quot;osDeviceType&quot; : KStringIsEmpty([DeviceAndSystemTool getDeviceName]),</span><br><span class="line">                          //网络类型</span><br><span class="line">                          @&quot;networkType&quot; : KStringIsEmpty([DeviceAndSystemTool networkTypeName]),</span><br><span class="line">                          //运营商</span><br><span class="line">                          @&quot;isp&quot; : KStringIsEmpty([DeviceAndSystemTool wsd_telephonyNetworkInfo]),</span><br><span class="line">                          //定位（省市区）</span><br><span class="line">                          @&quot;gps&quot; : KStringIsEmpty(self.strLocationInfo)</span><br><span class="line">                          &#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>APP启动会先获取服务器的数据 若有只在原有基础上更新不会新增一条数据（改动是TrackData和updateAT字段）会根据UserID字段区分数据</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/** 新增一条数据 */</span><br><span class="line"></span><br><span class="line">    BmobObject *trackBmob = [BmobObject objectWithClassName:@&quot;TrackAction&quot;];</span><br><span class="line">    [trackBmob setObject:dic forKey:@&quot;TrackData&quot;];</span><br><span class="line">    [trackBmob setObject:[AppDelegate trackGetUserID] forKey:@&quot;UserID&quot;];</span><br><span class="line">    [trackBmob saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) &#123;</span><br><span class="line">        //进行操作</span><br><span class="line">        if (isSuccessful) &#123;</span><br><span class="line">            if (handler) &#123;</span><br><span class="line">                handler(YES,nil);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            if (handler) &#123;</span><br><span class="line">                handler(NO,error);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/** 更新一条数据 */</span><br><span class="line"></span><br><span class="line">//创建查表对象</span><br><span class="line">    BmobQuery   *bquery = [BmobQuery queryWithClassName:@&quot;TrackAction&quot;];</span><br><span class="line">    //设置查询中该字段是有值的结果</span><br><span class="line">    [bquery whereKeyExists:@&quot;UserID&quot;];</span><br><span class="line">    //设置查询中该字段 值是否相等的结果</span><br><span class="line">    [bquery whereKey:@&quot;UserID&quot; equalTo:[AppDelegate trackGetUserID]];</span><br><span class="line">    //查询</span><br><span class="line">    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) &#123;</span><br><span class="line">        if (error)&#123;</span><br><span class="line">            //进行错误处理</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            if (array) &#123;</span><br><span class="line">                BmobObject *obj = array[0];</span><br><span class="line"></span><br><span class="line">                NSString *userID = @&quot;0&quot;;//必须默认0</span><br><span class="line">                if ([AppDelegate trackGetUserID].length&gt;0) &#123;</span><br><span class="line">                    userID = [AppDelegate trackGetUserID];</span><br><span class="line">                &#125;</span><br><span class="line">                NSDictionary *dic = @&#123;</span><br><span class="line">                                      //模型数组转成字典数组</span><br><span class="line">                                      @&quot;list&quot; : [LogDTO mj_keyValuesArrayWithObjectArray:[[LogDAO sharedInstance] getAllData]],</span><br><span class="line">                                      //userid</span><br><span class="line">                                      @&quot;userid&quot; : KStringIsEmpty(userID),</span><br><span class="line">                                      //应用名称</span><br><span class="line">                                      @&quot;productName&quot; : kDisplayName,</span><br><span class="line">                                      //bundleId</span><br><span class="line">                                      @&quot;productID&quot; : [[NSBundle mainBundle] bundleIdentifier],</span><br><span class="line">                                      //应用版本号</span><br><span class="line">                                      @&quot;version&quot; : kVersion,</span><br><span class="line">                                      //设备版本</span><br><span class="line">                                      @&quot;osVersion&quot; : [NSString stringWithFormat:@&quot;%.1f&quot;,[DeviceAndSystemTool systemVersion]],</span><br><span class="line">                                      //设备机型</span><br><span class="line">                                      @&quot;osDeviceType&quot; : KStringIsEmpty([DeviceAndSystemTool getDeviceName]),</span><br><span class="line">                                      //网络类型</span><br><span class="line">                                      @&quot;networkType&quot; : KStringIsEmpty([DeviceAndSystemTool networkTypeName]),</span><br><span class="line">                                      //运营商</span><br><span class="line">                                      @&quot;isp&quot; : KStringIsEmpty([DeviceAndSystemTool wsd_telephonyNetworkInfo]),</span><br><span class="line">                                      //定位（省市区）</span><br><span class="line">                                      @&quot;gps&quot; : KStringIsEmpty(self.strLocationInfo)</span><br><span class="line">                                      &#125;;</span><br><span class="line"></span><br><span class="line">                BmobObject *obj1 = [BmobObject objectWithoutDataWithClassName:obj.className objectId:obj.objectId];</span><br><span class="line">                //设置cheatMode为YES</span><br><span class="line">                [obj1 setObject:dic forKey:@&quot;TrackData&quot;];</span><br><span class="line">                //异步更新数据</span><br><span class="line">                [obj1 updateInBackground];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+
+<h4 id="引用方法："><a href="#引用方法：" class="headerlink" title="引用方法："></a>引用方法：</h4><p>目前没有集成到pod上 只能手动导入 这是相关文件：<a href="https://github.com/NickChenHao/TrackAction.git">GitHub</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【 使用说明 】</span><br><span class="line"> 1.需要依赖 pod &#x27;MJExtension&#x27; 和 pod &#x27;AFNetworking&#x27; 请确保项目中已有</span><br><span class="line"> 2.将文件拖入项目中</span><br><span class="line"> 3.需在pch文件中引用  #import &quot;TrackAction.h&quot;</span><br><span class="line"> 4.需在AppDelegate.m文件中</span><br><span class="line">   a.调用 createTablesNeeded 创建数据库</span><br><span class="line">   b.重写 trackGetUserID     配置userID</span><br><span class="line">   c.重写 trackServiceURL    配置上传服务器的地址</span><br><span class="line"> 5.可添加不需要统计的控制器在BlackListed.plist</span><br></pre></td></tr></table></figure>
+
+<h4 id="更新部分【重要】"><a href="#更新部分【重要】" class="headerlink" title="更新部分【重要】"></a>更新部分【重要】</h4><h5 id="引用方法"><a href="#引用方法" class="headerlink" title="引用方法"></a><del>引用方法</del></h5><ul>
+<li>手动导入 这是相关文件：<a href="https://github.com/NickChenHao/TrackAction.git">GitHub</a></li>
+<li>引用svn私有库 <code>pod &#39;ASTrackAction&#39;,&#39;1.0.0&#39;</code></li>
+</ul>
+<h5 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a><del>使用说明</del></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【 使用说明 】</span><br><span class="line"> 1.依赖 pod &#x27;MJExtension&#x27; 和 pod &#x27;AFNetworking&#x27;</span><br><span class="line"> 2.需在pch文件中引用  #import &quot;TrackAction.h&quot;</span><br><span class="line"> 3.需在AppDelegate里的方法实现 配置track信息的方法 在LogDAO类中 （不开启埋点功能 注释即可）</span><br></pre></td></tr></table></figure>
+<h5 id="上传的拼接数据"><a href="#上传的拼接数据" class="headerlink" title="上传的拼接数据"></a><del>上传的拼接数据</del></h5><p>修改为<br>1.先判断是开启埋点功能<br>2.再判断是否自定义服务器地址 若有则AFN请求 若无则上传至Bmob后端云</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">    if (!self.isOpenTracker) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    NSString *userID = @&quot;0&quot;;//必须默认0</span><br><span class="line">    if (self.userId.length&gt;0) &#123;</span><br><span class="line">        userID = self.userId;</span><br><span class="line">    &#125;</span><br><span class="line">    NSDictionary *dic = @&#123;</span><br><span class="line">                          //模型数组转成字典数组</span><br><span class="line">                          @&quot;list&quot; : [LogDTO mj_keyValuesArrayWithObjectArray:[[LogDAO sharedInstance] getAllData]],</span><br><span class="line">                          //userid</span><br><span class="line">                          @&quot;userid&quot; : KStringIsEmpty(userID),</span><br><span class="line">                          //应用名称</span><br><span class="line">                          @&quot;productName&quot; : kDisplayName,</span><br><span class="line">                          //bundleId</span><br><span class="line">                          @&quot;productID&quot; : [[NSBundle mainBundle] bundleIdentifier],</span><br><span class="line">                          //应用版本号</span><br><span class="line">                          @&quot;version&quot; : kVersion,</span><br><span class="line">                          //设备版本</span><br><span class="line">                          @&quot;osVersion&quot; : [NSString stringWithFormat:@&quot;%.1f&quot;,[DeviceAndSystemTool systemVersion]],</span><br><span class="line">                          //设备机型</span><br><span class="line">                          @&quot;osDeviceType&quot; : KStringIsEmpty([DeviceAndSystemTool getDeviceName]),</span><br><span class="line">                          //网络类型</span><br><span class="line">                          @&quot;networkType&quot; : KStringIsEmpty([DeviceAndSystemTool networkTypeName]),</span><br><span class="line">                          //运营商</span><br><span class="line">                          @&quot;isp&quot; : KStringIsEmpty([DeviceAndSystemTool wsd_telephonyNetworkInfo]),</span><br><span class="line">                          //定位（省市区）</span><br><span class="line">                          @&quot;gps&quot; : KStringIsEmpty(self.strLocationInfo)</span><br><span class="line">                          &#125;;</span><br><span class="line"></span><br><span class="line">    if (!ISEMPTY(self.serviceURL)) &#123;</span><br><span class="line">#pragma mark - AFN</span><br><span class="line"></span><br><span class="line">        [TrackActionServiceManager postParameter:dic Success:^(NSURLSessionDataTask *operation, id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">            if (handler) &#123;</span><br><span class="line">                handler(YES,nil);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; Failure:^(NSURLSessionDataTask *operation, NSError *error) &#123;</span><br><span class="line"></span><br><span class="line">            if (handler) &#123;</span><br><span class="line">                handler(NO,error);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;else&#123;</span><br><span class="line"></span><br><span class="line">#pragma mark - 后端云SDK</span><br><span class="line"></span><br><span class="line">        BmobObject *trackBmob = [BmobObject objectWithClassName:@&quot;TrackAction&quot;];</span><br><span class="line">        [trackBmob setObject:dic forKey:@&quot;TrackData&quot;];</span><br><span class="line">        [trackBmob setObject:self.userId forKey:@&quot;UserID&quot;];</span><br><span class="line">        [trackBmob saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) &#123;</span><br><span class="line">            //进行操作</span><br><span class="line">            if (isSuccessful) &#123;</span><br><span class="line">                if (handler) &#123;</span><br><span class="line">                    handler(YES,nil);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                if (handler) &#123;</span><br><span class="line">                    handler(NO,error);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>iOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ios26+ 液态玻璃UI 适配</title>
+    <url>/2026/09/28/ios26+%20%E6%B6%B2%E6%80%81%E7%8E%BB%E7%92%83UI%20%E9%80%82%E9%85%8D/</url>
+    <content><![CDATA[<p>禁用液态玻璃UI 的key  如果是27版本构建 会自动忽略<br><a href="https://developer.apple.com/documentation/BundleResources/Information-Property-List/UIDesignRequiresCompatibility?changes=__2,__2,__2,__2">Apple Developer Documentation</a></p>
+<p>自定义的Tabbar 通过<code>   [self setValue:customTabBar forKey:@&quot;tabBar&quot;];</code>设置的 也会失效或者出现各种问题</p>
+<span id="more"></span>
+
+<p>iOS 26 的 TabBar 是悬浮式设计，页面侧滑返回时，如果 TabBar 的显示状态与导航栈不一致，就可能出现 TabBar 提前显示、位置跳动或动画不协调的问题。 这需要结合 UITabBarController 和 UINavigationController 的层级来处理.</p>
+<p>目前大多主流的层级是</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">UITabBarController</span><br><span class="line">├── BaseNavigationController（首页导航栈）</span><br><span class="line">│   └── HomeViewController（首页）</span><br><span class="line">│       └── DetailViewController（详情）</span><br><span class="line">│</span><br><span class="line">├── BaseNavigationController（商城导航栈）</span><br><span class="line">│   └── MallViewController（商城）</span><br><span class="line">│       └── DetailViewController（详情）</span><br><span class="line">│</span><br><span class="line">└── BaseNavigationController（我的导航栈）</span><br><span class="line">    └── MineViewController（我的）</span><br></pre></td></tr></table></figure>
+<p>这种 系统的Tabbar<br>如果是 push时不隐藏 没有问题<br>如果是 push时隐藏 <code>hidesBottomBarWhenPushed = true</code> 在侧滑的时候会提前出现 停止侧滑 又会隐藏</p>
+<h3 id="网上有几种方案处理："><a href="#网上有几种方案处理：" class="headerlink" title="网上有几种方案处理："></a>网上有几种方案处理：</h3><h4 id="方案一：自定义导航控制器转场代理"><a href="#方案一：自定义导航控制器转场代理" class="headerlink" title="方案一：自定义导航控制器转场代理"></a>方案一：自定义导航控制器转场代理</h4><p>通过实现UINavigationControllerDelegate手动控制转场过程中的TabBar层级：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CustomNavigationController</span>: <span class="title class_ inherited__">UINavigationController</span>, <span class="title class_ inherited__">UINavigationControllerDelegate</span> &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">viewDidLoad</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        delegate <span class="operator">=</span> <span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">navigationController</span>(<span class="keyword">_</span> <span class="params">navigationController</span>: <span class="type">UINavigationController</span>, <span class="params">animationControllerFor</span> <span class="params">operation</span>: <span class="type">UINavigationController</span>.<span class="type">Operation</span>, <span class="params">from</span> <span class="params">fromVC</span>: <span class="type">UIViewController</span>, <span class="params">to</span> <span class="params">toVC</span>: <span class="type">UIViewController</span>) -&gt; <span class="type">UIViewControllerAnimatedTransitioning</span>? &#123;</span><br><span class="line">        <span class="keyword">if</span> operation <span class="operator">==</span> .pop &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="type">CustomPopTransition</span>()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CustomPopTransition</span>: <span class="title class_ inherited__">NSObject</span>, <span class="title class_ inherited__">UIViewControllerAnimatedTransitioning</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">transitionDuration</span>(<span class="params">using</span> <span class="params">transitionContext</span>: <span class="type">UIViewControllerContextTransitioning</span>?) -&gt; <span class="type">TimeInterval</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0.35</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">animateTransition</span>(<span class="params">using</span> <span class="params">transitionContext</span>: <span class="type">UIViewControllerContextTransitioning</span>) &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> fromVC <span class="operator">=</span> transitionContext.viewController(forKey: .from),</span><br><span class="line">              <span class="keyword">let</span> toVC <span class="operator">=</span> transitionContext.viewController(forKey: .to) <span class="keyword">else</span> &#123;</span><br><span class="line">            transitionContext.completeTransition(<span class="literal">false</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> containerView <span class="operator">=</span> transitionContext.containerView</span><br><span class="line">        containerView.addSubview(toVC.view)</span><br><span class="line">        containerView.sendSubviewToBack(toVC.view)</span><br><span class="line">        </span><br><span class="line">        fromVC.view.frame <span class="operator">=</span> containerView.bounds</span><br><span class="line">        <span class="keyword">let</span> finalFrame <span class="operator">=</span> <span class="type">CGRect</span>(x: containerView.bounds.width, y: <span class="number">0</span>, width: containerView.bounds.width, height: containerView.bounds.height)</span><br><span class="line">        </span><br><span class="line">        <span class="type">UIView</span>.animate(withDuration: transitionDuration(using: transitionContext)) &#123;</span><br><span class="line">            fromVC.view.frame <span class="operator">=</span> finalFrame</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> tabBar <span class="operator">=</span> (toVC <span class="keyword">as?</span> <span class="type">UITabBarController</span>)<span class="operator">?</span>.tabBar &#123;</span><br><span class="line">                containerView.sendSubviewToBack(tabBar)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">            fromVC.view.removeFromSuperview()</span><br><span class="line">            transitionContext.completeTransition(<span class="operator">!</span>transitionContext.transitionWasCancelled)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="方案二：监听侧滑手势动态调整TabBar层级"><a href="#方案二：监听侧滑手势动态调整TabBar层级" class="headerlink" title="方案二：监听侧滑手势动态调整TabBar层级"></a>方案二：监听侧滑手势动态调整TabBar层级</h4><p>在详情页监听导航控制器的侧滑手势，根据手势状态调整TabBar层级：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DetailViewController</span>: <span class="title class_ inherited__">UIViewController</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> tabBar: <span class="type">UITabBar</span>?</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">viewDidLoad</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        tabBar <span class="operator">=</span> tabBarController<span class="operator">?</span>.tabBar</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> popGesture <span class="operator">=</span> navigationController<span class="operator">?</span>.interactivePopGestureRecognizer &#123;</span><br><span class="line">            popGesture.addTarget(<span class="keyword">self</span>, action: <span class="keyword">#selector</span>(handlePopGesture(<span class="keyword">_</span>:)))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">@objc</span> <span class="keyword">private</span> <span class="keyword">func</span> <span class="title function_">handlePopGesture</span>(<span class="keyword">_</span> <span class="params">gesture</span>: <span class="type">UIPanGestureRecognizer</span>) &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> tabBar <span class="operator">=</span> tabBar <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">switch</span> gesture.state &#123;</span><br><span class="line">        <span class="keyword">case</span> .began, .changed:</span><br><span class="line">            tabBar.superview<span class="operator">?</span>.sendSubviewToBack(tabBar)</span><br><span class="line">        <span class="keyword">case</span> .cancelled:</span><br><span class="line">            tabBar.superview<span class="operator">?</span>.bringSubviewToFront(tabBar)</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="方案三：修改TabBar的zPosition（简洁版）"><a href="#方案三：修改TabBar的zPosition（简洁版）" class="headerlink" title="方案三：修改TabBar的zPosition（简洁版）"></a>方案三：修改TabBar的zPosition（简洁版）</h4><p>在详情页生命周期方法中直接调整TabBar的层级：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DetailViewController</span>: <span class="title class_ inherited__">UIViewController</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> originalZPosition: <span class="type">CGFloat</span> <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">viewWillAppear</span>(<span class="keyword">_</span> <span class="params">animated</span>: <span class="type">Bool</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewWillAppear(animated)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> tabBar <span class="operator">=</span> tabBarController<span class="operator">?</span>.tabBar &#123;</span><br><span class="line">            originalZPosition <span class="operator">=</span> tabBar.layer.zPosition</span><br><span class="line">            tabBar.layer.zPosition <span class="operator">=</span> <span class="operator">-</span><span class="number">1000</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">viewWillDisappear</span>(<span class="keyword">_</span> <span class="params">animated</span>: <span class="type">Bool</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewWillDisappear(animated)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> tabBar <span class="operator">=</span> tabBarController<span class="operator">?</span>.tabBar &#123;</span><br><span class="line">            tabBar.layer.zPosition <span class="operator">=</span> originalZPosition</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="方案四：修改Tabbar的层级（推荐）"><a href="#方案四：修改Tabbar的层级（推荐）" class="headerlink" title="方案四：修改Tabbar的层级（推荐）"></a>方案四：修改Tabbar的层级（推荐）</h4><p>TabBarController外面包一层UINavigationController</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">UINavigationController</span></span><br><span class="line"><span class="operator">└─</span> <span class="type">UITabBarController</span></span><br><span class="line">    <span class="operator">├──</span> <span class="type">BaseNavigationController（首页导航栈）</span></span><br><span class="line">    <span class="operator">│</span>   <span class="operator">└──</span> <span class="type">HomeViewController（首页）</span></span><br><span class="line">    <span class="operator">│</span>       <span class="operator">└──</span> <span class="type">DetailViewController（详情）</span></span><br><span class="line">    <span class="operator">│</span></span><br><span class="line">    <span class="operator">├──</span> <span class="type">BaseNavigationController（商城导航栈）</span></span><br><span class="line">    <span class="operator">│</span>   <span class="operator">└──</span> <span class="type">MallViewController（商城）</span></span><br><span class="line">    <span class="operator">│</span>       <span class="operator">└──</span> <span class="type">DetailViewController（详情）</span></span><br><span class="line">    <span class="operator">│</span></span><br><span class="line">    <span class="operator">└──</span> <span class="type">BaseNavigationController（我的导航栈）</span></span><br><span class="line">        <span class="operator">└──</span> <span class="type">MineViewController（我的）</span></span><br></pre></td></tr></table></figure>
+<p>并禁止相关属性 设置为window.rootViewController</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 隐藏外层导航栏</span></span><br><span class="line">nav.navigationBarHidden <span class="operator">=</span> <span class="type">YES</span>;</span><br><span class="line"><span class="comment">// 禁止外层系统侧滑返回手势</span></span><br><span class="line">nav.interactivePopGestureRecognizer.enabled <span class="operator">=</span> <span class="type">NO</span>;</span><br><span class="line"><span class="comment">// 禁止通过导航栏边缘手势触发交互式 Pop</span></span><br><span class="line">nav.interactivePopGestureRecognizer.delegate <span class="operator">=</span> <span class="literal">nil</span>;</span><br><span class="line"><span class="comment">// 作为window根控制器</span></span><br><span class="line">window.rootViewController <span class="operator">=</span> nav;</span><br></pre></td></tr></table></figure>
+<p>最终采用方案四 侵入性最小<br>或者使用 <a href="https://github.com/ChenYilong/CYLTabBarController">CYLTabBarController</a><br><img src="/images/CYLTabbarController.gif" alt="avatar"></p>
+<p>暂时未发现有什么问题 待更新！</p>
+]]></content>
+      <categories>
+        <category>适配问题</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
       </tags>
   </entry>
   <entry>
@@ -217,117 +381,143 @@
       </tags>
   </entry>
   <entry>
-    <title>iOS 无埋点数据统计方案设计</title>
-    <url>/2019/07/03/iOS-%E6%97%A0%E5%9F%8B%E7%82%B9%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1/</url>
-    <content><![CDATA[<h4 id="先附上参考的文章："><a href="#先附上参考的文章：" class="headerlink" title="先附上参考的文章："></a>先附上参考的文章：</h4><p><a href="https://www.jianshu.com/p/69ce01e15042">iOS无埋点数据SDK实践之路</a><br><a href="https://www.jianshu.com/p/a6afc6252965">iOS无埋点数据统计实践</a></p>
-<h4 id="该方案的统计功能？"><a href="#该方案的统计功能？" class="headerlink" title="该方案的统计功能？"></a>该方案的统计功能？</h4><ul>
-<li>APP进入前台</li>
-<li>按钮点击 （点击次数、按钮名称、点击方法）</li>
-<li>cell点击</li>
-<li>界面停留时长</li>
-<li>APP进入后台</li>
+    <title>swift笔记2</title>
+    <url>/2016/01/26/swift%E7%AC%94%E8%AE%B02/</url>
+    <content><![CDATA[<h3 id="字符串的介绍"><a href="#字符串的介绍" class="headerlink" title="字符串的介绍"></a>字符串的介绍</h3><ul>
+<li>字符串在任何的开发中使用都是非常频繁的</li>
+<li>OC和Swift中字符串的区别</li>
+<li>在OC中字符串类型时NSString,在Swift中字符串类型是String</li>
+<li>OC中字符串@””,Swift中字符串””</li>
+<li>使用 String 的原因</li>
+<li>String 是一个结构体，性能更高</li>
+<li>NSString 是一个 OC 对象，性能略差</li>
+<li>String 支持直接遍历</li>
+<li>Swift 提供了 String 和 NSString 之间的无缝转换</li>
 </ul>
-<h4 id="如何实现无埋点"><a href="#如何实现无埋点" class="headerlink" title="如何实现无埋点"></a>如何实现无埋点</h4><p>利用运行时机制，将类原生方法替换成用户自定义的方法，相当于强行在原本调用栈中插入一个方法，我们在其中插入一段统计代码即可。</p>
-<span id="more"></span>
-<h5 id="如何替换方法-Method-Swizzling"><a href="#如何替换方法-Method-Swizzling" class="headerlink" title="如何替换方法:Method Swizzling"></a>如何替换方法:Method Swizzling</h5><p>函数的调用涉及到3个重要的点：Class、SEL、IMP，Calss作为类型，Method由SEL和IMP组成。我们通过交换Method的IMP达到替换被调用函数的目的。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">核心方法：</span><br><span class="line">- (void)sel_exchangeFirstSel:(SEL)sel1 secondSel:(SEL)sel2 &#123;</span><br><span class="line">    [self sel_exchangeClass:[self class] FirstSel:sel1 secondSel:sel2];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)sel_exchangeClass:(Class)Class FirstSel:(SEL)sel1 secondSel:(SEL)sel2 &#123;</span><br><span class="line">    Method firstMethod = class_getInstanceMethod(Class, sel1);</span><br><span class="line">    Method secondMethod = class_getInstanceMethod(Class, sel2);</span><br><span class="line">    method_exchangeImplementations(firstMethod, secondMethod);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em><strong>注：</strong></em> 这里主要交换的方法</p>
-<table>
-<thead>
-<tr>
-<th align="center">系统类</th>
-<th align="center">类方法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">UIControl</td>
-<td align="center">sendAction:to:forEvent</td>
-</tr>
-<tr>
-<td align="center">UIGestureRecognizer</td>
-<td align="center">addTarget:action:</td>
-</tr>
-<tr>
-<td align="center">initWithTarget:action:</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">UIView</td>
-<td align="center">addGestureRecognizer</td>
-</tr>
-<tr>
-<td align="center">UITableView</td>
-<td align="center">setDelegate</td>
-</tr>
-<tr>
-<td align="center">tableView:didSelectRowAtIndexPath:</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">NSNotificationCenter</td>
-<td align="center">postNotification</td>
-</tr>
-<tr>
-<td align="center">postNotificationName:object:userInfo:</td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">UIViewController</td>
-<td align="center">viewDidAppear:</td>
-</tr>
-<tr>
-<td align="center">viewDidDisappear:</td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<h5 id="swizzling函数的时机"><a href="#swizzling函数的时机" class="headerlink" title="swizzling函数的时机"></a>swizzling函数的时机</h5><p>+(void)load函数在你动态加载或者静态引用了这个类的时候，该函数就会被执行，它并不需要你显示的去创建一个类后才会执行，同时它只会执行一次，几乎是完美的swizzling时机。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">举例 UIControl</span><br><span class="line"></span><br><span class="line">+ (void)load &#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        </span><br><span class="line">        //创建新的sendAction:to:forEvent:方法</span><br><span class="line">        [self sel_exchangeFirstSel:@selector(sendAction:to:forEvent:) secondSel:@selector(ch_sendAction:to:forEvent:)];</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="加入数据统计代码"><a href="#加入数据统计代码" class="headerlink" title="加入数据统计代码"></a>加入数据统计代码</h5><p>在swizzling成功后，我们在其中加入统计代码。为了保证响应链的完整，我们还需要调用替换过的方法，让事件传递下去，不去影响系统的处理。</p>
+ <span id="more"></span>
+<h3 id="字符的定义"><a href="#字符的定义" class="headerlink" title="字符的定义"></a>字符的定义</h3><ul>
+<li><p>定义不可变字符串<br><code>let str = &quot;hello Objective-C&quot;</code></p>
+</li>
+<li><p>定义可变字符串<br><code>var str = &quot;hello Swift&quot;</code></p>
+</li>
+</ul>
+<h3 id="字符串的使用"><a href="#字符串的使用" class="headerlink" title="字符串的使用"></a>字符串的使用</h3><p>获取字符串的长度</p>
 <ul>
-<li>这里采用 <code>内联函数</code> 将该方法包起来使用 用于过滤黑名单（不参与统计的控制器）</li>
+<li><p>获取字符集合,再获取集合的count属性<br><code>let count = str.characters.count</code></p>
+</li>
+<li><p>遍历字符串</p>
+</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/** 黑名单 不需要追踪的控制器 */</span><br><span class="line">#import &lt;UIKit/UIKit.h&gt;</span><br><span class="line">UIKIT_STATIC_INLINE BOOL kShouldTrackClass(Class aClass)&#123;</span><br><span class="line">    static NSSet *blacklistedClasses = nil;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">//        NSString *path = [[NSBundle mainBundle] pathForResource:@&quot;BlackListed&quot; ofType:@&quot;plist&quot;];</span><br><span class="line">//        NSArray *blacklistedClassNames = [NSArray arrayWithContentsOfFile:path];</span><br><span class="line">        </span><br><span class="line">        NSArray *blacklistedClassNames = [LogDAO sharedInstance].blackListArray;</span><br><span class="line">        NSMutableSet *transformedClasses = [NSMutableSet setWithCapacity:blacklistedClassNames.count];</span><br><span class="line">        for (NSString *className in blacklistedClassNames) &#123;</span><br><span class="line">            [transformedClasses addObject:NSClassFromString(className)];</span><br><span class="line">        &#125;</span><br><span class="line">        blacklistedClasses = [transformedClasses copy];</span><br><span class="line">    &#125;);</span><br><span class="line">    return ![blacklistedClasses containsObject:aClass];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="统计方式：操作数据库"><a href="#统计方式：操作数据库" class="headerlink" title="统计方式：操作数据库"></a>统计方式：操作数据库</h5><ul>
-<li>数据库地址：<code>/var/mobile/Containers/Data/Application/······/Library/Caches/TheOnlineTax/Database/log.sqlite</code></li>
-<li>数据库表名为 <code>info_log</code></li>
-<li>表中的参数 也是模型中的属性</li>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var str = &quot;Hello, Swift&quot;</span><br><span class="line">for c in str.characters &#123;</span><br><span class="line">    print(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h3><ul>
+<li>两个字符串的拼接</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">typedef NS_ENUM(NSUInteger, LogType) &#123;</span><br><span class="line">    LogTypeNone = 0,    // 未知</span><br><span class="line">    LogTypeLaunch,      // app 启动或前台</span><br><span class="line">    LogTypeButtonClick, // 按钮点击</span><br><span class="line">    LogTypeCellClick,   // cell点击</span><br><span class="line">    LogTypeVCRemainTime,// 界面停留时间</span><br><span class="line">    LogTypeTerminated,  // app 终止或后台</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy) NSString *vc_id;// 控制器名称 </span><br><span class="line">@property (nonatomic) NSTimeInterval remainTime; //停留时间</span><br><span class="line">@property (nonatomic, copy) NSString *btn_id;// 按钮名称</span><br><span class="line">@property (nonatomic, copy) NSString *functionName;// 方法名称</span><br><span class="line">@property (nonatomic, assign) NSInteger num;// 点击次数</span><br><span class="line">@property (nonatomic) NSTimeInterval lastTime; //最后执行时间</span><br><span class="line">@property (nonatomic, assign) LogType logType; //记录类型</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let str1 = &quot;Hello&quot;</span><br><span class="line">let str2 = &quot;World&quot;</span><br><span class="line">let str3 = str1 + str2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>字符串和其他数据类型的拼接</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let name = &quot;why&quot; </span><br><span class="line">let age = 18 </span><br><span class="line">let info = &quot;my name is \(name), age is \(age)&quot; </span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>插入之前会判断是否存在 若存在只更新表</li>
-<li>按钮次数 是通过 vc_id 和 btn_id 进行查表 累加所得</li>
-<li>具体逻辑可看LogDAO文件</li>
+<li>字符串的格式化</li>
+<li>比如时间:03:04</li>
 </ul>
-<h5 id="数据上传服务器"><a href="#数据上传服务器" class="headerlink" title="数据上传服务器"></a>数据上传服务器</h5><p>因没有后台存储这些统计出来的数据，暂时使用后端云Bmob存储</p>
-<ul>
-<li>触发上传的时机</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">目前设计 (上传成功数据库的表里数据清空)</span><br><span class="line">1.是APP进入后台自动触发触发 </span><br><span class="line">2.用户退出登录操作触发</span><br></pre></td></tr></table></figure>
-<ul>
-<li>上传的拼接数据</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">NSString *userID = @&quot;0&quot;;//必须默认0</span><br><span class="line">    if ([AppDelegate trackGetUserID].length&gt;0) &#123;</span><br><span class="line">        userID = [AppDelegate trackGetUserID];</span><br><span class="line">    &#125;</span><br><span class="line">    NSDictionary *dic = @&#123;</span><br><span class="line">                          //模型数组转成字典数组</span><br><span class="line">                          @&quot;list&quot; : [LogDTO mj_keyValuesArrayWithObjectArray:[[LogDAO sharedInstance] getAllData]],</span><br><span class="line">                          //应用名称</span><br><span class="line">                          @&quot;productName&quot; : kDisplayName,</span><br><span class="line">                          //bundleId</span><br><span class="line">                          @&quot;productID&quot; : [[NSBundle mainBundle] bundleIdentifier],</span><br><span class="line">                          //应用版本号</span><br><span class="line">                          @&quot;version&quot; : kVersion,</span><br><span class="line">                          //设备版本</span><br><span class="line">                          @&quot;osVersion&quot; : [NSString stringWithFormat:@&quot;%.1f&quot;,[DeviceAndSystemTool systemVersion]],</span><br><span class="line">                          //设备机型</span><br><span class="line">                          @&quot;osDeviceType&quot; : KStringIsEmpty([DeviceAndSystemTool getDeviceName]),</span><br><span class="line">                          //网络类型</span><br><span class="line">                          @&quot;networkType&quot; : KStringIsEmpty([DeviceAndSystemTool networkTypeName]),</span><br><span class="line">                          //运营商</span><br><span class="line">                          @&quot;isp&quot; : KStringIsEmpty([DeviceAndSystemTool wsd_telephonyNetworkInfo]),</span><br><span class="line">                          //定位（省市区）</span><br><span class="line">                          @&quot;gps&quot; : KStringIsEmpty(self.strLocationInfo)</span><br><span class="line">                          &#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>APP启动会先获取服务器的数据 若有只在原有基础上更新不会新增一条数据（改动是TrackData和updateAT字段）会根据UserID字段区分数据</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/** 新增一条数据 */</span><br><span class="line"></span><br><span class="line">    BmobObject *trackBmob = [BmobObject objectWithClassName:@&quot;TrackAction&quot;];</span><br><span class="line">    [trackBmob setObject:dic forKey:@&quot;TrackData&quot;];</span><br><span class="line">    [trackBmob setObject:[AppDelegate trackGetUserID] forKey:@&quot;UserID&quot;];</span><br><span class="line">    [trackBmob saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) &#123;</span><br><span class="line">        //进行操作</span><br><span class="line">        if (isSuccessful) &#123;</span><br><span class="line">            if (handler) &#123;</span><br><span class="line">                handler(YES,nil);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            if (handler) &#123;</span><br><span class="line">                handler(NO,error);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/** 更新一条数据 */</span><br><span class="line"></span><br><span class="line">//创建查表对象</span><br><span class="line">    BmobQuery   *bquery = [BmobQuery queryWithClassName:@&quot;TrackAction&quot;];</span><br><span class="line">    //设置查询中该字段是有值的结果</span><br><span class="line">    [bquery whereKeyExists:@&quot;UserID&quot;];</span><br><span class="line">    //设置查询中该字段 值是否相等的结果</span><br><span class="line">    [bquery whereKey:@&quot;UserID&quot; equalTo:[AppDelegate trackGetUserID]];</span><br><span class="line">    //查询</span><br><span class="line">    [bquery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) &#123;</span><br><span class="line">        if (error)&#123;</span><br><span class="line">            //进行错误处理</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            if (array) &#123;</span><br><span class="line">                BmobObject *obj = array[0];</span><br><span class="line"></span><br><span class="line">                NSString *userID = @&quot;0&quot;;//必须默认0</span><br><span class="line">                if ([AppDelegate trackGetUserID].length&gt;0) &#123;</span><br><span class="line">                    userID = [AppDelegate trackGetUserID];</span><br><span class="line">                &#125;</span><br><span class="line">                NSDictionary *dic = @&#123;</span><br><span class="line">                                      //模型数组转成字典数组</span><br><span class="line">                                      @&quot;list&quot; : [LogDTO mj_keyValuesArrayWithObjectArray:[[LogDAO sharedInstance] getAllData]],</span><br><span class="line">                                      //userid</span><br><span class="line">                                      @&quot;userid&quot; : KStringIsEmpty(userID),</span><br><span class="line">                                      //应用名称</span><br><span class="line">                                      @&quot;productName&quot; : kDisplayName,</span><br><span class="line">                                      //bundleId</span><br><span class="line">                                      @&quot;productID&quot; : [[NSBundle mainBundle] bundleIdentifier],</span><br><span class="line">                                      //应用版本号</span><br><span class="line">                                      @&quot;version&quot; : kVersion,</span><br><span class="line">                                      //设备版本</span><br><span class="line">                                      @&quot;osVersion&quot; : [NSString stringWithFormat:@&quot;%.1f&quot;,[DeviceAndSystemTool systemVersion]],</span><br><span class="line">                                      //设备机型</span><br><span class="line">                                      @&quot;osDeviceType&quot; : KStringIsEmpty([DeviceAndSystemTool getDeviceName]),</span><br><span class="line">                                      //网络类型</span><br><span class="line">                                      @&quot;networkType&quot; : KStringIsEmpty([DeviceAndSystemTool networkTypeName]),</span><br><span class="line">                                      //运营商</span><br><span class="line">                                      @&quot;isp&quot; : KStringIsEmpty([DeviceAndSystemTool wsd_telephonyNetworkInfo]),</span><br><span class="line">                                      //定位（省市区）</span><br><span class="line">                                      @&quot;gps&quot; : KStringIsEmpty(self.strLocationInfo)</span><br><span class="line">                                      &#125;;</span><br><span class="line"></span><br><span class="line">                BmobObject *obj1 = [BmobObject objectWithoutDataWithClassName:obj.className objectId:obj.objectId];</span><br><span class="line">                //设置cheatMode为YES</span><br><span class="line">                [obj1 setObject:dic forKey:@&quot;TrackData&quot;];</span><br><span class="line">                //异步更新数据</span><br><span class="line">                [obj1 updateInBackground];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let min = 3</span><br><span class="line">let second = 4</span><br><span class="line">let time = String(format: &quot;%02d:%02d&quot;, arguments: [min, second])</span><br></pre></td></tr></table></figure>
 
-<h4 id="引用方法："><a href="#引用方法：" class="headerlink" title="引用方法："></a>引用方法：</h4><p>目前没有集成到pod上 只能手动导入 这是相关文件：<a href="https://github.com/NickChenHao/TrackAction.git">GitHub</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【 使用说明 】</span><br><span class="line"> 1.需要依赖 pod &#x27;MJExtension&#x27; 和 pod &#x27;AFNetworking&#x27; 请确保项目中已有</span><br><span class="line"> 2.将文件拖入项目中</span><br><span class="line"> 3.需在pch文件中引用  #import &quot;TrackAction.h&quot;</span><br><span class="line"> 4.需在AppDelegate.m文件中</span><br><span class="line">   a.调用 createTablesNeeded 创建数据库</span><br><span class="line">   b.重写 trackGetUserID     配置userID</span><br><span class="line">   c.重写 trackServiceURL    配置上传服务器的地址</span><br><span class="line"> 5.可添加不需要统计的控制器在BlackListed.plist</span><br></pre></td></tr></table></figure>
-
-<h4 id="更新部分【重要】"><a href="#更新部分【重要】" class="headerlink" title="更新部分【重要】"></a>更新部分【重要】</h4><h5 id="引用方法"><a href="#引用方法" class="headerlink" title="引用方法"></a><del>引用方法</del></h5><ul>
-<li>手动导入 这是相关文件：<a href="https://github.com/NickChenHao/TrackAction.git">GitHub</a></li>
-<li>引用svn私有库 <code>pod &#39;ASTrackAction&#39;,&#39;1.0.0&#39;</code></li>
+<p>###字符串的截取</p>
+<ul>
+<li>Swift中提供了特殊的截取方式</li>
+<li>该方式非常麻烦</li>
+<li>Index创建较为麻烦</li>
+<li>简单的方式是将String转成NSString来使用</li>
+<li>在标识符后加:as NSString即可</li>
 </ul>
-<h5 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a><del>使用说明</del></h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">【 使用说明 】</span><br><span class="line"> 1.依赖 pod &#x27;MJExtension&#x27; 和 pod &#x27;AFNetworking&#x27;</span><br><span class="line"> 2.需在pch文件中引用  #import &quot;TrackAction.h&quot;</span><br><span class="line"> 3.需在AppDelegate里的方法实现 配置track信息的方法 在LogDAO类中 （不开启埋点功能 注释即可）</span><br></pre></td></tr></table></figure>
-<h5 id="上传的拼接数据"><a href="#上传的拼接数据" class="headerlink" title="上传的拼接数据"></a><del>上传的拼接数据</del></h5><p>修改为<br>1.先判断是开启埋点功能<br>2.再判断是否自定义服务器地址 若有则AFN请求 若无则上传至Bmob后端云</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">    if (!self.isOpenTracker) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    NSString *userID = @&quot;0&quot;;//必须默认0</span><br><span class="line">    if (self.userId.length&gt;0) &#123;</span><br><span class="line">        userID = self.userId;</span><br><span class="line">    &#125;</span><br><span class="line">    NSDictionary *dic = @&#123;</span><br><span class="line">                          //模型数组转成字典数组</span><br><span class="line">                          @&quot;list&quot; : [LogDTO mj_keyValuesArrayWithObjectArray:[[LogDAO sharedInstance] getAllData]],</span><br><span class="line">                          //userid</span><br><span class="line">                          @&quot;userid&quot; : KStringIsEmpty(userID),</span><br><span class="line">                          //应用名称</span><br><span class="line">                          @&quot;productName&quot; : kDisplayName,</span><br><span class="line">                          //bundleId</span><br><span class="line">                          @&quot;productID&quot; : [[NSBundle mainBundle] bundleIdentifier],</span><br><span class="line">                          //应用版本号</span><br><span class="line">                          @&quot;version&quot; : kVersion,</span><br><span class="line">                          //设备版本</span><br><span class="line">                          @&quot;osVersion&quot; : [NSString stringWithFormat:@&quot;%.1f&quot;,[DeviceAndSystemTool systemVersion]],</span><br><span class="line">                          //设备机型</span><br><span class="line">                          @&quot;osDeviceType&quot; : KStringIsEmpty([DeviceAndSystemTool getDeviceName]),</span><br><span class="line">                          //网络类型</span><br><span class="line">                          @&quot;networkType&quot; : KStringIsEmpty([DeviceAndSystemTool networkTypeName]),</span><br><span class="line">                          //运营商</span><br><span class="line">                          @&quot;isp&quot; : KStringIsEmpty([DeviceAndSystemTool wsd_telephonyNetworkInfo]),</span><br><span class="line">                          //定位（省市区）</span><br><span class="line">                          @&quot;gps&quot; : KStringIsEmpty(self.strLocationInfo)</span><br><span class="line">                          &#125;;</span><br><span class="line"></span><br><span class="line">    if (!ISEMPTY(self.serviceURL)) &#123;</span><br><span class="line">#pragma mark - AFN</span><br><span class="line"></span><br><span class="line">        [TrackActionServiceManager postParameter:dic Success:^(NSURLSessionDataTask *operation, id responseObject) &#123;</span><br><span class="line"></span><br><span class="line">            if (handler) &#123;</span><br><span class="line">                handler(YES,nil);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; Failure:^(NSURLSessionDataTask *operation, NSError *error) &#123;</span><br><span class="line"></span><br><span class="line">            if (handler) &#123;</span><br><span class="line">                handler(NO,error);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;else&#123;</span><br><span class="line"></span><br><span class="line">#pragma mark - 后端云SDK</span><br><span class="line"></span><br><span class="line">        BmobObject *trackBmob = [BmobObject objectWithClassName:@&quot;TrackAction&quot;];</span><br><span class="line">        [trackBmob setObject:dic forKey:@&quot;TrackData&quot;];</span><br><span class="line">        [trackBmob setObject:self.userId forKey:@&quot;UserID&quot;];</span><br><span class="line">        [trackBmob saveInBackgroundWithResultBlock:^(BOOL isSuccessful, NSError *error) &#123;</span><br><span class="line">            //进行操作</span><br><span class="line">            if (isSuccessful) &#123;</span><br><span class="line">                if (handler) &#123;</span><br><span class="line">                    handler(YES,nil);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                if (handler) &#123;</span><br><span class="line">                    handler(NO,error);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let myStr = &quot;www.520it.com&quot;</span><br><span class="line">var subStr = (myStr as NSString).substringFromIndex(4)</span><br><span class="line">subStr = (myStr as NSString).substringToIndex(3)</span><br><span class="line">subStr = (myStr as NSString).substringWithRange(NSRange(location: 4, length: 5))</span><br></pre></td></tr></table></figure>
+<ul>
+<li>swift截取方式</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.定义字符串</span><br><span class="line">let str = &quot;www.520it.com&quot;</span><br><span class="line"></span><br><span class="line">// 2.截取开始位置</span><br><span class="line">let fromIndex = str.startIndex.advancedBy(3)</span><br><span class="line">let header = str.substringFromIndex(fromIndex)</span><br><span class="line"></span><br><span class="line">// 3.截取结束位置</span><br><span class="line">let toIndex = str.endIndex.advancedBy(-3)</span><br><span class="line">let footer = str.substringToIndex(toIndex)</span><br><span class="line"></span><br><span class="line">// 4.截取中间的字符串</span><br><span class="line">let range = Range(start: str.startIndex.advancedBy(4), end: str.endIndex.advancedBy(-4))</span><br><span class="line">let middle = str.substringWithRange(range)</span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <categories>
+        <category>swift笔记</category>
+      </categories>
       <tags>
-        <tag>iOS</tag>
+        <tag>swift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>swift笔记1</title>
+    <url>/2016/01/25/swift/</url>
+    <content><![CDATA[<h2 id="Swift最基本的语法变化"><a href="#Swift最基本的语法变化" class="headerlink" title="Swift最基本的语法变化"></a>Swift最基本的语法变化</h2><ul>
+<li><p>导入框架 import UIKit</p>
+</li>
+<li><p>定义标识符时，必须声明该标识符是变量还是常量声明标识符的<br>格式:变量&#x2F;常量关键字 名称 : 数据类型</p>
+</li>
+<li><p>语句结束时不需要加 ;如果同一行有多个语句,则依然需要加<br>但是不建议一行多条语句</p>
+</li>
+<li><p>Swift中的打印语句: print(“打印的内容”)</p>
+<span id="more"></span></li>
+</ul>
+<h2 id="什么是常量和变量"><a href="#什么是常量和变量" class="headerlink" title="什么是常量和变量"></a>什么是常量和变量</h2><ul>
+<li>在Swift中规定:在定义一个标识符时必须明确说明该标识符是一个常量还是变量<br>1.使用let来定义常量,定义之后不可以修改<br>2.使用var来定义变量,定义之后可以修改</li>
+</ul>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h4><p>在真实使用过程中,建议先定义常量,如果需要修改再修改为变量(更加安全)<br>是指向的对象不可以再进行修改.但是可以通过指针获得对象后,修改对象内部的属性</p>
+<h3 id="类型推导"><a href="#类型推导" class="headerlink" title="类型推导"></a>类型推导</h3><p>Swift是强类型的语言<br>Swift中任何一个标识符都有明确的类型</p>
+<h4 id="注意-1"><a href="#注意-1" class="headerlink" title="注意:"></a>注意:</h4><p>1.如果定义一个标识符时有直接进行赋值,那么标识符后面的类型可以省略.<br>2.因为Swift有类型推导,会自动根据后面的赋值来决定前面的标识符的数据类型 可以通过option+鼠标左键 来查看变量的数据类型 </p>
+<h2 id="Swift中基本运算"><a href="#Swift中基本运算" class="headerlink" title="Swift中基本运算"></a>Swift中基本运算</h2><p>1.Swift中在进行基本运算时必须保证类型一致,否则会出错相同类型之间才可以进行运算<br>因为Swift中没有隐式转换</p>
+<p>2.数据类型的转化Int类型转成Double类型:Double(标识符)<br>Double类型转成Int类型:Int(标识符)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let a = 10</span><br><span class="line">let b = 3.14</span><br><span class="line">// 错误写法 </span><br><span class="line">//let c = a + b </span><br><span class="line">//let c = a * b</span><br><span class="line">// 正确写法</span><br><span class="line">let c = Double(a) + blet </span><br><span class="line">d = a + Int(b)</span><br></pre></td></tr></table></figure>
+
+<p>if分支语句<br>和OC中if语句有一定的区别判断句可以不加()<br>在Swift的判断句中必须有明确的真假不再有非0即真<br>必须有明确的Bool值<br>Bool有两个取值:false&#x2F;true</p>
+<h2 id="guard的使用"><a href="#guard的使用" class="headerlink" title="guard的使用"></a>guard的使用</h2><p>guard语句必须带有else语句，它的语法如下：当条件表达式为true时候跳过else语句中的内容，执行语句组内容<br>条件表达式为false时候执行else语句中的内容，跳转语句一般是return、break、continue和throw</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">guard 条件表达式 else &#123;  // 条换语句 </span><br><span class="line">  break&#125;</span><br><span class="line">语句组</span><br></pre></td></tr></table></figure>
+<h2 id="switch分支"><a href="#switch分支" class="headerlink" title="switch分支"></a>switch分支</h2><p>基本用法和OC用法一致<br>不同之处:switch后可以不跟()<br>case后可以不跟break(默认会有break)</p>
+<h4 id="简单使用补充"><a href="#简单使用补充" class="headerlink" title="简单使用补充:"></a>简单使用补充:</h4><p>1.一个case判断中,可以判断多个值<br>多个值以, 隔开 如果希望出现之前的case穿透,则可以使用关键字fallthrough</p>
+<p>2.什么是区间?通常我们指的是数字区间:0<del>10,100</del>200</p>
+<p>3.swift中的区间常见有两种半开半闭区间:0..&lt;10 表示:0<del>9,不包括10<br>闭区间:0…10 表示:0</del>10</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let score = 88switch score &#123;</span><br><span class="line">    case 0..&lt;60:    </span><br><span class="line">        print(&quot;不及格&quot;)</span><br><span class="line">    case 60..&lt;80:    </span><br><span class="line">        print(&quot;几个&quot;)</span><br><span class="line">    case 80..&lt;90:    </span><br><span class="line">        print(&quot;良好&quot;)</span><br><span class="line">    case 90..&lt;100:    </span><br><span class="line">        print(&quot;优秀&quot;)</span><br><span class="line">    default:   </span><br><span class="line">        print(&quot;满分&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="循环的介绍"><a href="#循环的介绍" class="headerlink" title="循环的介绍"></a>循环的介绍</h2><ul>
+<li>在开发中经常会需要循环</li>
+<li>常见的循环有:for&#x2F;while&#x2F;do while.</li>
+<li>这里我们只介绍for&#x2F;while,因为for&#x2F;while最常见</li>
+</ul>
+<h2 id="for循环的写法"><a href="#for循环的写法" class="headerlink" title="for循环的写法"></a>for循环的写法</h2><ul>
+<li>最常规写法</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 传统写法</span><br><span class="line">for var i = 0; i &lt; 10; i++ &#123; </span><br><span class="line">     print(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>区间for循环</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//半开半闭区间</span><br><span class="line">for i in 0..&lt;10 &#123; </span><br><span class="line">    print(i)</span><br><span class="line">&#125;</span><br><span class="line">//闭区间</span><br><span class="line">for i in 0...10 &#123; </span><br><span class="line">    print(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>特殊写法如果在for循环中不需要用到下标i</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for _ in 0..&lt;10 &#123; </span><br><span class="line">    print(&quot;hello&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="while和do-while循环"><a href="#while和do-while循环" class="headerlink" title="while和do while循环"></a>while和do while循环</h2><ul>
+<li>while循环</li>
+<li>while的判断句必须有正确的真假,没有非0即真</li>
+<li>while后面的()可以省略</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 0</span><br><span class="line">while a &lt; 10 &#123; </span><br><span class="line">    a++</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>do while循环使用</li>
+<li>repeat关键字来代替了do</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let b = 0</span><br><span class="line">repeat &#123; </span><br><span class="line">    print(b)</span><br><span class="line">    b++</span><br><span class="line">&#125; while b &lt; 20</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>swift笔记</category>
+      </categories>
+      <tags>
+        <tag>swift</tag>
       </tags>
   </entry>
   <entry>
@@ -458,143 +648,54 @@
       </tags>
   </entry>
   <entry>
-    <title>swift笔记1</title>
-    <url>/2016/01/25/swift/</url>
-    <content><![CDATA[<h2 id="Swift最基本的语法变化"><a href="#Swift最基本的语法变化" class="headerlink" title="Swift最基本的语法变化"></a>Swift最基本的语法变化</h2><ul>
-<li><p>导入框架 import UIKit</p>
-</li>
-<li><p>定义标识符时，必须声明该标识符是变量还是常量声明标识符的<br>格式:变量&#x2F;常量关键字 名称 : 数据类型</p>
-</li>
-<li><p>语句结束时不需要加 ;如果同一行有多个语句,则依然需要加<br>但是不建议一行多条语句</p>
-</li>
-<li><p>Swift中的打印语句: print(“打印的内容”)</p>
-<span id="more"></span></li>
+    <title>tableView的性能优化</title>
+    <url>/2016/06/02/tableView%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h3 id="tableView性能优化"><a href="#tableView性能优化" class="headerlink" title="tableView性能优化"></a>tableView性能优化</h3><p>tableview的优化一直是一个很考验基本功的活儿，之前做项目的适合被这个问题困扰了很久，通过性能工具、查阅文档解决，整理思路和解决方案如下：</p>
+<h4 id="tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。"><a href="#tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。" class="headerlink" title="tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。"></a>tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。</h4><ul>
+<li>cell是否使用了复用机制而不是每一次都创建新的cell。</li>
 </ul>
-<h2 id="什么是常量和变量"><a href="#什么是常量和变量" class="headerlink" title="什么是常量和变量"></a>什么是常量和变量</h2><ul>
-<li>在Swift中规定:在定义一个标识符时必须明确说明该标识符是一个常量还是变量<br>1.使用let来定义常量,定义之后不可以修改<br>2.使用var来定义变量,定义之后可以修改</li>
-</ul>
-<h4 id="注意"><a href="#注意" class="headerlink" title="注意:"></a>注意:</h4><p>在真实使用过程中,建议先定义常量,如果需要修改再修改为变量(更加安全)<br>是指向的对象不可以再进行修改.但是可以通过指针获得对象后,修改对象内部的属性</p>
-<h3 id="类型推导"><a href="#类型推导" class="headerlink" title="类型推导"></a>类型推导</h3><p>Swift是强类型的语言<br>Swift中任何一个标识符都有明确的类型</p>
-<h4 id="注意-1"><a href="#注意-1" class="headerlink" title="注意:"></a>注意:</h4><p>1.如果定义一个标识符时有直接进行赋值,那么标识符后面的类型可以省略.<br>2.因为Swift有类型推导,会自动根据后面的赋值来决定前面的标识符的数据类型 可以通过option+鼠标左键 来查看变量的数据类型 </p>
-<h2 id="Swift中基本运算"><a href="#Swift中基本运算" class="headerlink" title="Swift中基本运算"></a>Swift中基本运算</h2><p>1.Swift中在进行基本运算时必须保证类型一致,否则会出错相同类型之间才可以进行运算<br>因为Swift中没有隐式转换</p>
-<p>2.数据类型的转化Int类型转成Double类型:Double(标识符)<br>Double类型转成Int类型:Int(标识符)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let a = 10</span><br><span class="line">let b = 3.14</span><br><span class="line">// 错误写法 </span><br><span class="line">//let c = a + b </span><br><span class="line">//let c = a * b</span><br><span class="line">// 正确写法</span><br><span class="line">let c = Double(a) + blet </span><br><span class="line">d = a + Int(b)</span><br></pre></td></tr></table></figure>
-
-<p>if分支语句<br>和OC中if语句有一定的区别判断句可以不加()<br>在Swift的判断句中必须有明确的真假不再有非0即真<br>必须有明确的Bool值<br>Bool有两个取值:false&#x2F;true</p>
-<h2 id="guard的使用"><a href="#guard的使用" class="headerlink" title="guard的使用"></a>guard的使用</h2><p>guard语句必须带有else语句，它的语法如下：当条件表达式为true时候跳过else语句中的内容，执行语句组内容<br>条件表达式为false时候执行else语句中的内容，跳转语句一般是return、break、continue和throw</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">guard 条件表达式 else &#123;  // 条换语句 </span><br><span class="line">  break&#125;</span><br><span class="line">语句组</span><br></pre></td></tr></table></figure>
-<h2 id="switch分支"><a href="#switch分支" class="headerlink" title="switch分支"></a>switch分支</h2><p>基本用法和OC用法一致<br>不同之处:switch后可以不跟()<br>case后可以不跟break(默认会有break)</p>
-<h4 id="简单使用补充"><a href="#简单使用补充" class="headerlink" title="简单使用补充:"></a>简单使用补充:</h4><p>1.一个case判断中,可以判断多个值<br>多个值以, 隔开 如果希望出现之前的case穿透,则可以使用关键字fallthrough</p>
-<p>2.什么是区间?通常我们指的是数字区间:0<del>10,100</del>200</p>
-<p>3.swift中的区间常见有两种半开半闭区间:0..&lt;10 表示:0<del>9,不包括10<br>闭区间:0…10 表示:0</del>10</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let score = 88switch score &#123;</span><br><span class="line">    case 0..&lt;60:    </span><br><span class="line">        print(&quot;不及格&quot;)</span><br><span class="line">    case 60..&lt;80:    </span><br><span class="line">        print(&quot;几个&quot;)</span><br><span class="line">    case 80..&lt;90:    </span><br><span class="line">        print(&quot;良好&quot;)</span><br><span class="line">    case 90..&lt;100:    </span><br><span class="line">        print(&quot;优秀&quot;)</span><br><span class="line">    default:   </span><br><span class="line">        print(&quot;满分&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="循环的介绍"><a href="#循环的介绍" class="headerlink" title="循环的介绍"></a>循环的介绍</h2><ul>
-<li>在开发中经常会需要循环</li>
-<li>常见的循环有:for&#x2F;while&#x2F;do while.</li>
-<li>这里我们只介绍for&#x2F;while,因为for&#x2F;while最常见</li>
-</ul>
-<h2 id="for循环的写法"><a href="#for循环的写法" class="headerlink" title="for循环的写法"></a>for循环的写法</h2><ul>
-<li>最常规写法</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 传统写法</span><br><span class="line">for var i = 0; i &lt; 10; i++ &#123; </span><br><span class="line">     print(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果每次都创建新的cell，在滑动的时候会表现为：刚开始的时候很顺畅，但是会越来越卡，内存跟着一直升高，停止滑动的时候也不会降下来。使用缓存机制创建的cell，开始滑动的时候内存会开始上升，等创建了一个屏幕再加半屏的cell之后，内存趋于平稳。</p>
+<span id="more"></span>
 <ul>
-<li>区间for循环</li>
+<li>cell是否添加了大量的子控件，或者对layer做了过多的操作。</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//半开半闭区间</span><br><span class="line">for i in 0..&lt;10 &#123; </span><br><span class="line">    print(i)</span><br><span class="line">&#125;</span><br><span class="line">//闭区间</span><br><span class="line">for i in 0...10 &#123; </span><br><span class="line">    print(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>如果添加了大量的子控件，使用drawRect方法添加子控件，平衡GPU与CPU的负担。同时还需要注意尽量使用不透明视图和不重叠的渐变，否则会加大GPU的负担，造成性能不佳。</p>
 <ul>
-<li>特殊写法如果在for循环中不需要用到下标i</li>
+<li>高度计算方法时不做复杂的计算，尽量只使用加减乘除。</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for _ in 0..&lt;10 &#123; </span><br><span class="line">    print(&quot;hello&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="while和do-while循环"><a href="#while和do-while循环" class="headerlink" title="while和do while循环"></a>while和do while循环</h2><ul>
-<li>while循环</li>
-<li>while的判断句必须有正确的真假,没有非0即真</li>
-<li>while后面的()可以省略</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 0</span><br><span class="line">while a &lt; 10 &#123; </span><br><span class="line">    a++</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>自适应高度的cell实现方式有很多种，比如，</p>
+<p>1.使用iOS7以上系统的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat</span><br></pre></td></tr></table></figure>
+<p>这个方法中，可以先给一个估计的高度，系统会从你给定的高度再去计算实际高度。但是在使用过程中会出现cell突然变高变得低的情况，不适用于高度变化太大的cell。</p>
+<p>2.如果使用约束布局创建的cell子控件，子控件之间都建立了相互约束，最上面的子控件与cell顶部建立约束，最下面的子控件与cell底部建立了约束，相当于子控件把cell撑开了。</p>
+<p>约束简图:<br><img src="/Users/nick/Desktop/1.jpeg"></p>
+<p>这时在高度计算方法中，走一遍cell的loaddata方法后可以通过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">func systemLayoutSizeFittingSize(targetSize: CGSize) -&gt; CGSize</span><br></pre></td></tr></table></figure>
+<p>取得cell的size，进而得到cell高度。<br>通过这个方法获取的cell高度是十分精确的，只要创建好子控件的约束就能获得cell的size。比较不好的是只是这种方法会重走一遍cell的loaddata方法。除此之外在调用cell的loaddata之前需要得到cell的实例，实例创建的方式应该与cellForRow方法一样，优先从缓存池中取得。<br>这个方案可能会创建多个cell。如果能在内存汇总保存一份cell的实例就能解决这个问题了！我讲讲我实现的思路：<br>首先先注册cell,当缓存池中没有cell时系统会自动创建，有的话会直接取缓存中的cell返回给你。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">override func viewDidLodad() &#123;</span><br><span class="line">    tableView.registerClass(CardCell.self, forCellReuseIdentifier: ID)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用lazy创建一个cell实例，由于lazy 关键字，cell的创建只会执行一次</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">lazy var cell:CardCell = &#123;</span><br><span class="line">      //已经注册过cell，当缓存池中没有cell时系统会自动创建，有的话会直接取缓存中的cell返回</span><br><span class="line">      let v = self.myTableView?.dequeueReusableCellWithIdentifier(self.ID) as! CardCell</span><br><span class="line">      return v</span><br><span class="line">      &#125;()</span><br></pre></td></tr></table></figure>
+<p>通过懒加载的方式，只创建一次cell的实例，避免内存浪费。<br>接下来要做的步骤就是之前讲的，调用cell的loadData方法，计算高度</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat &#123;</span><br><span class="line">  self.imageCell.loadData(d)    </span><br><span class="line">  let height:CGFloat = self.cell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height</span><br><span class="line">return height</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="之前查资料的时候还有用空间换取时间的方案："><a href="#之前查资料的时候还有用空间换取时间的方案：" class="headerlink" title="之前查资料的时候还有用空间换取时间的方案："></a>之前查资料的时候还有用空间换取时间的方案：</h4><p>1）在请求网络数据成功后就计算好高度并通过字典或者数组保存高度值，在高度方法中直接根据数组下标或者key值取得高度并返回。</p>
+<p>2）还有建立一个frameModel的方法，与1中相似，只是获得网络数据后保存到frameModel中，在frameModel中定义一个类方法，通过获得的model值计算高度后返回。<br>避免快速滑动情况下开过多线程。<br>cell中的图片开线程异步加载，相信每个人都会想到。线程开过多了会造成资源浪费，内存开销过大。图片过多时可以不要一滚动就走cellForRow方法，可以在scrollview的代理方法中做限制，当滚动开始减速的时候才加载显示在当前屏幕上的cell（通过tableview的dragging和declearating两个状态也能判断）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell &#123;</span><br><span class="line">      var canLoad:Bool = !tableView.dragging &amp;&amp; !tableView.declearating</span><br><span class="line">      if  canLoad &#123;</span><br><span class="line">          //开始loaddata，异步加载图片</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>do while循环使用</li>
-<li>repeat关键字来代替了do</li>
+<li>图片处理</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let b = 0</span><br><span class="line">repeat &#123; </span><br><span class="line">    print(b)</span><br><span class="line">    b++</span><br><span class="line">&#125; while b &lt; 20</span><br></pre></td></tr></table></figure>
-
-
+<p>1）后台下载图片后再回主线程刷新UI，避免阻塞主线程。<br>2）图片过大回造成GPU负担过大，可以在图片下载后压缩尺寸后显示<br>3）避免对layer做过多的操作，尽量设置图片为不透明</p>
+<h4 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h4><ul>
+<li>简单的设置cornerRadius是不会影响性能的，但是设置了maskToBounds，会导致离屏渲染，应减少设置图层 maskToBounds &#x3D; YES ，；</li>
+<li>使用懒加载图片的方式避免重复下载图片，浪费资源。图片下载后并做压缩处理后将其保存到缓存中，下次加载此图片之前先从缓存中取，如果取不到该图片就在后台下载保存。</li>
+<li>使用Core Graphics实现圆角等功能。</li>
+<li>重写drawRect方法会离屏渲染，导致内存急剧上升，即使在这个方法里面不写一句代码，也会让内存升高。</li>
+</ul>
 ]]></content>
       <categories>
-        <category>swift笔记</category>
+        <category>性能优化</category>
       </categories>
       <tags>
-        <tag>swift</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>swift笔记2</title>
-    <url>/2016/01/26/swift%E7%AC%94%E8%AE%B02/</url>
-    <content><![CDATA[<h3 id="字符串的介绍"><a href="#字符串的介绍" class="headerlink" title="字符串的介绍"></a>字符串的介绍</h3><ul>
-<li>字符串在任何的开发中使用都是非常频繁的</li>
-<li>OC和Swift中字符串的区别</li>
-<li>在OC中字符串类型时NSString,在Swift中字符串类型是String</li>
-<li>OC中字符串@””,Swift中字符串””</li>
-<li>使用 String 的原因</li>
-<li>String 是一个结构体，性能更高</li>
-<li>NSString 是一个 OC 对象，性能略差</li>
-<li>String 支持直接遍历</li>
-<li>Swift 提供了 String 和 NSString 之间的无缝转换</li>
-</ul>
- <span id="more"></span>
-<h3 id="字符的定义"><a href="#字符的定义" class="headerlink" title="字符的定义"></a>字符的定义</h3><ul>
-<li><p>定义不可变字符串<br><code>let str = &quot;hello Objective-C&quot;</code></p>
-</li>
-<li><p>定义可变字符串<br><code>var str = &quot;hello Swift&quot;</code></p>
-</li>
-</ul>
-<h3 id="字符串的使用"><a href="#字符串的使用" class="headerlink" title="字符串的使用"></a>字符串的使用</h3><p>获取字符串的长度</p>
-<ul>
-<li><p>获取字符集合,再获取集合的count属性<br><code>let count = str.characters.count</code></p>
-</li>
-<li><p>遍历字符串</p>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var str = &quot;Hello, Swift&quot;</span><br><span class="line">for c in str.characters &#123;</span><br><span class="line">    print(c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h3><ul>
-<li>两个字符串的拼接</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let str1 = &quot;Hello&quot;</span><br><span class="line">let str2 = &quot;World&quot;</span><br><span class="line">let str3 = str1 + str2</span><br></pre></td></tr></table></figure>
-<ul>
-<li>字符串和其他数据类型的拼接</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let name = &quot;why&quot; </span><br><span class="line">let age = 18 </span><br><span class="line">let info = &quot;my name is \(name), age is \(age)&quot; </span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>字符串的格式化</li>
-<li>比如时间:03:04</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let min = 3</span><br><span class="line">let second = 4</span><br><span class="line">let time = String(format: &quot;%02d:%02d&quot;, arguments: [min, second])</span><br></pre></td></tr></table></figure>
-
-<p>###字符串的截取</p>
-<ul>
-<li>Swift中提供了特殊的截取方式</li>
-<li>该方式非常麻烦</li>
-<li>Index创建较为麻烦</li>
-<li>简单的方式是将String转成NSString来使用</li>
-<li>在标识符后加:as NSString即可</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let myStr = &quot;www.520it.com&quot;</span><br><span class="line">var subStr = (myStr as NSString).substringFromIndex(4)</span><br><span class="line">subStr = (myStr as NSString).substringToIndex(3)</span><br><span class="line">subStr = (myStr as NSString).substringWithRange(NSRange(location: 4, length: 5))</span><br></pre></td></tr></table></figure>
-<ul>
-<li>swift截取方式</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 1.定义字符串</span><br><span class="line">let str = &quot;www.520it.com&quot;</span><br><span class="line"></span><br><span class="line">// 2.截取开始位置</span><br><span class="line">let fromIndex = str.startIndex.advancedBy(3)</span><br><span class="line">let header = str.substringFromIndex(fromIndex)</span><br><span class="line"></span><br><span class="line">// 3.截取结束位置</span><br><span class="line">let toIndex = str.endIndex.advancedBy(-3)</span><br><span class="line">let footer = str.substringToIndex(toIndex)</span><br><span class="line"></span><br><span class="line">// 4.截取中间的字符串</span><br><span class="line">let range = Range(start: str.startIndex.advancedBy(4), end: str.endIndex.advancedBy(-4))</span><br><span class="line">let middle = str.substringWithRange(range)</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>swift笔记</category>
-      </categories>
-      <tags>
-        <tag>swift</tag>
+        <tag>iOS</tag>
       </tags>
   </entry>
   <entry>
@@ -739,72 +840,32 @@
       </tags>
   </entry>
   <entry>
-    <title>发布过程的问题</title>
-    <url>/2017/01/23/%E5%8F%91%E5%B8%83%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="发布时遇到的一些问题"><a href="#发布时遇到的一些问题" class="headerlink" title="发布时遇到的一些问题"></a>发布时遇到的一些问题</h3><h4 id="iOS10-之后需要添加info-plist文件配置"><a href="#iOS10-之后需要添加info-plist文件配置" class="headerlink" title="iOS10 之后需要添加info.plist文件配置:"></a>iOS10 之后需要添加info.plist文件配置:</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">     &lt;key&gt;NSBluetoothPeripheralUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开蓝牙可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSCameraUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开相机可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSContactsUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开通讯录可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSMicrophoneUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开麦克风可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开相册可以吗？&lt;/string&gt;</span><br></pre></td></tr></table></figure>
+    <title>xcode 真机正常运行但模拟器报错的一种解决方法</title>
+    <url>/2025/01/09/xcode-%E7%9C%9F%E6%9C%BA%E6%AD%A3%E5%B8%B8%E8%BF%90%E8%A1%8C%E4%BD%86%E6%A8%A1%E6%8B%9F%E5%99%A8%E6%8A%A5%E9%94%99%E7%9A%84%E4%B8%80%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<p>xcode15 版本 有的项目 真机运行正常 但是模拟器不能正常运行（可能某些第三方库 不支持 arm64 ）</p>
 <span id="more"></span>
-<p>若没有apple会发此邮箱:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">This app attempts to access privacy-sensitive data without a usage description. The app&#x27;s Info.plist must contain an NSPhotoLibraryUsageDescription key with a string value explaining to the user how the app uses this data.</span><br><span class="line"></span><br><span class="line">This app attempts to access privacy-sensitive data without a usage description. The app&#x27;s Info.plist must contain an NSCameraUsageDescription key with a string value explaining to the user how the app uses this data.</span><br></pre></td></tr></table></figure>
 
-<h4 id="报错"><a href="#报错" class="headerlink" title="报错:"></a>报错:</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- ERROR ITMS-90474: &quot;Invalid Bundle. iPad Multitasking support requires these orientations: &#x27;UIInterfaceOrientationPortrait,UIInterfaceOrientationPortraitUpsideDown,UIInterfaceOrientationLandscapeLeft,UIInterfaceOrientationLandscapeRight&#x27;. Found &#x27;UIInterfaceOrientationPortrait&#x27; in bundle &#x27;xxxx&#x27;.&quot; </span><br><span class="line">- ERROR ITMS-90475: &quot;Invalid Bundle. iPad Multitasking support requires launch story board in bundle &#x27;xxxx’.&quot; </span><br></pre></td></tr></table></figure>
-<p>解决方案:<br>打开项目属性，选择“General”选项，勾选红框标注的“Requires full screen”</p>
-<h4 id="报错-1"><a href="#报错-1" class="headerlink" title="报错:"></a>报错:</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ERROR ITMS-90032:“Invalid Image Path - No image found at the path referenced under key &#x27;CFBundleIcons&#x27;:AppIcon40x40”</span><br></pre></td></tr></table></figure>
-<p>解决方案:<br>图片的问题  缺少对应的图片尺寸 需要在图片资源文件的 appicon中添加</p>
-<p><img src="/Users/nick/Desktop/Snip20170122_3.png"></p>
+<p>网上找到的一种方法是 <strong>Excluded Architectures 加上arm64</strong><br>但这样设置 模拟器是可以正常运行了，但是真机又会报错无法运行</p>
+<p><code>Excluded Architectures</code>里有 Debug&#x2F;Release 两种，根据使用模拟器的需要<br>添加一条 <code>Any iOS Simulator SDK</code> 然后加上 arm64 这样真机和模拟器都能跑项目了</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>有的第三方库是不支持 arm64 的,或者有的库iOS deployment Target支持的最低版本比现在xcode支持的最低版本比如是13 还低<br>需要在PodFile中加入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">post_install do |installer|</span><br><span class="line">  installer.pods_project.targets.each do |target|</span><br><span class="line">    target.build_configurations.each do |config|</span><br><span class="line">      config.build_settings[&#x27;EXCLUDED_ARCHS[sdk=iphonesimulator*]&#x27;] = &quot;arm64&quot;</span><br><span class="line">      config.build_settings[&#x27;IPHONEOS_DEPLOYMENT_TARGET&#x27;] = &#x27;13.0&#x27; # 你想设置的版本</span><br><span class="line">    end</span><br><span class="line">  end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p>统一设置</p>
 ]]></content>
-      <categories>
-        <category>发布问题</category>
-      </categories>
-      <tags>
-        <tag>iOS</tag>
-      </tags>
   </entry>
   <entry>
-    <title>tableView的性能优化</title>
-    <url>/2016/06/02/tableView%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
-    <content><![CDATA[<h3 id="tableView性能优化"><a href="#tableView性能优化" class="headerlink" title="tableView性能优化"></a>tableView性能优化</h3><p>tableview的优化一直是一个很考验基本功的活儿，之前做项目的适合被这个问题困扰了很久，通过性能工具、查阅文档解决，整理思路和解决方案如下：</p>
-<h4 id="tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。"><a href="#tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。" class="headerlink" title="tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。"></a>tableview优化最主要：复用cell，header，footer实例；使用约束布局cell子控件时不多次添加约束；图片不过大，尽量不使用透明视图；避免阻塞主线程；计算高度方法不做大量逻辑处理。</h4><ul>
-<li>cell是否使用了复用机制而不是每一次都创建新的cell。</li>
-</ul>
-<p>如果每次都创建新的cell，在滑动的时候会表现为：刚开始的时候很顺畅，但是会越来越卡，内存跟着一直升高，停止滑动的时候也不会降下来。使用缓存机制创建的cell，开始滑动的时候内存会开始上升，等创建了一个屏幕再加半屏的cell之后，内存趋于平稳。</p>
-<span id="more"></span>
-<ul>
-<li>cell是否添加了大量的子控件，或者对layer做了过多的操作。</li>
-</ul>
-<p>如果添加了大量的子控件，使用drawRect方法添加子控件，平衡GPU与CPU的负担。同时还需要注意尽量使用不透明视图和不重叠的渐变，否则会加大GPU的负担，造成性能不佳。</p>
-<ul>
-<li>高度计算方法时不做复杂的计算，尽量只使用加减乘除。</li>
-</ul>
-<p>自适应高度的cell实现方式有很多种，比如，</p>
-<p>1.使用iOS7以上系统的</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat</span><br></pre></td></tr></table></figure>
-<p>这个方法中，可以先给一个估计的高度，系统会从你给定的高度再去计算实际高度。但是在使用过程中会出现cell突然变高变得低的情况，不适用于高度变化太大的cell。</p>
-<p>2.如果使用约束布局创建的cell子控件，子控件之间都建立了相互约束，最上面的子控件与cell顶部建立约束，最下面的子控件与cell底部建立了约束，相当于子控件把cell撑开了。</p>
-<p>约束简图:<br><img src="/Users/nick/Desktop/1.jpeg"></p>
-<p>这时在高度计算方法中，走一遍cell的loaddata方法后可以通过</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">func systemLayoutSizeFittingSize(targetSize: CGSize) -&gt; CGSize</span><br></pre></td></tr></table></figure>
-<p>取得cell的size，进而得到cell高度。<br>通过这个方法获取的cell高度是十分精确的，只要创建好子控件的约束就能获得cell的size。比较不好的是只是这种方法会重走一遍cell的loaddata方法。除此之外在调用cell的loaddata之前需要得到cell的实例，实例创建的方式应该与cellForRow方法一样，优先从缓存池中取得。<br>这个方案可能会创建多个cell。如果能在内存汇总保存一份cell的实例就能解决这个问题了！我讲讲我实现的思路：<br>首先先注册cell,当缓存池中没有cell时系统会自动创建，有的话会直接取缓存中的cell返回给你。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">override func viewDidLodad() &#123;</span><br><span class="line">    tableView.registerClass(CardCell.self, forCellReuseIdentifier: ID)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>用lazy创建一个cell实例，由于lazy 关键字，cell的创建只会执行一次</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">lazy var cell:CardCell = &#123;</span><br><span class="line">      //已经注册过cell，当缓存池中没有cell时系统会自动创建，有的话会直接取缓存中的cell返回</span><br><span class="line">      let v = self.myTableView?.dequeueReusableCellWithIdentifier(self.ID) as! CardCell</span><br><span class="line">      return v</span><br><span class="line">      &#125;()</span><br></pre></td></tr></table></figure>
-<p>通过懒加载的方式，只创建一次cell的实例，避免内存浪费。<br>接下来要做的步骤就是之前讲的，调用cell的loadData方法，计算高度</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat &#123;</span><br><span class="line">  self.imageCell.loadData(d)    </span><br><span class="line">  let height:CGFloat = self.cell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize).height</span><br><span class="line">return height</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="之前查资料的时候还有用空间换取时间的方案："><a href="#之前查资料的时候还有用空间换取时间的方案：" class="headerlink" title="之前查资料的时候还有用空间换取时间的方案："></a>之前查资料的时候还有用空间换取时间的方案：</h4><p>1）在请求网络数据成功后就计算好高度并通过字典或者数组保存高度值，在高度方法中直接根据数组下标或者key值取得高度并返回。</p>
-<p>2）还有建立一个frameModel的方法，与1中相似，只是获得网络数据后保存到frameModel中，在frameModel中定义一个类方法，通过获得的model值计算高度后返回。<br>避免快速滑动情况下开过多线程。<br>cell中的图片开线程异步加载，相信每个人都会想到。线程开过多了会造成资源浪费，内存开销过大。图片过多时可以不要一滚动就走cellForRow方法，可以在scrollview的代理方法中做限制，当滚动开始减速的时候才加载显示在当前屏幕上的cell（通过tableview的dragging和declearating两个状态也能判断）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell &#123;</span><br><span class="line">      var canLoad:Bool = !tableView.dragging &amp;&amp; !tableView.declearating</span><br><span class="line">      if  canLoad &#123;</span><br><span class="line">          //开始loaddata，异步加载图片</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>图片处理</li>
-</ul>
-<p>1）后台下载图片后再回主线程刷新UI，避免阻塞主线程。<br>2）图片过大回造成GPU负担过大，可以在图片下载后压缩尺寸后显示<br>3）避免对layer做过多的操作，尽量设置图片为不透明</p>
-<h4 id="补充："><a href="#补充：" class="headerlink" title="补充："></a>补充：</h4><ul>
-<li>简单的设置cornerRadius是不会影响性能的，但是设置了maskToBounds，会导致离屏渲染，应减少设置图层 maskToBounds &#x3D; YES ，；</li>
-<li>使用懒加载图片的方式避免重复下载图片，浪费资源。图片下载后并做压缩处理后将其保存到缓存中，下次加载此图片之前先从缓存中取，如果取不到该图片就在后台下载保存。</li>
-<li>使用Core Graphics实现圆角等功能。</li>
-<li>重写drawRect方法会离屏渲染，导致内存急剧上升，即使在这个方法里面不写一句代码，也会让内存升高。</li>
-</ul>
+    <title>Xcode26.4+ 适配问题</title>
+    <url>/2026/10/14/xcode26.4+%20%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>1、<br>OC第三方有的会报错<code>#import &lt;netinet6/in6.h&gt;</code><br>因为内置的一些文件 不给暴露了（AFN、ZFPlayer、SensorsAnalyticsSDK、UleNetworkKit、UleWidget_PhotoBrowser） <span id="more"></span><br>可在podFile里添加：</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">post_install <span class="keyword">do</span> |<span class="params">installer</span>|</span><br><span class="line">    <span class="comment"># 修复第三方库中的 netinet6/in6.h</span></span><br><span class="line">    pods_root = installer.sandbox.root.to_s</span><br><span class="line">    target_import = <span class="string">&#x27;#import &lt;netinet6/in6.h&gt;&#x27;</span></span><br><span class="line">    <span class="title class_">Dir</span>.glob(<span class="title class_">File</span>.join(pods_root, <span class="string">&#x27;**&#x27;</span>, <span class="string">&#x27;*.&#123;h,m,mm&#125;&#x27;</span>), <span class="title class_">File</span><span class="symbol">:</span><span class="symbol">:FNM_EXTGLOB</span>).each <span class="keyword">do</span> |<span class="params">path</span>|</span><br><span class="line">        <span class="keyword">next</span> <span class="keyword">unless</span> <span class="title class_">File</span>.file?(path)</span><br><span class="line">        <span class="comment"># 先快速检查目标字符串</span></span><br><span class="line">        found = <span class="literal">false</span></span><br><span class="line">        <span class="title class_">File</span>.foreach(path) <span class="keyword">do</span> |<span class="params">line</span>|</span><br><span class="line">            <span class="keyword">if</span> line.<span class="keyword">include</span>?(target_import)</span><br><span class="line">                found = <span class="literal">true</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">next</span> <span class="keyword">unless</span> found</span><br><span class="line">        content = <span class="title class_">File</span>.read(path)</span><br><span class="line">        new_content = content.gsub(</span><br><span class="line">            <span class="regexp">/^(\s*)#import\s*&lt;netinet6\/in6\.h&gt;\s*$/</span>,</span><br><span class="line">            <span class="string">&#x27;\1// #import &lt;netinet6/in6.h&gt;&#x27;</span></span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">next</span> <span class="keyword">if</span> new_content == content</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">            <span class="comment"># 如果第三方文件没有写权限，增加 owner 写权限</span></span><br><span class="line">            <span class="keyword">unless</span> <span class="title class_">File</span>.writable?(path)</span><br><span class="line">                <span class="title class_">File</span>.chmod(<span class="title class_">File</span>.stat(path).mode |<span class="params"> 0200, path)</span></span><br><span class="line"><span class="params">            <span class="keyword">end</span></span></span><br><span class="line"><span class="params">            File.write(path, new_content)</span></span><br><span class="line"><span class="params">        <span class="keyword">rescue</span></span></span><br><span class="line"><span class="params">            # 忽略无法修改的文件</span></span><br><span class="line"><span class="params">        <span class="keyword">end</span></span></span><br><span class="line"><span class="params">    <span class="keyword">end</span></span></span><br><span class="line"><span class="params"><span class="keyword">end</span></span></span><br></pre></td></tr></table></figure>
+
+<p>2、 YYText里<br><code>Chained comparison &#39;X &lt; Y &lt; Z&#39; does not behave the same as a mathematical expression</code> 会导致 <code>pod lib lint</code>、<code>pod repo push</code> 失败<br>可以改成：</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">[<span class="keyword">self</span> _insideComposedCharacterSequences:line position:position block:<span class="operator">^</span>(<span class="type">CGFloat</span> left, <span class="type">CGFloat</span> right, <span class="type">NSUInteger</span> prev, <span class="type">NSUInteger</span> next) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isVertical) &#123;</span><br><span class="line">        position <span class="operator">=</span> fabs(left <span class="operator">-</span> point.y) <span class="operator">&lt;</span> fabs(right <span class="operator">-</span> point.y) <span class="operator">?</span> prev : next;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        position <span class="operator">=</span> fabs(left <span class="operator">-</span> point.x) <span class="operator">&lt;</span> fabs(right <span class="operator">-</span> point.x) <span class="operator">?</span> prev : next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> _insideEmoji:line position:position block:<span class="operator">^</span>(<span class="type">CGFloat</span> left, <span class="type">CGFloat</span> right, <span class="type">NSUInteger</span> prev, <span class="type">NSUInteger</span> next) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isVertical) &#123;</span><br><span class="line">        position <span class="operator">=</span> fabs(left <span class="operator">-</span> point.y) <span class="operator">&lt;</span> fabs(right <span class="operator">-</span> point.y) <span class="operator">?</span> prev : next;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        position <span class="operator">=</span> fabs(left <span class="operator">-</span> point.x) <span class="operator">&lt;</span> fabs(right <span class="operator">-</span> point.x) <span class="operator">?</span> prev : next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>或 使用xcode-26.3及以下版本 终端执行 (只影响当前终端环境) <code>export DEVELOPER_DIR=/Applications/Xcode-26.3.app/Contents/Developer</code> 再去<code>pod lib lint</code>、<code>pod repo push</code></p>
+<p>3、Xcode27 工程里 iOS Deployment Target 需要将13.0改成15.0，PodFile里也需要修改，后续podspec里也要改成15.0<br><strong>注意：</strong> ⚠️Xcode27只支持Apple Silicon架构 不支持Intel架构</p>
+<p>4、ios26+ 液态玻璃UI风格 在ios27上会禁用UIDesignRequiresCompatibility属性 适配Tabbar时候 发现侧滑会提前显示问题</p>
 ]]></content>
       <categories>
-        <category>性能优化</category>
+        <category>适配问题</category>
       </categories>
       <tags>
         <tag>iOS</tag>
@@ -879,6 +940,27 @@
       </categories>
       <tags>
         <tag>热更新</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>发布过程的问题</title>
+    <url>/2017/01/23/%E5%8F%91%E5%B8%83%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="发布时遇到的一些问题"><a href="#发布时遇到的一些问题" class="headerlink" title="发布时遇到的一些问题"></a>发布时遇到的一些问题</h3><h4 id="iOS10-之后需要添加info-plist文件配置"><a href="#iOS10-之后需要添加info-plist文件配置" class="headerlink" title="iOS10 之后需要添加info.plist文件配置:"></a>iOS10 之后需要添加info.plist文件配置:</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">     &lt;key&gt;NSBluetoothPeripheralUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开蓝牙可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSCameraUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开相机可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSContactsUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开通讯录可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSMicrophoneUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开麦克风可以吗？&lt;/string&gt; </span><br><span class="line">     &lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt; </span><br><span class="line">     &lt;string&gt;亲啊，打开相册可以吗？&lt;/string&gt;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>若没有apple会发此邮箱:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">This app attempts to access privacy-sensitive data without a usage description. The app&#x27;s Info.plist must contain an NSPhotoLibraryUsageDescription key with a string value explaining to the user how the app uses this data.</span><br><span class="line"></span><br><span class="line">This app attempts to access privacy-sensitive data without a usage description. The app&#x27;s Info.plist must contain an NSCameraUsageDescription key with a string value explaining to the user how the app uses this data.</span><br></pre></td></tr></table></figure>
+
+<h4 id="报错"><a href="#报错" class="headerlink" title="报错:"></a>报错:</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- ERROR ITMS-90474: &quot;Invalid Bundle. iPad Multitasking support requires these orientations: &#x27;UIInterfaceOrientationPortrait,UIInterfaceOrientationPortraitUpsideDown,UIInterfaceOrientationLandscapeLeft,UIInterfaceOrientationLandscapeRight&#x27;. Found &#x27;UIInterfaceOrientationPortrait&#x27; in bundle &#x27;xxxx&#x27;.&quot; </span><br><span class="line">- ERROR ITMS-90475: &quot;Invalid Bundle. iPad Multitasking support requires launch story board in bundle &#x27;xxxx’.&quot; </span><br></pre></td></tr></table></figure>
+<p>解决方案:<br>打开项目属性，选择“General”选项，勾选红框标注的“Requires full screen”</p>
+<h4 id="报错-1"><a href="#报错-1" class="headerlink" title="报错:"></a>报错:</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ERROR ITMS-90032:“Invalid Image Path - No image found at the path referenced under key &#x27;CFBundleIcons&#x27;:AppIcon40x40”</span><br></pre></td></tr></table></figure>
+<p>解决方案:<br>图片的问题  缺少对应的图片尺寸 需要在图片资源文件的 appicon中添加</p>
+<p><img src="/Users/nick/Desktop/Snip20170122_3.png"></p>
+]]></content>
+      <categories>
+        <category>发布问题</category>
+      </categories>
+      <tags>
+        <tag>iOS</tag>
       </tags>
   </entry>
   <entry>
@@ -1561,25 +1643,6 @@
       </tags>
   </entry>
   <entry>
-    <title>画中画在 iOS18 中失效？</title>
-    <url>/2024/11/13/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%9C%A8-iOS18-%E4%B8%AD%E5%A4%B1%E6%95%88/</url>
-    <content><![CDATA[<h4 id="最新进展"><a href="#最新进展" class="headerlink" title="最新进展"></a>最新进展</h4><p><a href="https://developer.apple.com/documentation/avkit/adopting-picture-in-picture-for-video-calls">Adopting Picture in Picture for video calls</a><br>看官方文档发现苹果认可使用画中画的方式有两种，一种是播放视频，另一种则是视频通话。在高于 iOS 18 和 Xcode 16 版本时，播放视频的画中画会在启用相机后自动禁用。但是如果使用视频通话的画中画则可以正常运行,通话不能中断吧</p>
-<p><strong>区别：</strong><br>播放视频：双击放大缩小、有控制按钮(可隐藏)<br>视频通话：轻点会回到app 且没有控制按钮，不能修改尺寸</p>
-<span id="more"></span>
-
-<h4 id="记录一次-升级xcode的坑"><a href="#记录一次-升级xcode的坑" class="headerlink" title="记录一次 升级xcode的坑"></a>记录一次 升级xcode的坑</h4><p>AVPictureInPictureController  画中画 iOS18 打开相机后失效</p>
-<ul>
-<li>用 xcode16     运行 iOS18   画中画在相机里失效</li>
-<li>用 xcode16     运行 iOS17   画中画在相机里正常</li>
-<li>用 xcode15.4  运行 iOS18   画中画在相机里正常</li>
-</ul>
-<p>如果不升级xcode就没有问题，但这也不是根本解决方法 可能还要等xcode的修复这个问题吧<br>网上和ChatGPT都没有类似情况<br>发现是版本问题 也是巧合 正好使用xcode15.4打包项目<br>苹果新规定 2025年4月24号之后 打包的ipa必须是xcode16以上了（比较喜欢这种强制升级的  断舍离）</p>
-]]></content>
-      <tags>
-        <tag>Swift</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数据安全</title>
     <url>/2016/04/05/%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/</url>
     <content><![CDATA[<h3 id="1-Base64"><a href="#1-Base64" class="headerlink" title="1.Base64"></a>1.Base64</h3><h4 id="1-Base64简单说明"><a href="#1-Base64简单说明" class="headerlink" title="1.Base64简单说明"></a>1.Base64简单说明</h4><pre><code>描述：Base64可以成为密码学的基石，非常重要。
@@ -1776,6 +1839,25 @@ ex:DES和3DES的分组长度都是64比特。即每次只能加密64比特的明
       </tags>
   </entry>
   <entry>
+    <title>画中画在 iOS18 中失效？</title>
+    <url>/2024/11/13/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%9C%A8-iOS18-%E4%B8%AD%E5%A4%B1%E6%95%88/</url>
+    <content><![CDATA[<h4 id="最新进展"><a href="#最新进展" class="headerlink" title="最新进展"></a>最新进展</h4><p><a href="https://developer.apple.com/documentation/avkit/adopting-picture-in-picture-for-video-calls">Adopting Picture in Picture for video calls</a><br>看官方文档发现苹果认可使用画中画的方式有两种，一种是播放视频，另一种则是视频通话。在高于 iOS 18 和 Xcode 16 版本时，播放视频的画中画会在启用相机后自动禁用。但是如果使用视频通话的画中画则可以正常运行,通话不能中断吧</p>
+<p><strong>区别：</strong><br>播放视频：双击放大缩小、有控制按钮(可隐藏)<br>视频通话：轻点会回到app 且没有控制按钮，不能修改尺寸</p>
+<span id="more"></span>
+
+<h4 id="记录一次-升级xcode的坑"><a href="#记录一次-升级xcode的坑" class="headerlink" title="记录一次 升级xcode的坑"></a>记录一次 升级xcode的坑</h4><p>AVPictureInPictureController  画中画 iOS18 打开相机后失效</p>
+<ul>
+<li>用 xcode16     运行 iOS18   画中画在相机里失效</li>
+<li>用 xcode16     运行 iOS17   画中画在相机里正常</li>
+<li>用 xcode15.4  运行 iOS18   画中画在相机里正常</li>
+</ul>
+<p>如果不升级xcode就没有问题，但这也不是根本解决方法 可能还要等xcode的修复这个问题吧<br>网上和ChatGPT都没有类似情况<br>发现是版本问题 也是巧合 正好使用xcode15.4打包项目<br>苹果新规定 2025年4月24号之后 打包的ipa必须是xcode16以上了（比较喜欢这种强制升级的  断舍离）</p>
+]]></content>
+      <tags>
+        <tag>Swift</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>私有项目或功能集成到SVN 通过pod下载</title>
     <url>/2019/07/16/%E7%A7%81%E6%9C%89%E9%A1%B9%E7%9B%AE%E6%88%96%E5%8A%9F%E8%83%BD%E9%9B%86%E6%88%90%E5%88%B0SVN-%E9%80%9A%E8%BF%87pod%E4%B8%8B%E8%BD%BD/</url>
     <content><![CDATA[<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="https://www.jianshu.com/p/cbb8931499da">结合cocoapods谈iOS私有库的三种管理方式</a><br><a href="https://www.jianshu.com/p/217841b3eb7d">利用公司SVN服务器 使用cocoaPods管理自己的私有库</a></p>
@@ -1816,23 +1898,6 @@ ex:DES和3DES的分组长度都是64比特。即每次只能加密64比特的明
       </tags>
   </entry>
   <entry>
-    <title>自定义图片下载</title>
-    <url>/2019/06/18/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%B8%8B%E8%BD%BD/</url>
-    <content><![CDATA[<p>学习完SDWebImage第三方框架之后，根据它的流程，试着简写自定义下载图片的方法。</p>
-<span id="more"></span>
-<h4 id="创建单例"><a href="#创建单例" class="headerlink" title="创建单例"></a>创建单例</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#pragma mark - 单例</span><br><span class="line">static CHImageManager *_sharedInstance;</span><br><span class="line">+ (CHImageManager *)sharedManager &#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        if (!_sharedInstance) &#123;</span><br><span class="line">            _sharedInstance = [[CHImageManager alloc] init];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return _sharedInstance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (instancetype)allocWithZone:(struct _NSZone *)zone &#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        _sharedInstance = [super allocWithZone:zone];</span><br><span class="line">    &#125;);</span><br><span class="line">    return _sharedInstance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)init</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (self) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="设置URL缓存过滤器并给出方法"><a href="#设置URL缓存过滤器并给出方法" class="headerlink" title="设置URL缓存过滤器并给出方法"></a>设置URL缓存过滤器并给出方法</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//定义缓存过滤器的block块</span><br><span class="line">typedef NSString *(^CHImageCacheKeyFilterBlock)(NSURL *url);</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy) CHImageCacheKeyFilterBlock cacheKeyFilter; //缓存过滤器</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#pragma mark - URL过滤器</span><br><span class="line">//返回指定URL的缓存键值，就是URL字符串</span><br><span class="line">- (NSString *)cacheKeyForURL:(NSURL *)url &#123;</span><br><span class="line">    //如果URL不存在，那么就返回空</span><br><span class="line">    if (!url) &#123;</span><br><span class="line">        return @&quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //先判断是否设置了缓存过滤器，如果设置了则走cacheKeyFilterBlock,否则直接把URL转换为字符串之后返回</span><br><span class="line">    if (self.cacheKeyFilter) &#123;</span><br><span class="line">        return self.cacheKeyFilter(url);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return [url absoluteString];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>需要外部自己设置过滤规则 实现cacheKeyFilter相关</p>
-<h4 id="自定义下载方法"><a href="#自定义下载方法" class="headerlink" title="自定义下载方法"></a>自定义下载方法</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- (void)customImageView:(UIImageView *)imageView UrlStr:(NSURL *)urlStr&#123;</span><br><span class="line"></span><br><span class="line">    //容错处理</span><br><span class="line">    if ([urlStr isKindOfClass:NSString.class]) &#123;</span><br><span class="line">        urlStr = [NSURL URLWithString:(NSString *)urlStr];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (![urlStr isKindOfClass:NSURL.class]) &#123;</span><br><span class="line">        urlStr = nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!urlStr) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 缓存key</span><br><span class="line">    NSString *cacheKey = [self cacheKeyForURL:urlStr];</span><br><span class="line"></span><br><span class="line">/* 从内存缓存中取 */</span><br><span class="line">    UIImage *image = [self.imagesCache objectForKey:cacheKey];</span><br><span class="line">    if (image) &#123;</span><br><span class="line">        // 直接设置</span><br><span class="line">        imageView.image = image;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">/* 检查磁盘缓存 */</span><br><span class="line">        // 获取文件路径</span><br><span class="line">        NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];</span><br><span class="line">        // 获取图片名称 获取节点</span><br><span class="line">        NSString *fileName = [cacheKey lastPathComponent];</span><br><span class="line">        // 拼接文件全路径</span><br><span class="line">        NSString *fullPath = [cachePath stringByAppendingPathComponent:fileName];</span><br><span class="line">        // 从磁盘缓存中取</span><br><span class="line">        NSData *data = [NSData dataWithContentsOfFile:fullPath];</span><br><span class="line"></span><br><span class="line">        if (data) &#123;</span><br><span class="line">            // 将二进制数据转成图片</span><br><span class="line">            UIImage *image = [UIImage imageWithData:data];</span><br><span class="line">            // 设置图片</span><br><span class="line">            imageView.image = image;</span><br><span class="line">            // 把图片存到内存缓存中</span><br><span class="line">            [self.imagesCache setObject:image forKey:cacheKey];</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">/* 检查操作缓存 */</span><br><span class="line">            // 清空图片或者占位图片</span><br><span class="line">            imageView.image = nil;</span><br><span class="line">            // 检查操作缓存</span><br><span class="line">            NSBlockOperation *downloadOperation = [self.operationsCache objectForKey:cacheKey];</span><br><span class="line">            if (downloadOperation) &#123;</span><br><span class="line">                // 不处理</span><br><span class="line"></span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                downloadOperation = [NSBlockOperation blockOperationWithBlock:^&#123;</span><br><span class="line">                    // 下载图片三部曲</span><br><span class="line">                    NSData *tempData = [NSData dataWithContentsOfURL:urlStr];</span><br><span class="line">                    UIImage *tempImage = [UIImage imageWithData:tempData];</span><br><span class="line">                    if (tempImage == nil) &#123;</span><br><span class="line">                        // 移除操作缓存中的操作</span><br><span class="line">                        [self.operationsCache removeObjectForKey:cacheKey];</span><br><span class="line">                        return ;</span><br><span class="line">                    &#125;</span><br><span class="line">                    // 把图片存到内存缓存</span><br><span class="line">                    [self.imagesCache setObject:tempImage forKey:cacheKey];</span><br><span class="line"></span><br><span class="line">                    // 把图片保存到磁盘缓存</span><br><span class="line">                    dispatch_async(dispatch_get_global_queue(0, 0), ^&#123;</span><br><span class="line">                        [data writeToFile:fullPath atomically:YES];</span><br><span class="line">                    &#125;);</span><br><span class="line"></span><br><span class="line">                    // 回到主线程</span><br><span class="line">                    [[NSOperationQueue mainQueue] addOperationWithBlock:^&#123;</span><br><span class="line">                        // 设置图片</span><br><span class="line">                      //imageView.image = tempImage;</span><br><span class="line">                        // 刷新一行(会重新调用cellForRow方法)</span><br><span class="line">                      //[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];</span><br><span class="line"></span><br><span class="line">                    &#125;];</span><br><span class="line">                &#125;];</span><br><span class="line">                // 添加操作缓存</span><br><span class="line">                [self.operationsCache setObject:downloadOperation forKey:cacheKey];</span><br><span class="line">                // 将操作加入队列</span><br><span class="line">                [self.queue addOperation:downloadOperation];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="移除缓存策略"><a href="#移除缓存策略" class="headerlink" title="移除缓存策略"></a>移除缓存策略</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#pragma mark - 清除缓存</span><br><span class="line">- (void)cleanCache&#123;</span><br><span class="line">    // 内存缓存</span><br><span class="line">    [self.imagesCache removeAllObjects];</span><br><span class="line">    // 操作缓存</span><br><span class="line">    [self.operationsCache removeAllObjects];</span><br><span class="line">    // 取消队列中的操作</span><br><span class="line">    [self.queue cancelAllOperations];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里是具体实现方法 <a href="/download/CHImageManager.zip">点击查看</a></p>
-]]></content>
-      <tags>
-        <tag>iOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>自定义View 跳转不同界面方法</title>
     <url>/2016/07/02/%E8%87%AA%E5%AE%9A%E4%B9%89View%20%E8%B7%B3%E8%BD%AC%E4%B8%8D%E5%90%8C%E7%95%8C%E9%9D%A2%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h2 id="自定义View-跳转不同界面方法"><a href="#自定义View-跳转不同界面方法" class="headerlink" title="自定义View 跳转不同界面方法"></a>自定义View 跳转不同界面方法</h2><p>有时候，我们在自定义UIView 的时候 ， 很有可能 会在这个View 进行页面跳转，但是， 你会发现， 那些 push  和  pop 方法  都没什么用  ，那是因为 当一个子view需要接收点击事件，而父view也需要接收点击事件</p>
@@ -1869,83 +1934,18 @@ ex:DES和3DES的分组长度都是64比特。即每次只能加密64比特的明
       </tags>
   </entry>
   <entry>
-    <title>xcode 真机正常运行但模拟器报错的一种解决方法</title>
-    <url>/2025/01/09/xcode-%E7%9C%9F%E6%9C%BA%E6%AD%A3%E5%B8%B8%E8%BF%90%E8%A1%8C%E4%BD%86%E6%A8%A1%E6%8B%9F%E5%99%A8%E6%8A%A5%E9%94%99%E7%9A%84%E4%B8%80%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<p>xcode15 版本 有的项目 真机运行正常 但是模拟器不能正常运行（可能某些第三方库 不支持 arm64 ）</p>
+    <title>自定义图片下载</title>
+    <url>/2019/06/18/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9B%BE%E7%89%87%E4%B8%8B%E8%BD%BD/</url>
+    <content><![CDATA[<p>学习完SDWebImage第三方框架之后，根据它的流程，试着简写自定义下载图片的方法。</p>
 <span id="more"></span>
+<h4 id="创建单例"><a href="#创建单例" class="headerlink" title="创建单例"></a>创建单例</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#pragma mark - 单例</span><br><span class="line">static CHImageManager *_sharedInstance;</span><br><span class="line">+ (CHImageManager *)sharedManager &#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        if (!_sharedInstance) &#123;</span><br><span class="line">            _sharedInstance = [[CHImageManager alloc] init];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return _sharedInstance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (instancetype)allocWithZone:(struct _NSZone *)zone &#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        _sharedInstance = [super allocWithZone:zone];</span><br><span class="line">    &#125;);</span><br><span class="line">    return _sharedInstance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype)init</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (self) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="设置URL缓存过滤器并给出方法"><a href="#设置URL缓存过滤器并给出方法" class="headerlink" title="设置URL缓存过滤器并给出方法"></a>设置URL缓存过滤器并给出方法</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//定义缓存过滤器的block块</span><br><span class="line">typedef NSString *(^CHImageCacheKeyFilterBlock)(NSURL *url);</span><br><span class="line"></span><br><span class="line">@property (nonatomic, copy) CHImageCacheKeyFilterBlock cacheKeyFilter; //缓存过滤器</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#pragma mark - URL过滤器</span><br><span class="line">//返回指定URL的缓存键值，就是URL字符串</span><br><span class="line">- (NSString *)cacheKeyForURL:(NSURL *)url &#123;</span><br><span class="line">    //如果URL不存在，那么就返回空</span><br><span class="line">    if (!url) &#123;</span><br><span class="line">        return @&quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //先判断是否设置了缓存过滤器，如果设置了则走cacheKeyFilterBlock,否则直接把URL转换为字符串之后返回</span><br><span class="line">    if (self.cacheKeyFilter) &#123;</span><br><span class="line">        return self.cacheKeyFilter(url);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return [url absoluteString];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要外部自己设置过滤规则 实现cacheKeyFilter相关</p>
+<h4 id="自定义下载方法"><a href="#自定义下载方法" class="headerlink" title="自定义下载方法"></a>自定义下载方法</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- (void)customImageView:(UIImageView *)imageView UrlStr:(NSURL *)urlStr&#123;</span><br><span class="line"></span><br><span class="line">    //容错处理</span><br><span class="line">    if ([urlStr isKindOfClass:NSString.class]) &#123;</span><br><span class="line">        urlStr = [NSURL URLWithString:(NSString *)urlStr];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (![urlStr isKindOfClass:NSURL.class]) &#123;</span><br><span class="line">        urlStr = nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (!urlStr) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 缓存key</span><br><span class="line">    NSString *cacheKey = [self cacheKeyForURL:urlStr];</span><br><span class="line"></span><br><span class="line">/* 从内存缓存中取 */</span><br><span class="line">    UIImage *image = [self.imagesCache objectForKey:cacheKey];</span><br><span class="line">    if (image) &#123;</span><br><span class="line">        // 直接设置</span><br><span class="line">        imageView.image = image;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">/* 检查磁盘缓存 */</span><br><span class="line">        // 获取文件路径</span><br><span class="line">        NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];</span><br><span class="line">        // 获取图片名称 获取节点</span><br><span class="line">        NSString *fileName = [cacheKey lastPathComponent];</span><br><span class="line">        // 拼接文件全路径</span><br><span class="line">        NSString *fullPath = [cachePath stringByAppendingPathComponent:fileName];</span><br><span class="line">        // 从磁盘缓存中取</span><br><span class="line">        NSData *data = [NSData dataWithContentsOfFile:fullPath];</span><br><span class="line"></span><br><span class="line">        if (data) &#123;</span><br><span class="line">            // 将二进制数据转成图片</span><br><span class="line">            UIImage *image = [UIImage imageWithData:data];</span><br><span class="line">            // 设置图片</span><br><span class="line">            imageView.image = image;</span><br><span class="line">            // 把图片存到内存缓存中</span><br><span class="line">            [self.imagesCache setObject:image forKey:cacheKey];</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">/* 检查操作缓存 */</span><br><span class="line">            // 清空图片或者占位图片</span><br><span class="line">            imageView.image = nil;</span><br><span class="line">            // 检查操作缓存</span><br><span class="line">            NSBlockOperation *downloadOperation = [self.operationsCache objectForKey:cacheKey];</span><br><span class="line">            if (downloadOperation) &#123;</span><br><span class="line">                // 不处理</span><br><span class="line"></span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                downloadOperation = [NSBlockOperation blockOperationWithBlock:^&#123;</span><br><span class="line">                    // 下载图片三部曲</span><br><span class="line">                    NSData *tempData = [NSData dataWithContentsOfURL:urlStr];</span><br><span class="line">                    UIImage *tempImage = [UIImage imageWithData:tempData];</span><br><span class="line">                    if (tempImage == nil) &#123;</span><br><span class="line">                        // 移除操作缓存中的操作</span><br><span class="line">                        [self.operationsCache removeObjectForKey:cacheKey];</span><br><span class="line">                        return ;</span><br><span class="line">                    &#125;</span><br><span class="line">                    // 把图片存到内存缓存</span><br><span class="line">                    [self.imagesCache setObject:tempImage forKey:cacheKey];</span><br><span class="line"></span><br><span class="line">                    // 把图片保存到磁盘缓存</span><br><span class="line">                    dispatch_async(dispatch_get_global_queue(0, 0), ^&#123;</span><br><span class="line">                        [data writeToFile:fullPath atomically:YES];</span><br><span class="line">                    &#125;);</span><br><span class="line"></span><br><span class="line">                    // 回到主线程</span><br><span class="line">                    [[NSOperationQueue mainQueue] addOperationWithBlock:^&#123;</span><br><span class="line">                        // 设置图片</span><br><span class="line">                      //imageView.image = tempImage;</span><br><span class="line">                        // 刷新一行(会重新调用cellForRow方法)</span><br><span class="line">                      //[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];</span><br><span class="line"></span><br><span class="line">                    &#125;];</span><br><span class="line">                &#125;];</span><br><span class="line">                // 添加操作缓存</span><br><span class="line">                [self.operationsCache setObject:downloadOperation forKey:cacheKey];</span><br><span class="line">                // 将操作加入队列</span><br><span class="line">                [self.queue addOperation:downloadOperation];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>网上找到的一种方法是 <strong>Excluded Architectures 加上arm64</strong><br>但这样设置 模拟器是可以正常运行了，但是真机又会报错无法运行</p>
-<p><code>Excluded Architectures</code>里有 Debug&#x2F;Release 两种，根据使用模拟器的需要<br>添加一条 <code>Any iOS Simulator SDK</code> 然后加上 arm64 这样真机和模拟器都能跑项目了</p>
-<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>有的第三方库是不支持 arm64 的,或者有的库iOS deployment Target支持的最低版本比现在xcode支持的最低版本比如是13 还低<br>需要在PodFile中加入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">post_install do |installer|</span><br><span class="line">  installer.pods_project.targets.each do |target|</span><br><span class="line">    target.build_configurations.each do |config|</span><br><span class="line">      config.build_settings[&#x27;EXCLUDED_ARCHS[sdk=iphonesimulator*]&#x27;] = &quot;arm64&quot;</span><br><span class="line">      config.build_settings[&#x27;IPHONEOS_DEPLOYMENT_TARGET&#x27;] = &#x27;13.0&#x27; # 你想设置的版本</span><br><span class="line">    end</span><br><span class="line">  end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-<p>统一设置</p>
+<h4 id="移除缓存策略"><a href="#移除缓存策略" class="headerlink" title="移除缓存策略"></a>移除缓存策略</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#pragma mark - 清除缓存</span><br><span class="line">- (void)cleanCache&#123;</span><br><span class="line">    // 内存缓存</span><br><span class="line">    [self.imagesCache removeAllObjects];</span><br><span class="line">    // 操作缓存</span><br><span class="line">    [self.operationsCache removeAllObjects];</span><br><span class="line">    // 取消队列中的操作</span><br><span class="line">    [self.queue cancelAllOperations];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里是具体实现方法 <a href="/download/CHImageManager.zip">点击查看</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Flutter  侧滑会导致 TextField 获取不到焦点？</title>
-    <url>/2024/11/22/Flutter-%E4%BE%A7%E6%BB%91%E4%BC%9A%E5%AF%BC%E8%87%B4-TextField-%E8%8E%B7%E5%8F%96%E4%B8%8D%E5%88%B0%E7%84%A6%E7%82%B9%EF%BC%9F/</url>
-    <content><![CDATA[<p>最近 Flutter写功能的时候发现一个 bug ：侧滑会导致 TextField 获取不到焦点 无法继续编辑文本内容</p>
-<p>flutter版本是 3.22.1 目前是最新的版本 以前的版本不确定有没有类似情况 </p>
-<span id="more"></span>
-
-<h4 id="场景："><a href="#场景：" class="headerlink" title="场景："></a>场景：</h4><p>ios 自带有侧滑功能， A界面有 TextField， B 界面也有 TextField </p>
-<h4 id="触发："><a href="#触发：" class="headerlink" title="触发："></a>触发：</h4><p>从 A 界面跳转到 B 界面  然后在 B 界面触发侧滑 返回到 A界面或者侧滑一点还停留在 B 界面</p>
-<h4 id="查找问题："><a href="#查找问题：" class="headerlink" title="查找问题："></a>查找问题：</h4><p>断点调试发现 没侧滑或者点击返回按钮时 FocusNode#b87c0(context: Focus)<br>但是侧滑返回的时候 FocusNode#b87c0(context: Focus, NOT FOCUSABLE)<br>多了一个 NOT FOCUSABLE<br>会将canRequestFocus改为false</p>
-<h4 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h4><p>统一处理方法：新建CustomFocusNode类 将canRequestFocus设置为true</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class CustomFocusNode extends FocusNode &#123;</span><br><span class="line">  @override</span><br><span class="line">  bool get canRequestFocus =&gt; true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>再将使用到<code> FocusNode focusNode = FocusNode();</code>初始化的地方 替换为<code> CustomFocusNode focusNode = CustomFocusNode();</code>即可。</p>
-]]></content>
-      <tags>
-        <tag>Flutter</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Xcode26.4+ 适配问题</title>
-    <url>/2026/10/14/xcode26.4+%20%E9%80%82%E9%85%8D%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>1、<br>OC第三方有的会报错<code>#import &lt;netinet6/in6.h&gt;</code><br>因为内置的一些文件 不给暴露了（AFN、ZFPlayer、SensorsAnalyticsSDK、UleNetworkKit、UleWidget_PhotoBrowser） <span id="more"></span><br>可在podFile里添加：</p>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">post_install <span class="keyword">do</span> |<span class="params">installer</span>|</span><br><span class="line">    <span class="comment"># 修复第三方库中的 netinet6/in6.h</span></span><br><span class="line">    pods_root = installer.sandbox.root.to_s</span><br><span class="line">    target_import = <span class="string">&#x27;#import &lt;netinet6/in6.h&gt;&#x27;</span></span><br><span class="line">    <span class="title class_">Dir</span>.glob(<span class="title class_">File</span>.join(pods_root, <span class="string">&#x27;**&#x27;</span>, <span class="string">&#x27;*.&#123;h,m,mm&#125;&#x27;</span>), <span class="title class_">File</span><span class="symbol">:</span><span class="symbol">:FNM_EXTGLOB</span>).each <span class="keyword">do</span> |<span class="params">path</span>|</span><br><span class="line">        <span class="keyword">next</span> <span class="keyword">unless</span> <span class="title class_">File</span>.file?(path)</span><br><span class="line">        <span class="comment"># 先快速检查目标字符串</span></span><br><span class="line">        found = <span class="literal">false</span></span><br><span class="line">        <span class="title class_">File</span>.foreach(path) <span class="keyword">do</span> |<span class="params">line</span>|</span><br><span class="line">            <span class="keyword">if</span> line.<span class="keyword">include</span>?(target_import)</span><br><span class="line">                found = <span class="literal">true</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">next</span> <span class="keyword">unless</span> found</span><br><span class="line">        content = <span class="title class_">File</span>.read(path)</span><br><span class="line">        new_content = content.gsub(</span><br><span class="line">            <span class="regexp">/^(\s*)#import\s*&lt;netinet6\/in6\.h&gt;\s*$/</span>,</span><br><span class="line">            <span class="string">&#x27;\1// #import &lt;netinet6/in6.h&gt;&#x27;</span></span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">next</span> <span class="keyword">if</span> new_content == content</span><br><span class="line">        <span class="keyword">begin</span></span><br><span class="line">            <span class="comment"># 如果第三方文件没有写权限，增加 owner 写权限</span></span><br><span class="line">            <span class="keyword">unless</span> <span class="title class_">File</span>.writable?(path)</span><br><span class="line">                <span class="title class_">File</span>.chmod(<span class="title class_">File</span>.stat(path).mode |<span class="params"> 0200, path)</span></span><br><span class="line"><span class="params">            <span class="keyword">end</span></span></span><br><span class="line"><span class="params">            File.write(path, new_content)</span></span><br><span class="line"><span class="params">        <span class="keyword">rescue</span></span></span><br><span class="line"><span class="params">            # 忽略无法修改的文件</span></span><br><span class="line"><span class="params">        <span class="keyword">end</span></span></span><br><span class="line"><span class="params">    <span class="keyword">end</span></span></span><br><span class="line"><span class="params"><span class="keyword">end</span></span></span><br></pre></td></tr></table></figure>
-
-<p>2、 YYText里<br><code>Chained comparison &#39;X &lt; Y &lt; Z&#39; does not behave the same as a mathematical expression</code> 会导致 <code>pod lib lint</code>、<code>pod repo push</code> 失败<br>可以改成：</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">[<span class="keyword">self</span> _insideComposedCharacterSequences:line position:position block:<span class="operator">^</span>(<span class="type">CGFloat</span> left, <span class="type">CGFloat</span> right, <span class="type">NSUInteger</span> prev, <span class="type">NSUInteger</span> next) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isVertical) &#123;</span><br><span class="line">        position <span class="operator">=</span> fabs(left <span class="operator">-</span> point.y) <span class="operator">&lt;</span> fabs(right <span class="operator">-</span> point.y) <span class="operator">?</span> prev : next;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        position <span class="operator">=</span> fabs(left <span class="operator">-</span> point.x) <span class="operator">&lt;</span> fabs(right <span class="operator">-</span> point.x) <span class="operator">?</span> prev : next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span> _insideEmoji:line position:position block:<span class="operator">^</span>(<span class="type">CGFloat</span> left, <span class="type">CGFloat</span> right, <span class="type">NSUInteger</span> prev, <span class="type">NSUInteger</span> next) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isVertical) &#123;</span><br><span class="line">        position <span class="operator">=</span> fabs(left <span class="operator">-</span> point.y) <span class="operator">&lt;</span> fabs(right <span class="operator">-</span> point.y) <span class="operator">?</span> prev : next;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        position <span class="operator">=</span> fabs(left <span class="operator">-</span> point.x) <span class="operator">&lt;</span> fabs(right <span class="operator">-</span> point.x) <span class="operator">?</span> prev : next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
-<p>或 使用xcode-26.3及以下版本 终端执行 (只影响当前终端环境) <code>export DEVELOPER_DIR=/Applications/Xcode-26.3.app/Contents/Developer</code> 再去<code>pod lib lint</code>、<code>pod repo push</code></p>
-<p>3、Xcode27 工程里 iOS Deployment Target 需要将13.0改成15.0，PodFile里也需要修改，后续podspec里也要改成15.0<br><strong>注意：</strong> ⚠️Xcode27只支持Apple Silicon架构 不支持Intel架构</p>
-<p>4、ios26+ 液态玻璃UI风格 在ios27上会禁用UIDesignRequiresCompatibility属性 适配Tabbar时候 发现侧滑会提前显示问题</p>
-]]></content>
-      <categories>
-        <category>适配问题</category>
-      </categories>
-      <tags>
-        <tag>iOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ios26+ 液态玻璃UI 适配</title>
-    <url>/2026/09/28/ios26+%20%E6%B6%B2%E6%80%81%E7%8E%BB%E7%92%83UI%20%E9%80%82%E9%85%8D/</url>
-    <content><![CDATA[<p>禁用液态玻璃UI 的key  如果是27版本构建 会自动忽略<br><a href="https://developer.apple.com/documentation/BundleResources/Information-Property-List/UIDesignRequiresCompatibility?changes=__2,__2,__2,__2">Apple Developer Documentation</a></p>
-<p>自定义的Tabbar 通过<code>   [self setValue:customTabBar forKey:@&quot;tabBar&quot;];</code>设置的 也会失效或者出现各种问题</p>
-<span id="more"></span>
-
-<p>iOS 26 的 TabBar 是悬浮式设计，页面侧滑返回时，如果 TabBar 的显示状态与导航栈不一致，就可能出现 TabBar 提前显示、位置跳动或动画不协调的问题。 这需要结合 UITabBarController 和 UINavigationController 的层级来处理.</p>
-<p>目前大多主流的层级是</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">UITabBarController</span><br><span class="line">├── BaseNavigationController（首页导航栈）</span><br><span class="line">│   └── HomeViewController（首页）</span><br><span class="line">│       └── DetailViewController（详情）</span><br><span class="line">│</span><br><span class="line">├── BaseNavigationController（商城导航栈）</span><br><span class="line">│   └── MallViewController（商城）</span><br><span class="line">│       └── DetailViewController（详情）</span><br><span class="line">│</span><br><span class="line">└── BaseNavigationController（我的导航栈）</span><br><span class="line">    └── MineViewController（我的）</span><br></pre></td></tr></table></figure>
-<p>这种 系统的Tabbar<br>如果是 push时不隐藏 没有问题<br>如果是 push时隐藏 <code>hidesBottomBarWhenPushed = true</code> 在侧滑的时候会提前出现 停止侧滑 又会隐藏</p>
-<h3 id="网上有几种方案处理："><a href="#网上有几种方案处理：" class="headerlink" title="网上有几种方案处理："></a>网上有几种方案处理：</h3><h4 id="方案一：自定义导航控制器转场代理"><a href="#方案一：自定义导航控制器转场代理" class="headerlink" title="方案一：自定义导航控制器转场代理"></a>方案一：自定义导航控制器转场代理</h4><p>通过实现UINavigationControllerDelegate手动控制转场过程中的TabBar层级：</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CustomNavigationController</span>: <span class="title class_ inherited__">UINavigationController</span>, <span class="title class_ inherited__">UINavigationControllerDelegate</span> &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">viewDidLoad</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        delegate <span class="operator">=</span> <span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">navigationController</span>(<span class="keyword">_</span> <span class="params">navigationController</span>: <span class="type">UINavigationController</span>, <span class="params">animationControllerFor</span> <span class="params">operation</span>: <span class="type">UINavigationController</span>.<span class="type">Operation</span>, <span class="params">from</span> <span class="params">fromVC</span>: <span class="type">UIViewController</span>, <span class="params">to</span> <span class="params">toVC</span>: <span class="type">UIViewController</span>) -&gt; <span class="type">UIViewControllerAnimatedTransitioning</span>? &#123;</span><br><span class="line">        <span class="keyword">if</span> operation <span class="operator">==</span> .pop &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="type">CustomPopTransition</span>()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CustomPopTransition</span>: <span class="title class_ inherited__">NSObject</span>, <span class="title class_ inherited__">UIViewControllerAnimatedTransitioning</span> &#123;</span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">transitionDuration</span>(<span class="params">using</span> <span class="params">transitionContext</span>: <span class="type">UIViewControllerContextTransitioning</span>?) -&gt; <span class="type">TimeInterval</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0.35</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">func</span> <span class="title function_">animateTransition</span>(<span class="params">using</span> <span class="params">transitionContext</span>: <span class="type">UIViewControllerContextTransitioning</span>) &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> fromVC <span class="operator">=</span> transitionContext.viewController(forKey: .from),</span><br><span class="line">              <span class="keyword">let</span> toVC <span class="operator">=</span> transitionContext.viewController(forKey: .to) <span class="keyword">else</span> &#123;</span><br><span class="line">            transitionContext.completeTransition(<span class="literal">false</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> containerView <span class="operator">=</span> transitionContext.containerView</span><br><span class="line">        containerView.addSubview(toVC.view)</span><br><span class="line">        containerView.sendSubviewToBack(toVC.view)</span><br><span class="line">        </span><br><span class="line">        fromVC.view.frame <span class="operator">=</span> containerView.bounds</span><br><span class="line">        <span class="keyword">let</span> finalFrame <span class="operator">=</span> <span class="type">CGRect</span>(x: containerView.bounds.width, y: <span class="number">0</span>, width: containerView.bounds.width, height: containerView.bounds.height)</span><br><span class="line">        </span><br><span class="line">        <span class="type">UIView</span>.animate(withDuration: transitionDuration(using: transitionContext)) &#123;</span><br><span class="line">            fromVC.view.frame <span class="operator">=</span> finalFrame</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> tabBar <span class="operator">=</span> (toVC <span class="keyword">as?</span> <span class="type">UITabBarController</span>)<span class="operator">?</span>.tabBar &#123;</span><br><span class="line">                containerView.sendSubviewToBack(tabBar)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">_</span> <span class="keyword">in</span></span><br><span class="line">            fromVC.view.removeFromSuperview()</span><br><span class="line">            transitionContext.completeTransition(<span class="operator">!</span>transitionContext.transitionWasCancelled)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="方案二：监听侧滑手势动态调整TabBar层级"><a href="#方案二：监听侧滑手势动态调整TabBar层级" class="headerlink" title="方案二：监听侧滑手势动态调整TabBar层级"></a>方案二：监听侧滑手势动态调整TabBar层级</h4><p>在详情页监听导航控制器的侧滑手势，根据手势状态调整TabBar层级：</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DetailViewController</span>: <span class="title class_ inherited__">UIViewController</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> tabBar: <span class="type">UITabBar</span>?</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">viewDidLoad</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        tabBar <span class="operator">=</span> tabBarController<span class="operator">?</span>.tabBar</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> popGesture <span class="operator">=</span> navigationController<span class="operator">?</span>.interactivePopGestureRecognizer &#123;</span><br><span class="line">            popGesture.addTarget(<span class="keyword">self</span>, action: <span class="keyword">#selector</span>(handlePopGesture(<span class="keyword">_</span>:)))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">@objc</span> <span class="keyword">private</span> <span class="keyword">func</span> <span class="title function_">handlePopGesture</span>(<span class="keyword">_</span> <span class="params">gesture</span>: <span class="type">UIPanGestureRecognizer</span>) &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> tabBar <span class="operator">=</span> tabBar <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">switch</span> gesture.state &#123;</span><br><span class="line">        <span class="keyword">case</span> .began, .changed:</span><br><span class="line">            tabBar.superview<span class="operator">?</span>.sendSubviewToBack(tabBar)</span><br><span class="line">        <span class="keyword">case</span> .cancelled:</span><br><span class="line">            tabBar.superview<span class="operator">?</span>.bringSubviewToFront(tabBar)</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="方案三：修改TabBar的zPosition（简洁版）"><a href="#方案三：修改TabBar的zPosition（简洁版）" class="headerlink" title="方案三：修改TabBar的zPosition（简洁版）"></a>方案三：修改TabBar的zPosition（简洁版）</h4><p>在详情页生命周期方法中直接调整TabBar的层级：</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DetailViewController</span>: <span class="title class_ inherited__">UIViewController</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> originalZPosition: <span class="type">CGFloat</span> <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">viewWillAppear</span>(<span class="keyword">_</span> <span class="params">animated</span>: <span class="type">Bool</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewWillAppear(animated)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> tabBar <span class="operator">=</span> tabBarController<span class="operator">?</span>.tabBar &#123;</span><br><span class="line">            originalZPosition <span class="operator">=</span> tabBar.layer.zPosition</span><br><span class="line">            tabBar.layer.zPosition <span class="operator">=</span> <span class="operator">-</span><span class="number">1000</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">func</span> <span class="title function_">viewWillDisappear</span>(<span class="keyword">_</span> <span class="params">animated</span>: <span class="type">Bool</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewWillDisappear(animated)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> tabBar <span class="operator">=</span> tabBarController<span class="operator">?</span>.tabBar &#123;</span><br><span class="line">            tabBar.layer.zPosition <span class="operator">=</span> originalZPosition</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="方案四：修改Tabbar的层级（推荐）"><a href="#方案四：修改Tabbar的层级（推荐）" class="headerlink" title="方案四：修改Tabbar的层级（推荐）"></a>方案四：修改Tabbar的层级（推荐）</h4><p>TabBarController外面包一层UINavigationController</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">UINavigationController</span></span><br><span class="line"><span class="operator">└─</span> <span class="type">UITabBarController</span></span><br><span class="line">    <span class="operator">├──</span> <span class="type">BaseNavigationController（首页导航栈）</span></span><br><span class="line">    <span class="operator">│</span>   <span class="operator">└──</span> <span class="type">HomeViewController（首页）</span></span><br><span class="line">    <span class="operator">│</span>       <span class="operator">└──</span> <span class="type">DetailViewController（详情）</span></span><br><span class="line">    <span class="operator">│</span></span><br><span class="line">    <span class="operator">├──</span> <span class="type">BaseNavigationController（商城导航栈）</span></span><br><span class="line">    <span class="operator">│</span>   <span class="operator">└──</span> <span class="type">MallViewController（商城）</span></span><br><span class="line">    <span class="operator">│</span>       <span class="operator">└──</span> <span class="type">DetailViewController（详情）</span></span><br><span class="line">    <span class="operator">│</span></span><br><span class="line">    <span class="operator">└──</span> <span class="type">BaseNavigationController（我的导航栈）</span></span><br><span class="line">        <span class="operator">└──</span> <span class="type">MineViewController（我的）</span></span><br></pre></td></tr></table></figure>
-<p>并禁止相关属性 设置为window.rootViewController</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 隐藏外层导航栏</span></span><br><span class="line">nav.navigationBarHidden <span class="operator">=</span> <span class="type">YES</span>;</span><br><span class="line"><span class="comment">// 禁止外层系统侧滑返回手势</span></span><br><span class="line">nav.interactivePopGestureRecognizer.enabled <span class="operator">=</span> <span class="type">NO</span>;</span><br><span class="line"><span class="comment">// 禁止通过导航栏边缘手势触发交互式 Pop</span></span><br><span class="line">nav.interactivePopGestureRecognizer.delegate <span class="operator">=</span> <span class="literal">nil</span>;</span><br><span class="line"><span class="comment">// 作为window根控制器</span></span><br><span class="line">window.rootViewController <span class="operator">=</span> nav;</span><br></pre></td></tr></table></figure>
-<p>最终采用方案四 侵入性最小<br>或者使用 <a href="https://github.com/ChenYilong/CYLTabBarController">CYLTabBarController</a><br><img src="/images/CYLTabbarController.gif" alt="avatar"></p>
-<p>暂时未发现有什么问题 待更新！</p>
-]]></content>
-      <categories>
-        <category>适配问题</category>
-      </categories>
       <tags>
         <tag>iOS</tag>
       </tags>
